@@ -12,11 +12,13 @@ import Login from './components/login';
 import Register from './components/register';
 import Home from './components/home';
 import Profile from './components/profile'
+import Equipment from './components/equipment'
+import ViewEquipment from './components/viewequipment';
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { render: 'render', width: 0, height: 0, driverid: '', driveridcheck: '', client: '', clientid: '', firstname: '', lastname: '', profileurl: '', phonenumber: '', emailaddress: '', emailaddresscheck: '' }
+    this.state = { render: 'render', width: 0, height: 0, message:'', driverid: '', driveridcheck: '', client: '', clientid: '', firstname: '', lastname: '', profileurl: '', phonenumber: '', emailaddress: '', emailaddresscheck: '', activeequipmentid:false }
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
   componentDidMount() {
@@ -70,8 +72,8 @@ class App extends Component {
     const home = new Home();
     const login = new Login();
     const profile = new Profile();
-
-
+    const equipment = new Equipment();
+  
     const showlogin = () => {
       return (login.showlogin.call(this))
     }
@@ -86,6 +88,11 @@ class App extends Component {
       return(profile.showprofile.call(this))
     }
 
+    const showequipment = () => {
+      return(equipment.showequipment.call(this))
+    }
+  
+
 
     return (
       <div style={{ ...styles.generalContainer }}>
@@ -95,10 +102,12 @@ class App extends Component {
             {header.showheader.call(this)}
             <Switch>
               <Route exact path="/" render={showhome} />
-              <Route exact path="/login" render={showlogin} />
-              <Route exact path="/register" render={showregister} />
-              <Route exact path="/home" render={showhome} />
+              <Route exact path="/newuser/login" render={showlogin} />
+              <Route exact path="/newuser/register" render={showregister} />
+              <Route exact path="/newuser/home" render={showhome} />
               <Route exact path="/profile/:driverid" render={showprofile} />
+              <Route exact path="/:driverid/equipment" render={showequipment} />
+              <Route exact path="/:driverid/equipment/:equipmentid" component={ViewEquipment} />
             </Switch>
           </div>
         </BrowserRouter>
@@ -111,7 +120,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    myusermodel: state.myusermodel
+    myusermodel: state.myusermodel,
+    navigation: state.navigation
   }
 }
 

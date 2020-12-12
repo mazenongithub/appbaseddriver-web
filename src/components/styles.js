@@ -116,7 +116,7 @@ export function MyStylesheet() {
             marginLeft: '150px'
         },
         activeBackground: {
-            backgroundColor: '#D7A22A'
+            backgroundColor: '#D8879E'
         },
         generalContainer: {
             display: 'block'

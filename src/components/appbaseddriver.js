@@ -5,6 +5,142 @@ import { MyStylesheet } from './styles';
 
 class AppBasedDriver {
 
+    getdropicon() {
+        if (this.state.width > 1200) {
+            return (
+                {
+                    width: '93x',
+                    height: '45px'
+                })
+
+        } else if (this.state.width > 600) {
+            return (
+                {
+                    width: '78px',
+                    height: '38px'
+                })
+
+        } else {
+            return (
+                {
+                    width: '62px',
+                    height: '30px'
+                })
+        }
+    }
+
+    getremoveicon() {
+        if(this.state.width>1200) {
+            return ({ width: '57px' })
+        } else if (this.state.width > 600) {
+            return ({ width: '47px' })
+        } else {
+            return ({ width: '37px' })
+        }
+    }
+
+    getequipmentcostkeybyid(equipmentid,costid) {
+        const appbaseddriver = new AppBasedDriver();
+        const costs = appbaseddriver.getequipmentscosts.call(this,equipmentid)
+        let key = false;
+        if(costs) {
+            costs.map((cost,i)=> {
+                if(cost.costid === costid) {
+                    key = i
+                }
+            })
+        }
+        return key;
+        
+    }
+    getequipmentcostbyid(equipmentid,costid) {
+        const appbaseddriver = new AppBasedDriver();
+        const costs = appbaseddriver.getequipmentscosts.call(this,equipmentid)
+        let mycost = false;
+        if(costs) {
+            costs.map(cost=> {
+                if(cost.costid === costid) {
+                    mycost = cost;
+                }
+            })
+        }
+        return mycost;
+        
+    }
+
+    getequipmentscosts(equipmentid) {
+        const appbaseddriver = new AppBasedDriver();
+        const equipment = appbaseddriver.getequipmentbyid.call(this,equipmentid)
+        let costs = false;
+        if(equipment) {
+            if(equipment.hasOwnProperty("costs")) {
+               costs = equipment.costs;
+            }
+        }
+        return costs;
+    }
+
+    getequipmentkeybyid(equipmentid) {
+        const appbaseddriver = new AppBasedDriver();
+        const myequipment = appbaseddriver.getequipment.call(this)
+        let key = false;
+        if (myequipment) {
+            myequipment.map((equipment, i) => {
+
+                if (equipment.equipmentid === equipmentid) {
+                    key = i;
+                }
+            })
+        }
+
+        return key;
+
+    }
+
+    getequipmentbyid(equipmentid) {
+        const appbaseddriver = new AppBasedDriver();
+        const myequipment = appbaseddriver.getequipment.call(this)
+        let getequipment = false;
+        console.log(equipmentid)
+        if (myequipment) {
+            myequipment.map(equipment => {
+
+                if (equipment.equipmentid === equipmentid) {
+                    getequipment = equipment;
+                }
+            })
+        }
+
+        return getequipment;
+
+    }
+
+
+    getequipment() {
+        const appbaseddriver = new AppBasedDriver();
+        const myuser = appbaseddriver.getuser.call(this)
+        let equipment = false;
+        if (myuser) {
+            if (myuser.hasOwnProperty("equipment")) {
+                equipment = myuser.equipment;
+            }
+
+
+        }
+
+        return equipment;
+
+    }
+
+    getNavigation() {
+        let nav = false;
+        if (this.props.hasOwnProperty("navigation")) {
+            nav = this.props.navigation;
+
+        }
+        return nav;
+    }
+
     async logoutuser() {
         const design = new AppBasedDriver();
         const myuser = design.getuser.call(this);
@@ -36,7 +172,7 @@ class AppBasedDriver {
                 if (response.hasOwnProperty("driverid")) {
                     this.props.reduxUser(response)
                     let message = `Driver Updated ${new Date().toLocaleTimeString()}`
-                    this.setState({message})
+                    this.setState({ message })
                 }
 
 
@@ -51,12 +187,15 @@ class AppBasedDriver {
         const styles = MyStylesheet();
         const appbaseddriver = new AppBasedDriver();
         const menufont = appbaseddriver.menufont.call(this)
+        const regularFont = appbaseddriver.getRegularFont.call(this)
         return (
             <div style={{ ...styles.generalContainer, ...styles.alignCenter }}>
+
+                <div style={{ ...styles.generalContainer, ...styles.alignCenter, ...styles.bottomMargin15 }}><span style={{...styles.generalFont, ...regularFont}}>{this.state.message} </span></div>
                 <button
-                    style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}
-                    onClick={() => appbaseddriver.savedriver.call(this)} >Save Driver</button>
-            </div>
+                        style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}
+                        onClick={() => appbaseddriver.savedriver.call(this)} >Save Driver</button>
+                </div>
         )
     }
     getuser() {
@@ -97,6 +236,15 @@ class AppBasedDriver {
             return ({ fontSize: '30px' })
         } else {
             return ({ fontSize: '24px' })
+        }
+    }
+    radioIconWidth() {
+        if (this.state.width > 1200) {
+            return ({ width: '60px' })
+        } else if (this.state.width > 600) {
+            return ({ width: '50px' })
+        } else {
+            return ({ width: '40px' })
         }
     }
     getHeaderFont() {
@@ -163,6 +311,8 @@ class AppBasedDriver {
         }
 
     }
+
+    
 
     async googleSignIn(type) {
         const appbaseddriver = new AppBasedDriver();
