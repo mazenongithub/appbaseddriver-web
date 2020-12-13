@@ -40,10 +40,12 @@ class AppBasedDriver {
     }
 
     getequipmentcostkeybyid(equipmentid,costid) {
+        console.log(equipmentid,costid)
         const appbaseddriver = new AppBasedDriver();
         const costs = appbaseddriver.getequipmentscosts.call(this,equipmentid)
         let key = false;
         if(costs) {
+            // eslint-disable-next-line
             costs.map((cost,i)=> {
                 if(cost.costid === costid) {
                     key = i
@@ -58,6 +60,7 @@ class AppBasedDriver {
         const costs = appbaseddriver.getequipmentscosts.call(this,equipmentid)
         let mycost = false;
         if(costs) {
+            // eslint-disable-next-line
             costs.map(cost=> {
                 if(cost.costid === costid) {
                     mycost = cost;
@@ -85,6 +88,7 @@ class AppBasedDriver {
         const myequipment = appbaseddriver.getequipment.call(this)
         let key = false;
         if (myequipment) {
+            // eslint-disable-next-line
             myequipment.map((equipment, i) => {
 
                 if (equipment.equipmentid === equipmentid) {
@@ -101,8 +105,9 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         const myequipment = appbaseddriver.getequipment.call(this)
         let getequipment = false;
-        console.log(equipmentid)
+ 
         if (myequipment) {
+            // eslint-disable-next-line
             myequipment.map(equipment => {
 
                 if (equipment.equipmentid === equipmentid) {
@@ -278,7 +283,6 @@ class AppBasedDriver {
         try {
             const result = await firebase.auth().signInWithPopup(provider)
             console.log(result)
-            let clientid = "";
             let firstname = "";
             let lastname = "";
             let emailaddress = "";

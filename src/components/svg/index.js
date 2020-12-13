@@ -16,7 +16,7 @@ export function dropDateIcon() {
 }
 
 export function openRadio() {
-    return(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.05 73.05"><defs><style></style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><circle class="openradio-1" cx="36.53" cy="36.53" r="34.03"/></g></g></svg>)
+    return(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.05 73.05"><defs><style></style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><circle className="openradio-1" cx="36.53" cy="36.53" r="34.03"/></g></g></svg>)
 }
 export function appleID() {
     return(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 89.12"><defs><style></style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_3" data-name="Layer 3"><rect className="appleid-1" x="1" y="1" width="373" height="87.12" rx="7.15"/><text className="appleid-2" transform="translate(50.77 57.9) scale(1.16 1)">
@@ -25,7 +25,7 @@ export function appleID() {
 
 export function Logo() {
     return(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 406.36 59.96"><defs><style></style></defs><g id="Layer_2" data-name="Layer 2">
-    <g id="Layer_2-2" data-name="Layer 2"><text class="appbaseddriver-1" transform="translate(1.8 32.26)">App-Based Driver</text></g></g></svg>)
+    <g id="Layer_2-2" data-name="Layer 2"><text className="appbaseddriver-1" transform="translate(1.8 32.26)">App-Based Driver</text></g></g></svg>)
 }
 
 export function gotoicon() {
@@ -35,7 +35,7 @@ export function gotoicon() {
 
 export function hamburgerIcon() {
     return(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.47 45.57"><defs><style>
-    </style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><rect class="menuicon-1" width="48.47" height="45.57" rx="7.96"/><rect class="menuicon-2" x="11.59" y="19.82" width="25.33" height="5.76" rx="0.38"/><rect class="menuicon-2" x="11.59" y="9.53" width="25.33" height="5.76" rx="0.38"/><rect class="menuicon-2" x="11.59" y="29.4" width="25.33" height="5.76" rx="0.38"/></g></g></svg>)
+    </style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><rect className="menuicon-1" width="48.47" height="45.57" rx="7.96"/><rect className="menuicon-2" x="11.59" y="19.82" width="25.33" height="5.76" rx="0.38"/><rect className="menuicon-2" x="11.59" y="9.53" width="25.33" height="5.76" rx="0.38"/><rect className="menuicon-2" x="11.59" y="29.4" width="25.33" height="5.76" rx="0.38"/></g></g></svg>)
 }
 
 export function folderIcon() {
@@ -44,7 +44,7 @@ export function folderIcon() {
 
 export function closeIcon() {
     return(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.39 31.21"><defs>
-    </defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><rect class="menuicon-1" width="37.39" height="31.21" rx="4.68"/><path class="menuicon-2" d="M27,20.16a.25.25,0,0,1,0,.37L24.24,23a.32.32,0,0,1-.41,0L18.7,18.39,13.57,23a.33.33,0,0,1-.42,0l-2.72-2.42a.24.24,0,0,1,0-.37l5.13-4.55-5.13-4.56a.24.24,0,0,1,0-.37l2.72-2.42a.33.33,0,0,1,.42,0l5.13,4.56,5.13-4.56a.32.32,0,0,1,.41,0L27,10.68a.25.25,0,0,1,0,.37l-5.13,4.56Z"/></g></g></svg>)
+    </defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><rect className="menuicon-1" width="37.39" height="31.21" rx="4.68"/><path className="menuicon-2" d="M27,20.16a.25.25,0,0,1,0,.37L24.24,23a.32.32,0,0,1-.41,0L18.7,18.39,13.57,23a.33.33,0,0,1-.42,0l-2.72-2.42a.24.24,0,0,1,0-.37l5.13-4.55-5.13-4.56a.24.24,0,0,1,0-.37l2.72-2.42a.33.33,0,0,1,.42,0l5.13,4.56,5.13-4.56a.32.32,0,0,1,.41,0L27,10.68a.25.25,0,0,1,0,.37l-5.13,4.56Z"/></g></g></svg>)
 }
 
 export function goCheckIcon() {

@@ -2,7 +2,6 @@ import React from 'react';
 import AppBasedDriver from './appbaseddriver';
 import { MyStylesheet } from './styles'
 import { Link } from 'react-router-dom'
-import ClientID from './clientid'
 import Profile from './profile';
 
 class Home {

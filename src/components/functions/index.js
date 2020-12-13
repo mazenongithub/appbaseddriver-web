@@ -41,6 +41,17 @@ export function makeID(length) {
     return result;
 }
 
+export function isNumeric(val) {
+ 
+    if(val) {
+      return(!isNaN(val))
+    } else {
+     return(true);
+    }
+    
+  
+}
+
 export function validateDriverID(value) {
     const reg_ex = /^([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,34}(?:[A-Za-z0-9_]))?)$/
     const test = reg_ex.test(value);

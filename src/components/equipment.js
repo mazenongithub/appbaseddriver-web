@@ -71,6 +71,7 @@ class Equipment {
         let ids = [];
         const equipments = appbaseddriver.getequipment.call(this)
         if (equipments) {
+            // eslint-disable-next-line
             equipments.map(myequipment => {
                 ids.push(equipment.showequipmentid.call(this, myequipment))
 
@@ -138,7 +139,6 @@ class Equipment {
         const styles = MyStylesheet();
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
-        const menufont = appbaseddriver.menufont.call(this)
         const regularFont = appbaseddriver.getRegularFont.call(this)
         const header = new Header();
         const equipment = new Equipment();

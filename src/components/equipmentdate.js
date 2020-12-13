@@ -2,11 +2,12 @@ import React from 'react';
 import { MyStylesheet } from './styles'
 import AppBasedDriver from './appbaseddriver';
 import EquipmentCalender from './equipmentcalender'
-import { validateMonth, validateDate, validateYear } from './functions';
+import { validateMonth, validateDate, validateYear, isNumeric } from './functions';
 
 class EquipmentDate {
 
     handleyear(year) {
+        if(isNumeric(year)) {
         this.setState({ equipmentyear: year })
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
@@ -50,9 +51,14 @@ class EquipmentDate {
 
             }
         }
+
+    } else {
+        alert(`${year} should be numeric `)
+    }
     }
 
     handleday(day) {
+        if(isNumeric(day)) {
         day = day.toString();
         this.setState({ equipmentday: day })
         const appbaseddriver = new AppBasedDriver();
@@ -97,9 +103,14 @@ class EquipmentDate {
 
             }
         }
+
+    } else {
+        alert(`${day} should be numeric `)
+    }
     }
 
     handlemonth(month) {
+        if(isNumeric(month)) {
         this.setState({ equipmentmonth: month })
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
@@ -146,6 +157,10 @@ class EquipmentDate {
 
             }
         }
+
+    } else {
+        alert(`${month} should be numeric`)
+    }
     }
 
 

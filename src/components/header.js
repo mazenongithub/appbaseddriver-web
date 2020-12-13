@@ -1,7 +1,6 @@
 import React from 'react';
 import AppBasedDriver from './appbaseddriver';
 import { MyStylesheet } from './styles';
-import { hamburgerIcon, closeIcon } from './svg'
 import { Link } from 'react-router-dom'
 
 class Header {
@@ -69,13 +68,7 @@ class Header {
         const logoWidth = () => {
             return ({ width: '400px' })
         }
-        const hamburger = () => {
-            return ({ width: '48px' })
-        }
-        const close = () => {
-            return ({ width: '37px' })
-        }
-
+     
         const loginlink = (myuser) => {
             if (myuser) {
                 return (<button style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }} onClick={() => appbaseddriver.logoutuser.call(this)}>Logout </button>)
@@ -144,7 +137,7 @@ class Header {
                     <div style={{ ...styles.generalFlex }}>
                         <div style={{ ...styles.flex1, ...styles.alignCenter }}>
 
-                            <img src="https://civilengineer.io/appbaseddriver/icons/2x/appbaseddriver.png" style={{ ...logoWidth() }} />
+                            <img src="https://civilengineer.io/appbaseddriver/icons/2x/appbaseddriver.png" alt="appbased driver" style={{ ...logoWidth() }} />
 
                         </div>
 
