@@ -1,7 +1,6 @@
 import React from 'react';
 import { MyStylesheet } from './styles';
 import AppBasedDriver from './appbaseddriver';
-import Header from './header';
 import MakeID from './makeid';
 import { Link } from 'react-router-dom'
 import {gotoicon} from './svg'
@@ -140,15 +139,12 @@ class Equipment {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
         const regularFont = appbaseddriver.getRegularFont.call(this)
-        const header = new Header();
         const equipment = new Equipment();
         if (myuser) {
 
             return (
                 <div style={{ ...styles.generalFlex }}>
                     <div style={{ ...styles.flex1 }}>
-
-                        {header.showsubheader.call(this)}
 
                         <div style={{ ...styles.generalFlex }}>
                             <div style={{ ...styles.flex1 }}>

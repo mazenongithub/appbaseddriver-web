@@ -15,39 +15,39 @@ class Header {
         if (mynav) {
             if (myuser) {
 
-                subheader.push(<div style={{ ...styles.generalContainer, ...styles.bottomMargin15,...styles.alignCenter  }} key={`subheader-1`}>
-                    <Link to={`/profile/${myuser.driverid}`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/{myuser.driverid}</Link>
+                subheader.push(<div style={{ ...styles.generalContainer, ...styles.bottomMargin15, ...styles.alignCenter }} key={`subheader-1`}>
+                    <Link to={`${myuser.driverid}/profile`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/{myuser.driverid}</Link>
                 </div>)
 
                 switch (mynav.navigation) {
 
                     case 'equipment':
-                   
-                            subheader.push(
-                                <div style={{ ...styles.generalContainer, ...styles.bottomMargin15, ...styles.alignCenter  }} key={`subheader-2`}>
-                                    <Link to={`/${myuser.driverid}/equipment`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/equipment</Link>
-                                </div>
-                            )
+
+                        subheader.push(
+                            <div style={{ ...styles.generalContainer, ...styles.bottomMargin15, ...styles.alignCenter }} key={`subheader-2`}>
+                                <Link to={`/${myuser.driverid}/equipment`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/equipment</Link>
+                            </div>
+                        )
                         break;
                     case 'viewequipment':
-                       
+
                         subheader.push(
-                            <div style={{ ...styles.generalContainer, ...styles.bottomMargin15, ...styles.alignCenter  }} key={`subheader-2`}>
-                                <Link onClick={()=>{this.props.reduxNavigation({navigation:'equipment'})}} to={`/${myuser.driverid}/equipment`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/equipment</Link>
+                            <div style={{ ...styles.generalContainer, ...styles.bottomMargin15, ...styles.alignCenter }} key={`subheader-2`}>
+                                <Link onClick={() => { this.props.reduxNavigation({ navigation: 'equipment' }) }} to={`/${myuser.driverid}/equipment`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/equipment</Link>
                             </div>
                         )
-                        const myequipment = appbaseddriver.getequipmentbyid.call(this,this.props.match.params.equipmentid)
-                        if(myequipment) {
-                        subheader.push(
-                            <div style={{ ...styles.generalContainer, ...styles.bottomMargin15, ...styles.alignCenter  }} key={`subheader-3`}>
-                                <Link onClick={()=>{this.props.reduxNavigation({navigation:'viewequipment'})}}
-                                to={`/${myuser.driverid}/equipment/${this.props.match.params.equipmentid}`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/{myequipment.equipment}</Link>
-                            </div>
-                        )
+                        const myequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+                        if (myequipment) {
+                            subheader.push(
+                                <div style={{ ...styles.generalContainer, ...styles.bottomMargin15, ...styles.alignCenter }} key={`subheader-3`}>
+                                    <Link onClick={() => { this.props.reduxNavigation({ navigation: 'viewequipment' }) }}
+                                        to={`/${myuser.driverid}/equipment/${this.props.match.params.equipmentid}`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/{myequipment.equipment}</Link>
+                                </div>
+                            )
 
                         }
 
-                    break;
+                        break;
                     default:
                         break;
 
@@ -68,10 +68,10 @@ class Header {
         const logoWidth = () => {
             return ({ width: '400px' })
         }
-     
+
         const loginlink = (myuser) => {
             if (myuser) {
-                return (<button style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }} onClick={() => appbaseddriver.logoutuser.call(this)}>Logout </button>)
+                return (<button style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin, ...styles.noBorder }} onClick={() => appbaseddriver.logoutuser.call(this)}>Logout </button>)
 
             } else {
                 return (<Link to={`/login`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>Login</Link>)
@@ -82,26 +82,43 @@ class Header {
         const registerlink = (myuser) => {
 
             if (myuser) {
-                return ( <Link onClick={()=>{
-                    this.props.reduxNavigation({navigation:'equipment'})
-                    this.setState({render:'render'})
+                return (<Link onClick={() => {
+                    this.props.reduxNavigation({ navigation: 'equipment' })
+                    this.setState({ render: 'render' })
                 }}
-                to={`/${myuser.driverid}/equipment`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>Equipment</Link>)
+                    to={`/${myuser.driverid}/equipment`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/equipment</Link>)
 
             } else {
-                
-                return ( 
-                <Link to={`/newuser/register`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>Register</Link>
+
+                return (
+                    <Link to={`/newuser/register`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>Register</Link>
                 )
 
             }
 
         }
-       
+
+        const showdriver = (myuser) => {
+            if (myuser) {
+                return (<Link onClick={() => {
+                    this.props.reduxNavigation({ navigation: 'driver' })
+                    this.setState({ render: 'render' })
+                }}
+                    to={`/${myuser.driverid}/driver`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/driver</Link>)
+
+            }
+        }
+
+        const homelink = (myuser) => {
+            if (myuser) {
+                return (<Link to={`/${myuser.driverid}/profile`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/{myuser.driverid}</Link>)
+            } else {
+                return (<Link to={`/`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>Home</Link>)
+            }
+        }
+
 
         const menu = () => {
-
-
 
             return (
                 <div style={{ ...styles.generalFlex }}>
@@ -110,19 +127,13 @@ class Header {
                     <div style={{ ...styles.flex1, ...styles.alignCenter }}>
 
                         <div style={{ ...styles.generalContainer, ...styles.generalPadding, ...styles.bottomMargin10 }}>
-
+                            {homelink(myuser)}
+                            {registerlink(myuser)}
+                            {showdriver(myuser)}
                             {loginlink(myuser)}
-
-
-                            <Link to={`/`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>Home</Link>
-
-                           {registerlink(myuser)}
                         </div>
 
-
                     </div>
-
-
 
                 </div>
             )

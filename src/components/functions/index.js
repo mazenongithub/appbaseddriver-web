@@ -1,3 +1,65 @@
+export function UTCTimeStringfromTime(timein) {
+    //let timein = '2020-06-02 04:01 pm'
+    const time = timein.substring(17, 19)
+    let hours = timein.substring(11, 13);
+    if (time === 'pm' && hours !== '12') {
+        hours = Number(hours) + 12
+    } else if (time === 'am' && hours === '12') {
+        hours = '00'
+    }
+    const sym = () => {
+        let myoffset = new Date().getTimezoneOffset() / 60
+        let sym = "+";
+        if (myoffset > 0) {
+            sym = "-"
+        }
+        return sym;
+
+    }
+    const extraoffset = () => {
+        let myoffset = (new Date().getTimezoneOffset() / 60) * 2
+
+        if (myoffset < 10) {
+            myoffset = `0${myoffset}`
+        }
+        return myoffset;
+    }
+    let minutes = timein.substring(14, 16)
+    let year = timein.substring(0, 4)
+    let month = timein.substring(5, 7);
+    let day = timein.substring(8, 10)
+
+    timein = `${year}/${month}/${day} ${hours}:${minutes}:00${sym()}${extraoffset()}:00`
+    const newDate = new Date(timein)
+    hours = newDate.getHours();
+    if (hours < 10) {
+        hours = `0${hours}`
+    }
+    minutes = newDate.getMinutes();
+    if (minutes < 10) {
+        minutes = `0${minutes}`
+    }
+    year = newDate.getFullYear();
+    day = newDate.getDate();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    month = newDate.getMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`
+    }
+    return (`${year}-${month}-${day} ${hours}:${minutes}:00`);
+}
+
+export function makeTimeString(year,month,day,hours,minutes,time) {
+    return `${year}-${month}-${day} ${hours}:${minutes} ${time}`
+}
+
+export function validateMinutes(min) {
+    const reg_ex = /^[0-5][0-9]$/;
+return(reg_ex.test(min));
+}
+
 export function monthstring(month) {
 
     
@@ -103,6 +165,32 @@ const reg_ex = /^0[1-9]|1[0-2]$/;
 return(reg_ex.test(mon))
 }
 
+export function getFirstIsOn(timein) {
+    let datein = new Date(`${timein.replace(/-/g, '/')} UTC`)
+    let monthdisplay = datein.getMonth() + 1;
+    let fullyear = datein.getFullYear();
+    let thefirstofthemonth = new Date(`${fullyear}/${monthdisplay}/1`);
+    let firstday = thefirstofthemonth.getDay();
+    switch (firstday) {
+        case 0:
+            return "Sun";
+        case 1:
+            return "Mon";
+        case 2:
+            return "Tues";
+        case 3:
+            return "Weds";
+        case 4:
+            return "Thurs";
+        case 5:
+            return "Fri";
+        case 6:
+            return "Sat";
+        default:
+            return;
+    }
+}
+
 export function getFirstIsOnDate(datein) {
 
     let monthdisplay = datein.getMonth() + 1;
@@ -151,6 +239,27 @@ export function getDayString(day) {
     }
 }
 
+
+export function check_29_feb_leapyear(timein)  {
+    const dateobj = new Date(`${timein.replace(/-/g, '/')} UTC`)
+    let month = dateobj.getMonth();
+
+    if (month === 1) {
+        let year = dateobj.getFullYear();
+        if (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0)) {
+            return 29;
+        }
+        else {
+            return;
+        }
+    }
+    else {
+        return 29;
+    }
+
+}
+
+
 export function check_31date(dateobj) {
 
     let month = dateobj.getMonth();
@@ -178,8 +287,71 @@ export function check_29_feb_leapyeardate(dateobj)  {
 
 }
 
+export function trailingZeros(num) {
+    if (num < 10) {
+        return (`0${num}`);
+    } else {
+        return num;
+    }
+
+}
+
+export function inputUTCStringForLaborID(timein) {
+
+    let datein = new Date(`${timein.replace(/-/g, '/')} UTC`)
+    let hours = datein.getHours();
+    let ampm
+    if (hours > 12) {
+        hours = hours - 12;
+        ampm = "PM"
+    }
+    else if (hours === 0) {
+        hours = 12;
+        ampm = "AM"
+    }
+    else if (hours === 12) {
+        ampm = "PM"
+    }
+    else if (hours < 12) {
+        ampm = "AM"
+    }
+    let minutes = datein.getMinutes();
+    if (minutes < 10) {
+        minutes = `0${minutes}`
+    }
+    let date = datein.getDate();
+    if (date < 10) {
+        date = `0${date}`
+    }
+    let year = datein.getFullYear()
+    let month = datein.getMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`
+    }
+    const seconds = trailingZeros(datein.getSeconds())
+    return (`${month}/${date}/${year} ${hours}:${minutes}:${seconds} ${ampm}`)
+
+}
+
 export function check_30date(dateobj) {
 
+    let month = dateobj.getMonth();
+    if (month !== 1) {
+        return 30;
+    }
+}
+
+export function check_31(timein) {
+    const dateobj = new Date(`${timein.replace(/-/g, '/')} UTC`)
+    let month = dateobj.getMonth();
+    if (month === 0 || month === 2 || month === 4 || month === 6 || month === 7 || month === 9 || month === 11) {
+        return 31;
+    }
+}
+
+
+export function check_30(timein) {
+    const dateobj = new Date(`${timein.replace(/-/g, '/')} UTC`)
     let month = dateobj.getMonth();
     if (month !== 1) {
         return 30;

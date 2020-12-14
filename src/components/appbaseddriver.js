@@ -5,6 +5,17 @@ import { MyStylesheet } from './styles';
 
 class AppBasedDriver {
 
+    getampmicon() {
+        if (this.state.width > 1200) {
+            return ({ width: '83px', height: '48px' })
+        } else if (this.state.width > 600) {
+            return ({ width: '70px', height: '41px' })
+        } else {
+            return ({ width: '57px', height: '33px' })
+        }
+
+    }
+
     getdropicon() {
         if (this.state.width > 1200) {
             return (
@@ -54,6 +65,53 @@ class AppBasedDriver {
         }
         return key;
         
+    }
+
+    getshifts() {
+        const appbaseddriver = new AppBasedDriver();
+        const myuser = appbaseddriver.getuser.call(this);
+        let shifts = false;
+        if(myuser) {
+            if(myuser.hasOwnProperty("driver")) {
+                if(myuser.driver.hasOwnProperty("shifts")) {
+                    shifts = myuser.driver.shifts;
+                }
+            }
+        }
+        return shifts;
+    }
+
+    getshiftkeybyid(shiftid) {
+        const appbaseddriver = new AppBasedDriver();
+        const shifts = appbaseddriver.getshifts.call(this)
+        let key = false;
+        if(shifts) {
+              // eslint-disable-next-line
+            shifts.map((shift,i)=> {
+                if(shift.shiftid === shiftid) {
+                    key=i;
+                }
+            })
+        }
+        return key;
+
+    }
+
+
+    getshiftbyid(shiftid) {
+        const appbaseddriver = new AppBasedDriver();
+        const shifts = appbaseddriver.getshifts.call(this)
+        let myshift = false;
+        if(shifts) {
+              // eslint-disable-next-line
+            shifts.map(shift=> {
+                if(shift.shiftid === shiftid) {
+                    myshift = shift;
+                }
+            })
+        }
+        return myshift;
+
     }
     getequipmentcostbyid(equipmentid,costid) {
         const appbaseddriver = new AppBasedDriver();

@@ -2,6 +2,29 @@ import AppBasedDriver from './appbaseddriver'
 import { makeID } from './functions';
 class MakeID {
 
+    shiftid() {
+        const appbaseddriver = new AppBasedDriver();
+        let shiftid = false;
+        const myuser = appbaseddriver.getuser.call(this)
+        if(myuser) {
+            while(!shiftid) {
+                shiftid = makeID(16)
+                if(myuser.hasOwnProperty("driver")) {
+                    if(myuser.driver.hasOwnProperty("shifts")) {
+                          // eslint-disable-next-line
+                        myuser.driver.shifts.map(shift=> {
+                            if(shift.shiftid === shiftid) {
+                                shiftid = false;
+                            }
+                        })
+                    }
+                }
+            }
+        }
+        return shiftid;
+
+    }
+
     costid(equipmentid) {
         const appbaseddriver = new AppBasedDriver();
         let costid = false;

@@ -14,11 +14,13 @@ import Home from './components/home';
 import Profile from './components/profile'
 import Equipment from './components/equipment'
 import ViewEquipment from './components/viewequipment';
+import Driver from './components/driver'
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { render: 'render', width: 0, height: 0, message:'', driverid: '', driveridcheck: '', client: '', clientid: '', firstname: '', lastname: '', profileurl: '', phonenumber: '', emailaddress: '', emailaddresscheck: '', activeequipmentid:false }
+    this.state = { render: 'render', width: 0, height: 0, message:'', driverid: '', driveridcheck: '', client: '', clientid: '', firstname: '', lastname: '', profileurl: '', phonenumber: '', emailaddress: '', emailaddresscheck: '', activeequipmentid:false, activeshiftid:false,
+    timeinmonth: '', timeinday: '', timeinyear: '', timeinhours: '', timeinminutes: '', timeinampm: '', timeoutmonth: '', timeoutday: '', timeoutminutes: '', timeouthours: '', timeoutyear: '', timeoutampm: ''}
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
   componentDidMount() {
@@ -37,7 +39,11 @@ class App extends Component {
     }
     firebase.initializeApp(config());
     this.updateWindowDimensions();
+    this.timeindefault();
+    this.timeoutdefault();
     this.checkuser()
+    
+  
    
 
 
@@ -48,6 +54,102 @@ class App extends Component {
   updateWindowDimensions() {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
+
+
+  timeoutdefault() {
+    const timeoutmonth = () => {
+        let month = new Date().getMonth() + 1;
+        if (month < 10) {
+            month = `0${month}`
+        }
+        return month;
+    }
+    const timeoutday = () => {
+        let day = new Date().getDate();
+        if (day < 10) {
+            day = `0${day}`
+        }
+        return day;
+    }
+    const timeoutyear = () => {
+        let year = new Date().getFullYear();
+
+        return year;
+    }
+    const timeouthours = () => {
+        let hours = new Date().getHours();
+        if (hours > 12) {
+            hours = hours - 12;
+        }
+        if (hours < 10) {
+            hours = `0${hours}`
+        }
+        return hours;
+    }
+    const timeoutminutes = () => {
+        let minutes = new Date().getMinutes();
+        if (minutes < 10) {
+            minutes = `0${minutes}`
+        }
+        return minutes;
+    }
+    const timeoutampm = () => {
+        const hours = new Date().getHours();
+        if (hours < 12) {
+            return 'am'
+        } else {
+            return 'pm'
+        }
+    }
+    this.setState({ timeoutmonth: timeoutmonth(), timeoutday: timeoutday(), timeoutyear: timeoutyear(), timeouthours: timeouthours(), timeoutminutes: timeoutminutes(), timeoutampm: timeoutampm() })
+}
+timeindefault() {
+    const timeinmonth = () => {
+        let month = new Date().getMonth() + 1;
+        if (month < 10) {
+            month = `0${month}`
+        }
+        return month;
+    }
+    const timeinday = () => {
+        let day = new Date().getDate();
+        if (day < 10) {
+            day = `0${day}`
+        }
+        return day;
+    }
+    const timeinyear = () => {
+        let year = new Date().getFullYear();
+
+        return year;
+    }
+    const timeinhours = () => {
+        let hours = new Date().getHours();
+        if (hours > 12) {
+            hours = hours - 12;
+        }
+        if (hours < 10) {
+            hours = `0${hours}`
+        }
+        return hours;
+    }
+    const timeinminutes = () => {
+        let minutes = new Date().getMinutes();
+        if (minutes < 10) {
+            minutes = `0${minutes}`
+        }
+        return minutes;
+    }
+    const timeinampm = () => {
+        const hours = new Date().getHours();
+        if (hours < 12) {
+            return 'am'
+        } else {
+            return 'pm'
+        }
+    }
+    this.setState({ timeinmonth: timeinmonth(), timeinday: timeinday(), timeinyear: timeinyear(), timeinhours: timeinhours(), timeinminutes: timeinminutes(), timeinampm: timeinampm() })
+}
 
 
   async checkuser() {
@@ -73,6 +175,7 @@ class App extends Component {
     const login = new Login();
     const profile = new Profile();
     const equipment = new Equipment();
+    const driver = new Driver();
   
     const showlogin = () => {
       return (login.showlogin.call(this))
@@ -91,6 +194,10 @@ class App extends Component {
     const showequipment = () => {
       return(equipment.showequipment.call(this))
     }
+
+    const showdriver = () => {
+      return(driver.showdriver.call(this))
+    }
   
 
 
@@ -105,8 +212,9 @@ class App extends Component {
               <Route exact path="/newuser/login" render={showlogin} />
               <Route exact path="/newuser/register" render={showregister} />
               <Route exact path="/newuser/home" render={showhome} />
-              <Route exact path="/profile/:driverid" render={showprofile} />
+              <Route exact path="/:driverid/profile" render={showprofile} />
               <Route exact path="/:driverid/equipment" render={showequipment} />
+              <Route exact path="/:driverid/driver" render={showdriver} />
               <Route exact path="/:driverid/equipment/:equipmentid" component={ViewEquipment} />
             </Switch>
           </div>
