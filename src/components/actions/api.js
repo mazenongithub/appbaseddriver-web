@@ -118,8 +118,7 @@ export async function LogoutUser(driverid) {
         if (!resp.ok) {
             if (resp.status >= 400 && resp.status < 500) {
                 return resp.json().then(data => {
-                    let err = { errorMessage: data.message };
-                    throw err;
+                    throw data.message
                 })
             }
             else {
