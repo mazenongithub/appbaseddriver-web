@@ -4,6 +4,7 @@ import { MyStylesheet } from './styles'
 import { Link } from 'react-router-dom'
 import ClientID from './clientid'
 import DriverID from './driverid';
+import Profile from './profile';
 
 class Register {
 
@@ -21,37 +22,46 @@ class Register {
                 return(clientid.showclientid.call(this, "register"))
             }
         }
+       
+        const myuser = appbaseddriver.getuser.call(this)
+
+        if(myuser) {
+            const profile = new Profile();
+            return(profile.showprofile.call(this))
+        
+        } else {
+
+            return(
+                <div style={{ ...styles.generalFlex }}>
+                    <div style={{ ...styles.flex1 }}>
     
-
-        return (
-            <div style={{ ...styles.generalFlex }}>
-                <div style={{ ...styles.flex1 }}>
-
-                    <div style={{ ...styles.generalFlex }}>
-                        <div style={{ ...styles.flex1 }}>
-
-                            <div style={{ ...styles.generalContainer, ...styles.alignCenter, ...styles.bottomMargin10 }}>
-                                <Link to={`/register`} style={{ ...styles.generalLink, ...styles.headerStyle, ...headerFont, ...styles.boldFont, ...styles.logoOutline, ...styles.logoColor }}>/register</Link>
+                        <div style={{ ...styles.generalFlex }}>
+                            <div style={{ ...styles.flex1 }}>
+    
+                                <div style={{ ...styles.generalContainer, ...styles.alignCenter, ...styles.bottomMargin10 }}>
+                                    <Link to={`/register`} style={{ ...styles.generalLink, ...styles.headerStyle, ...headerFont, ...styles.boldFont, ...styles.logoOutline, ...styles.logoColor }}>/register</Link>
+                                </div>
+    
+                                {driverid.showdriverid.call(this)}
+    
+                                {showclientid()}
+    
+                                <div style={{...styles.generalContainer, ...styles.alignCenter}}>
+                                    <span style={{...styles.generalFont, ...regularFont}}>{this.state.message}</span>
+                                </div>
+    
+                               
+    
+    
                             </div>
-
-                            {driverid.showdriverid.call(this)}
-
-                            {showclientid()}
-
-                            <div style={{...styles.generalContainer, ...styles.alignCenter}}>
-                                <span style={{...styles.generalFont, ...regularFont}}>{this.state.message}</span>
-                            </div>
-
-                           
-
-
                         </div>
+    
+    
                     </div>
-
-
                 </div>
-            </div>
-        )
+            )
+
+        }
 
 
     }

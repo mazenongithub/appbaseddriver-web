@@ -369,7 +369,8 @@ class Profile  {
 
             )
         } else {
-            return (<div>Login to view Profile</div>)
+            return (<div style={{...styles.generalContainer, ...styles.alignCenter}}>
+                <span style={{...styles.generalFont,...regularFont}}> Please Login to View Profile </span></div>)
         }
 
     }
