@@ -51,6 +51,15 @@ export function UTCTimeStringfromTime(timein) {
     return (`${year}-${month}-${day} ${hours}:${minutes}:00`);
 }
 
+export function getUTCDate() {
+   
+  
+        const datestring = new Date().toLocaleString()
+        const datestrings = datestring.split('/')
+        return 	`${datestrings[2].substring(0,4)}-${datestrings[0]}-${datestrings[1]}`
+    
+}
+
 export function formatDateStringDisplay(timein) {
     timein.replace(/-/g, '/')
     timein = timein.split('-')
