@@ -51,7 +51,7 @@ class AppBasedDriver {
     }
 
     getequipmentcostkeybyid(equipmentid,costid) {
-        console.log(equipmentid,costid)
+       
         const appbaseddriver = new AppBasedDriver();
         const costs = appbaseddriver.getequipmentscosts.call(this,equipmentid)
         let key = false;
@@ -223,12 +223,13 @@ class AppBasedDriver {
     }
 
     async savedriver() {
-        console.log("savedriver")
+  
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
         if (myuser) {
-            console.log("userfound")
+       
             try {
+                console.log(myuser)
 
                 let response = await SaveDriver({ myuser })
                 console.log(response)

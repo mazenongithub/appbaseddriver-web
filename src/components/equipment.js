@@ -13,8 +13,8 @@ class Equipment {
         const makeid = new MakeID();
         if (myuser) {
 
-            const newEquipment = (equipmentid, equipment) => {
-                return ({ equipmentid, equipment })
+            const newEquipment = (equipmentid, equipment, salvagedate,salvage) => {
+                return ({ equipmentid, equipment, salvagedate, salvage })
             }
 
             if (this.state.activeequipmentid) {
@@ -31,7 +31,7 @@ class Equipment {
 
             } else {
                 const equipmentid = makeid.equipmentid.call(this)
-                const myequipment = newEquipment(equipmentid, value)
+                const myequipment = newEquipment(equipmentid, value, "salvagedate",0)
                 const getequipment = appbaseddriver.getequipment.call(this)
                 if (getequipment) {
 

@@ -7,14 +7,15 @@ import * as actions from './actions';
 import Header from './header';
 import MakeID from './makeid';
 import EquipmentDate from './equipmentdate';
-import {isNumeric} from './functions'
+import SalvageDate from './salvagedate'
+import { isNumeric } from './functions'
 
 
 class ViewEquipment extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: true }
+        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: true, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: true }
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
     }
     componentDidMount() {
@@ -31,6 +32,8 @@ class ViewEquipment extends Component {
     updateWindowDimensions() {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
+
+
 
     equipmentdatedefault() {
         const equipmentmonth = () => {
@@ -99,15 +102,15 @@ class ViewEquipment extends Component {
                 } else {
 
 
-                    const newCost = (costid, costType, startdate) => {
+                    const newCost = (costid, costType, purchasedate) => {
                         switch (costType) {
 
                             case 'reoccurring':
                                 const reoccurring = { interval: 0, frequency: '' }
-                                return ({ costid, amount: 0, startdate, detail: '', reoccurring })
+                                return ({ costid, amount: 0, purchasedate, detail: '', reoccurring })
                             case 'loan':
                                 const loan = { apr: 0, months: 0 }
-                                return ({ costid, startdate, amount: 0, detail: '', loan })
+                                return ({ costid, purchasedate, amount: 0, detail: '', loan })
                             default:
                                 break;
 
@@ -119,8 +122,8 @@ class ViewEquipment extends Component {
                     const year = this.state.equipmentyear;
                     const day = this.state.equipmentday;
                     const month = this.state.equipmentmonth;
-                    const startdate = `${year}-${month}-${day}`;
-                    const newcost = newCost(costid, costType, startdate)
+                    const purchasedate = `${year}-${month}-${day}`;
+                    const newcost = newCost(costid, costType, purchasedate)
                     if (costs) {
                         myuser.equipment[i].costs.push(newcost)
 
@@ -184,9 +187,9 @@ class ViewEquipment extends Component {
                 } else {
 
 
-                    const newCost = (costid, detail, startdate) => {
+                    const newCost = (costid, detail, purchasedate) => {
 
-                        return ({ costid, detail, startdate, amount: 0 })
+                        return ({ costid, detail, purchasedate, amount: 0 })
 
 
                     }
@@ -195,8 +198,8 @@ class ViewEquipment extends Component {
                     const year = this.state.equipmentyear;
                     const day = this.state.equipmentday;
                     const month = this.state.equipmentmonth;
-                    const startdate = `${year}-${month}-${day}`;
-                    const newcost = newCost(costid, detail, startdate)
+                    const purchasedate = `${year}-${month}-${day}`;
+                    const newcost = newCost(costid, detail, purchasedate)
                     if (costs) {
                         myuser.equipment[i].costs.push(newcost)
 
@@ -229,18 +232,18 @@ class ViewEquipment extends Component {
 
                 <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
                     <span style={{ ...regularFont, ...styles.generalFont }}>Frequency</span>
-                    <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
+                    <select type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
                         value={this.getfrequency()}
-                        onChange={event => { this.handlefrequency(event.target.value) }} />
+                        onChange={event => { this.handlefrequency(event.target.value) }}>
+                            <option value={false}>Select Frequency Value</option>
+                            <option value={`yearly`}>Yearly</option>
+                            <option value={`monthly`}>Monthly</option>
+                            <option value={`weekly`}>Week</option>
+                            <option value={`daily`}>Daily</option>
+                        </select>
                 </div>
 
-                <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
-                    <span style={{ ...regularFont, ...styles.generalFont }}>Interval</span>
-                    <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
-                        value={this.getinterval()}
-                        onChange={event => { this.handleinterval(event.target.value) }}
-                    />
-                </div>
+
 
             </div>
         )
@@ -262,110 +265,102 @@ class ViewEquipment extends Component {
     }
 
     handleamount(amount) {
-        if(isNumeric(amount)) {
-        const appbaseddriver = new AppBasedDriver();
-        const myuser = appbaseddriver.getuser.call(this)
-        const makeid = new MakeID();
+        if (isNumeric(amount)) {
+            const appbaseddriver = new AppBasedDriver();
+            const myuser = appbaseddriver.getuser.call(this)
+            const makeid = new MakeID();
 
-        if (myuser) {
-            const equipmentid = this.props.match.params.equipmentid;
-            const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
-            if (equipment) {
-                const i = appbaseddriver.getequipmentkeybyid.call(this, equipmentid)
-                if (this.state.activecostid) {
-                    const cost = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
-                    if (cost) {
+            if (myuser) {
+                const equipmentid = this.props.match.params.equipmentid;
+                const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
+                if (equipment) {
+                    const i = appbaseddriver.getequipmentkeybyid.call(this, equipmentid)
+                    if (this.state.activecostid) {
+                        const cost = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
+                        if (cost) {
 
-                        const j = appbaseddriver.getequipmentcostkeybyid.call(this, equipmentid, this.state.activecostid)
-
-                        myuser.equipment[i].costs[j].amount = amount;
-                        this.props.reduxUser(myuser)
-                        this.setState({ render: 'render' })
-
-
-
-                    }
-                } else {
-
-
-                    const newCost = (costid, costType, startdate, detail, amount) => {
-
-                        return ({ costid, costType, startdate, detail, amount })
-
-
-                    }
-                    const costid = makeid.costid.call(this, equipmentid)
-                    const costs = appbaseddriver.getequipmentscosts.call(this, equipmentid)
-                    const year = this.state.equipmentyear;
-                    const day = this.state.equipmentday;
-                    const month = this.state.equipmentmonth;
-                    const startdate = `${year}-${month}-${day}`;
-                    const newcost = newCost(costid, "", startdate, "", amount)
-                    if (costs) {
-                        myuser.equipment[i].costs.push(newcost)
-
-                    } else {
-
-                        myuser.equipment[i].costs = [newcost]
-                    }
-
-                    this.props.reduxUser(myuser)
-                    this.setState({ activecostid: costid })
-
-                }
-
-            }
-        }
-
-    } else {
-        alert(`${amount} should be numeric`)
-    }
-
-
-    }
-
-    getinterval() {
-        const appbaseddriver = new AppBasedDriver();
-        const equipmentid = this.props.match.params.equipmentid;
-        if (this.state.activecostid) {
-            const cost = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
-            if (cost.hasOwnProperty("reoccurring")) {
-                return cost.reoccurring.interval;
-            }
-        }
-
-    }
-
-    handleinterval(interval) {
-        if(isNumeric(interval)) {
-        const appbaseddriver = new AppBasedDriver();
-        const myuser = appbaseddriver.getuser.call(this)
-        if (myuser) {
-            const equipmentid = this.props.match.params.equipmentid;
-            const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
-            if (equipment) {
-                const i = appbaseddriver.getequipmentkeybyid.call(this, equipmentid)
-                if (this.state.activecostid) {
-                    const cost = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
-                    if (cost) {
-                        if (cost.hasOwnProperty("reoccurring")) {
                             const j = appbaseddriver.getequipmentcostkeybyid.call(this, equipmentid, this.state.activecostid)
-                            myuser.equipment[i].costs[j].reoccurring.interval = interval;
+
+                            myuser.equipment[i].costs[j].amount = amount;
                             this.props.reduxUser(myuser)
                             this.setState({ render: 'render' })
 
+
+
+                        }
+                    } else {
+
+
+                        const newCost = (costid, costType, purchasedate, detail, amount) => {
+
+                            return ({ costid, costType, purchasedate, detail, amount })
+
+
+                        }
+                        const costid = makeid.costid.call(this, equipmentid)
+                        const costs = appbaseddriver.getequipmentscosts.call(this, equipmentid)
+                        const year = this.state.equipmentyear;
+                        const day = this.state.equipmentday;
+                        const month = this.state.equipmentmonth;
+                        const purchasedate = `${year}-${month}-${day}`;
+                        const newcost = newCost(costid, "", purchasedate, "", amount)
+                        if (costs) {
+                            myuser.equipment[i].costs.push(newcost)
+
+                        } else {
+
+                            myuser.equipment[i].costs = [newcost]
                         }
 
-                    }
-                }
+                        this.props.reduxUser(myuser)
+                        this.setState({ activecostid: costid })
 
+                    }
+
+                }
             }
+
+        } else {
+            alert(`${amount} should be numeric`)
         }
 
-    } else {
-        alert(`${interval} should be numeric`)
+
     }
 
+
+    handlesalvage(salvage) {
+        const appbaseddriver = new AppBasedDriver();
+        const myuser = appbaseddriver.getuser.call(this)
+
+        if (myuser) {
+
+            const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+            if (activeequipment) {
+                const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+
+                myuser.equipment[i].salvage = salvage;
+                this.props.reduxUser(myuser)
+                this.setState({ render: 'render' })
+
+            }
+
+        }
+
+
+    }
+
+    getsalvage() {
+        const appbaseddriver = new AppBasedDriver();
+        let equipment = "";
+
+
+        const myequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+        console.log(myequipment)
+
+        equipment = myequipment.salvage;
+
+
+        return equipment;
 
     }
 
@@ -428,83 +423,39 @@ class ViewEquipment extends Component {
 
     handleapr(apr) {
 
-        if(isNumeric(apr)) {
+        if (isNumeric(apr)) {
 
-        const appbaseddriver = new AppBasedDriver();
-        const myuser = appbaseddriver.getuser.call(this)
-        if (myuser) {
-            const equipmentid = this.props.match.params.equipmentid;
-            const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
-            if (equipment) {
-                const i = appbaseddriver.getequipmentkeybyid.call(this, equipmentid)
-                if (this.state.activecostid) {
-                    const cost = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
-                    if (cost) {
-                        if (cost.hasOwnProperty("loan")) {
-                            const j = appbaseddriver.getequipmentcostkeybyid.call(this, equipmentid, this.state.activecostid)
-                            myuser.equipment[i].costs[j].loan.apr = apr
-                            this.props.reduxUser(myuser)
-                            this.setState({ render: 'render' })
+            const appbaseddriver = new AppBasedDriver();
+            const myuser = appbaseddriver.getuser.call(this)
+            if (myuser) {
+                const equipmentid = this.props.match.params.equipmentid;
+                const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
+                if (equipment) {
+                    const i = appbaseddriver.getequipmentkeybyid.call(this, equipmentid)
+                    if (this.state.activecostid) {
+                        const cost = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
+                        if (cost) {
+                            if (cost.hasOwnProperty("loan")) {
+                                const j = appbaseddriver.getequipmentcostkeybyid.call(this, equipmentid, this.state.activecostid)
+                                myuser.equipment[i].costs[j].loan.apr = apr
+                                this.props.reduxUser(myuser)
+                                this.setState({ render: 'render' })
 
-                        }
-
-                    }
-                }
-
-            }
-        }
-
-    } else {
-        alert(`${apr} should be numeric`)
-    }
-
-    }
-
-    getmonths() {
-        const appbaseddriver = new AppBasedDriver();
-        const equipmentid = this.props.match.params.equipmentid;
-        if (this.state.activecostid) {
-            const cost = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
-            if (cost.hasOwnProperty("loan")) {
-                return cost.loan.months;
-            }
-        }
-
-    }
-
-
-    handlemonths(months) {
-        if(isNumeric(months)) {
-        const appbaseddriver = new AppBasedDriver();
-        const myuser = appbaseddriver.getuser.call(this)
-        if (myuser) {
-            const equipmentid = this.props.match.params.equipmentid;
-            const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
-            if (equipment) {
-                const i = appbaseddriver.getequipmentkeybyid.call(this, equipmentid)
-                if (this.state.activecostid) {
-                    const cost = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
-                    if (cost) {
-                        if (cost.hasOwnProperty("loan")) {
-                            const j = appbaseddriver.getequipmentcostkeybyid.call(this, equipmentid, this.state.activecostid)
-                            myuser.equipment[i].costs[j].loan.months = months
-                            this.props.reduxUser(myuser)
-                            this.setState({ render: 'render' })
+                            }
 
                         }
-
                     }
-                }
 
+                }
             }
+
+        } else {
+            alert(`${apr} should be numeric`)
         }
 
-    } else {
-        alert(`${months} should be numeric`)
     }
 
 
-    }
 
     loanForm() {
         const appbaseddriver = new AppBasedDriver();
@@ -520,12 +471,6 @@ class ViewEquipment extends Component {
                     <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
                         value={this.getapr()}
                         onChange={event => { this.handleapr(event.target.value) }} />
-                </div>
-                <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
-                    <span style={{ ...regularFont, ...styles.generalFont }}># of Months</span>
-                    <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
-                        value={this.getmonths()}
-                        onChange={event => { this.handlemonths(event.target.value) }} />
                 </div>
 
             </div>
@@ -557,28 +502,28 @@ class ViewEquipment extends Component {
     removecost(costid) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
-        if(myuser) {
-        const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
-        if (equipment) {
-            const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+        if (myuser) {
+            const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+            if (equipment) {
+                const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
 
-            const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, costid)
-            if (cost) {
-                if (window.confirm(`Are your sure you want to remove ${cost.detail}?`)) {
-                    const j = appbaseddriver.getequipmentcostkeybyid.call(this, this.props.match.params.equipmentid, costid)
-                    
-                    myuser.equipment[i].costs.splice(j,1)
-                    this.props.reduxUser(myuser)
-                    this.equipmentdatedefault();
-                    this.setState({activecostid:false})
+                const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, costid)
+                if (cost) {
+                    if (window.confirm(`Are your sure you want to remove ${cost.detail}?`)) {
+                        const j = appbaseddriver.getequipmentcostkeybyid.call(this, this.props.match.params.equipmentid, costid)
+
+                        myuser.equipment[i].costs.splice(j, 1)
+                        this.equipmentdatedefault();
+                        this.props.reduxUser(myuser)
+                        this.setState({ activecostid: false })
+
+                    }
 
                 }
 
             }
 
         }
-
-    }
     }
 
     makecostactive(costid) {
@@ -593,9 +538,9 @@ class ViewEquipment extends Component {
             let equipmentmonth = "";
             let equipmentday = "";
             if (cost) {
-                equipmentyear = cost.startdate.substring(0, 4)
-                equipmentmonth = cost.startdate.substring(5, 7);
-                equipmentday = cost.startdate.substring(8, 10)
+                equipmentyear = cost.purchasedate.substring(0, 4)
+                equipmentmonth = cost.purchasedate.substring(5, 7);
+                equipmentday = cost.purchasedate.substring(8, 10)
             }
             this.setState({ activecostid: costid, equipmentyear, equipmentmonth, equipmentday })
         }
@@ -621,8 +566,8 @@ class ViewEquipment extends Component {
                 <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} key={cost.costid} onClick={() => { this.makecostactive(cost.costid) }}>
                     <div style={{ ...styles.flex1 }}>
                         <span style={{ ...regularFont, ...styles.generalFont }}>
-                            Cost Type: Singular StartDate: {cost.startdate} Detail: {cost.detail} Amount: {cost.amount}
-                        </span> <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={()=>{this.removecost(cost.costid)}}>{removeIconSmall()}</button>
+                            Cost Type: Singular StartDate: {cost.purchasedate} Detail: {cost.detail} Amount: {cost.amount}
+                        </span> <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
                     </div>
                 </div>)
         }
@@ -632,7 +577,8 @@ class ViewEquipment extends Component {
                 <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} key={cost.costid} onClick={() => { this.makecostactive(cost.costid) }}>
                     <div style={{ ...styles.flex1 }}>
                         <span style={{ ...regularFont, ...styles.generalFont }}>
-                            Cost Type: Reoccurring StartDate:{cost.startdate} Detail: {cost.detail} Cost: {cost.amount} Frequency: {cost.reoccurring.frequency}  Interval: {cost.reoccurring.interval}
+                            Cost Type: Reoccurring StartDate:{cost.purchasedate} Detail: {cost.detail} Cost: {cost.amount} Frequency: {cost.reoccurring.frequency} 
+                            <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
                         </span>
                     </div>
                 </div>
@@ -644,7 +590,8 @@ class ViewEquipment extends Component {
                 <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} onClick={() => { this.makecostactive(cost.costid) }}>
                     <div style={{ ...styles.flex1 }}>
                         <span style={{ ...regularFont, ...styles.generalFont }}>
-                            Cost Type: Loan Start Date: {cost.startdate} Detail: {cost.detail} Amount: {cost.amount} APR: {cost.loan.apr}  Months: {cost.loan.months}
+                            Cost Type: P: {cost.purchasedate} Detail: {cost.detail} Amount: {cost.amount} APR: {cost.loan.apr}  
+                            <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
                         </span>
                     </div>
                 </div>)
@@ -653,7 +600,7 @@ class ViewEquipment extends Component {
 
         if (costs) {
 
-// eslint-disable-next-line
+            // eslint-disable-next-line
             costs.map(cost => {
 
                 if (cost.hasOwnProperty("reoccurring")) {
@@ -683,6 +630,7 @@ class ViewEquipment extends Component {
         const headerFont = appbaseddriver.getHeaderFont.call(this)
         const buttonWidth = appbaseddriver.radioIconWidth.call(this)
         const equipmentdate = new EquipmentDate();
+        const salvagedate = new SalvageDate();
 
         const reOccurring = () => {
 
@@ -718,6 +666,9 @@ class ViewEquipment extends Component {
             const header = new Header();
             const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
             if (equipment) {
+                console.log(equipment)
+
+
 
 
 
@@ -740,29 +691,22 @@ class ViewEquipment extends Component {
                                 </div>
                             </div>
 
-                            {equipmentdate.showequipment.call(this)}
-
-
-
+                            {salvagedate.showdate.call(this)}
 
                             <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
-                                <span style={{ ...regularFont, ...styles.generalFont }}>Detail</span>
+                                <span style={{ ...regularFont, ...styles.generalFont }}>Salvage Amount </span>
                                 <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
-                                    value={this.getdetail()}
-                                    onChange={event => { this.handledetail(event.target.value) }}
+                                    value={this.getsalvage()}
+                                    onChange={event => { this.handlesalvage(event.target.value) }}
                                 />
                             </div>
 
 
-                            <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
-                                <span style={{ ...regularFont, ...styles.generalFont }}>Amount</span>
-                                <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
-                                    value={this.getamount()}
-                                    onChange={event => { this.handleamount(event.target.value) }}
-                                />
+                            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                                    <span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>Costs</span>
+                                </div>
                             </div>
-
-
 
                             <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
 
@@ -774,11 +718,36 @@ class ViewEquipment extends Component {
                                 </div>
                             </div>
 
-
                             {this.showactiveform()}
+
+                            {equipmentdate.showequipment.call(this)}
+
+                            <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
+                                <span style={{ ...regularFont, ...styles.generalFont }}>Detail</span>
+                                <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
+                                    value={this.getdetail()}
+                                    onChange={event => { this.handledetail(event.target.value) }}
+                                />
+                            </div>
+
+                            <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
+                                <span style={{ ...regularFont, ...styles.generalFont }}>Amount</span>
+                                <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
+                                    value={this.getamount()}
+                                    onChange={event => { this.handleamount(event.target.value) }}
+                                />
+                            </div>
+
+
+                            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                                    <span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>Cost IDs - Touch/Toggle Active-Edit/Deactive</span>
+                                </div>
+                            </div>
+
                             {this.showequipmentids()}
 
-      
+
                             {appbaseddriver.showsavedriver.call(this)}
 
                             <div style={{ marginBottom: '40px' }}>
