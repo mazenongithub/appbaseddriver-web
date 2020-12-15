@@ -4,6 +4,7 @@ import AppBasedDriver from './appbaseddriver'
 import { folderIcon, goCheckIcon } from './svg'
 import {validateDriverID,validateEmail} from './functions'
 import {CheckDriverID, CheckEmailAddress} from './actions/api'
+import Header from './header';
 
 
 class Profile  {  
@@ -228,6 +229,7 @@ class Profile  {
         const styles = MyStylesheet();
         const headerFont = appbaseddriver.getHeaderFont.call(this)
         const profile = new Profile()
+        const header = new Header();
         const profileDimensions = () => {
             if (this.state.width > 1200) {
                 return (
@@ -293,6 +295,8 @@ class Profile  {
             return (
                 <div style={{ ...styles.generalFlex }}>
                     <div style={{ ...styles.flex1 }}>
+
+                    {header.showsubheader.call(this)}
 
                         <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                             <div style={{ ...styles.flex1, ...styles.alignCenter }}>

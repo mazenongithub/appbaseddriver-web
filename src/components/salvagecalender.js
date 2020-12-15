@@ -23,16 +23,17 @@ class SalvageCalender {
         const dropIcon = appbaseddriver.getdropicon.call(this)
         if (this.state.salvagecalender) {
             return (
-                <button style={{ ...styles.generalButton, ...removeIcon }} onClick={() => { this.setState({ equipmentcalender: false }) }}>{removeIconSmall()} </button>
+                <button style={{ ...styles.generalButton, ...removeIcon }} onClick={() => { this.setState({ salvagecalender: false }) }}>{removeIconSmall()} </button>
             )
         } else {
             return (
-                <button style={{ ...styles.generalButton, ...dropIcon }} onClick={() => { this.setState({ equipmentcalender: true }) }}>{dropDateIcon()} </button>
+                <button style={{ ...styles.generalButton, ...dropIcon }} onClick={() => { this.setState({ salvagecalender: true }) }}>{dropDateIcon()} </button>
             )
         }
 
     }
     showlabel() {
+      
         const appbaseddriver = new AppBasedDriver();
         const headerFont = appbaseddriver.getHeaderFont.call(this);
         const styles = MyStylesheet();
@@ -41,6 +42,7 @@ class SalvageCalender {
             let year = this.state.salvageyear;
             let month = this.state.salvagemonth;
             const datestring = `${year}/${month}/${day}`
+         
             const newDate = new Date(datestring);
             month = monthstring(newDate.getMonth());
             const date = newDate.getDate();

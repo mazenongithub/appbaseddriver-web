@@ -6,6 +6,7 @@ import TimeIn from './timein';
 import TimeOut from './timeout'
 import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID } from './functions'
 import { removeIconSmall } from './svg'
+import Header from './header';
 class Driver {
 
     getearnings() {
@@ -231,7 +232,7 @@ class Driver {
         const timein = new TimeIn();
         const timeout = new TimeOut();
 
-
+const header = new Header();
 
 
         const showtimes = () => {
@@ -291,6 +292,9 @@ class Driver {
             return (
                 <div style={{ ...styles.generalFlex }}>
                     <div style={{ ...styles.flex1 }}>
+
+                        {header.showsubheader.call(this)}
+                              
 
                         {showtimes()}
 

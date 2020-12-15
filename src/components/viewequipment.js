@@ -8,7 +8,7 @@ import Header from './header';
 import MakeID from './makeid';
 import EquipmentDate from './equipmentdate';
 import SalvageDate from './salvagedate'
-import { isNumeric } from './functions'
+import { isNumeric, formatDateStringDisplay } from './functions'
 
 
 class ViewEquipment extends Component {
@@ -352,14 +352,8 @@ class ViewEquipment extends Component {
     getsalvage() {
         const appbaseddriver = new AppBasedDriver();
         let equipment = "";
-
-
         const myequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
-        console.log(myequipment)
-
         equipment = myequipment.salvage;
-
-
         return equipment;
 
     }
@@ -533,7 +527,6 @@ class ViewEquipment extends Component {
             this.setState({ activecostid: false })
         } else {
             const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, costid)
-            console.log(cost)
             let equipmentyear = "";
             let equipmentmonth = "";
             let equipmentday = "";
@@ -566,7 +559,7 @@ class ViewEquipment extends Component {
                 <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} key={cost.costid} onClick={() => { this.makecostactive(cost.costid) }}>
                     <div style={{ ...styles.flex1 }}>
                         <span style={{ ...regularFont, ...styles.generalFont }}>
-                            Cost Type: Singular StartDate: {cost.purchasedate} Detail: {cost.detail} Amount: {cost.amount}
+                            Cost Type: Singular PurchaseDate: {formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: ${cost.amount}
                         </span> <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
                     </div>
                 </div>)
@@ -577,7 +570,7 @@ class ViewEquipment extends Component {
                 <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} key={cost.costid} onClick={() => { this.makecostactive(cost.costid) }}>
                     <div style={{ ...styles.flex1 }}>
                         <span style={{ ...regularFont, ...styles.generalFont }}>
-                            Cost Type: Reoccurring StartDate:{cost.purchasedate} Detail: {cost.detail} Cost: {cost.amount} Frequency: {cost.reoccurring.frequency} 
+                            Cost Type: Reoccurring Purchase Date:{formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: ${cost.amount} Frequency: {cost.reoccurring.frequency} 
                             <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
                         </span>
                     </div>
@@ -590,7 +583,7 @@ class ViewEquipment extends Component {
                 <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} onClick={() => { this.makecostactive(cost.costid) }}>
                     <div style={{ ...styles.flex1 }}>
                         <span style={{ ...regularFont, ...styles.generalFont }}>
-                            Cost Type: P: {cost.purchasedate} Detail: {cost.detail} Amount: {cost.amount} APR: {cost.loan.apr}  
+                            Cost Type: Loan, Interest, Payment: {formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: {cost.amount} APR: {cost.loan.apr}  
                             <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
                         </span>
                     </div>
@@ -666,13 +659,6 @@ class ViewEquipment extends Component {
             const header = new Header();
             const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
             if (equipment) {
-                console.log(equipment)
-
-
-
-
-
-
 
                 return (
                     <div style={{ ...styles.generalFlex }}>

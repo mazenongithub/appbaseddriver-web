@@ -4,6 +4,7 @@ import AppBasedDriver from './appbaseddriver';
 import MakeID from './makeid';
 import { Link } from 'react-router-dom'
 import {gotoicon} from './svg'
+import Header from './header';
 
 class Equipment {
 
@@ -55,8 +56,7 @@ class Equipment {
         if (this.state.activeequipmentid) {
 
             const myequipment = appbaseddriver.getequipmentbyid.call(this, this.state.activeequipmentid)
-            console.log(myequipment)
-
+          
             equipment = myequipment.equipment;
 
         }
@@ -140,6 +140,7 @@ class Equipment {
         const myuser = appbaseddriver.getuser.call(this)
         const regularFont = appbaseddriver.getRegularFont.call(this)
         const equipment = new Equipment();
+        const header = new Header();
         if (myuser) {
 
             return (
@@ -148,6 +149,8 @@ class Equipment {
 
                         <div style={{ ...styles.generalFlex }}>
                             <div style={{ ...styles.flex1 }}>
+
+                                {header.showsubheader.call(this)}
 
                                 <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
                                     <span style={{ ...styles.generalFont, ...regularFont }}>Create Equipment</span>

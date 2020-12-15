@@ -51,6 +51,21 @@ export function UTCTimeStringfromTime(timein) {
     return (`${year}-${month}-${day} ${hours}:${minutes}:00`);
 }
 
+export function formatDateStringDisplay(timein) {
+    timein.replace(/-/g, '/')
+    timein = timein.split('-')
+    let year = "";
+    let month = "";
+    let day = "";
+
+    if (timein.length === 3) {
+        year = timein[0]
+        month = timein[1]
+        day = timein[2]
+    }
+    return (`${month}/${day}/${year}`)
+}
+
 export function makeTimeString(year,month,day,hours,minutes,time) {
     return `${year}-${month}-${day} ${hours}:${minutes} ${time}`
 }

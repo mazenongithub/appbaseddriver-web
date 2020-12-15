@@ -193,7 +193,7 @@ class SalvageDate {
                         
                        
                     </div>
-                    {calender.showCalender.call(this)}
+                    {calender.showEquipmentCalender.call(this)}
 
 
                 </div>

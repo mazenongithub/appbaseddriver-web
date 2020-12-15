@@ -8,6 +8,7 @@ class Header {
     showsubheader() {
         const appbaseddriver = new AppBasedDriver();
         const mynav = appbaseddriver.getNavigation.call(this)
+      
         const myuser = appbaseddriver.getuser.call(this)
         const styles = MyStylesheet();
         const menufont = appbaseddriver.menufont.call(this)
@@ -15,11 +16,17 @@ class Header {
         if (mynav) {
             if (myuser) {
 
-                subheader.push(<div style={{ ...styles.generalContainer, ...styles.bottomMargin15, ...styles.alignCenter }} key={`subheader-1`}>
-                    <Link to={`${myuser.driverid}/profile`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/{myuser.driverid}</Link>
-                </div>)
+               
 
                 switch (mynav.navigation) {
+                    case 'driver':
+
+                        subheader.push(
+                            <div style={{ ...styles.generalContainer, ...styles.bottomMargin15, ...styles.alignCenter }} key={`subheader-2`}>
+                                <Link to={`/${myuser.driverid}/driver`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/driver</Link>
+                            </div>
+                        )
+                        break
 
                     case 'equipment':
 
@@ -111,7 +118,10 @@ class Header {
 
         const homelink = (myuser) => {
             if (myuser) {
-                return (<Link to={`/${myuser.driverid}/profile`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/{myuser.driverid}</Link>)
+                return (<Link onClick={() => {
+                    this.props.reduxNavigation({ navigation: 'profile' })
+                    this.setState({ render: 'render' })
+                }} to={`/${myuser.driverid}/profile`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/{myuser.driverid}</Link>)
             } else {
                 return (<Link to={`/`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>Home</Link>)
             }

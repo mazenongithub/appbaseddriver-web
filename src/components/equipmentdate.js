@@ -180,7 +180,7 @@ class EquipmentDate {
 
                     <div style={{ ...styles.generalFlex }}>
                         <div style={{ ...styles.flex1 }}>
-                            <span style={{ ...styles.generalFont, ...regularFont }}>Date of Cost (MM-DD-YYYY) </span>
+                            <span style={{ ...styles.generalFont, ...regularFont }}>Purchase Date (MM-DD-YYYY) </span>
                         </div>
                     </div>
 
