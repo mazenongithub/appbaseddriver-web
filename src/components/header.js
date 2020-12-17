@@ -78,7 +78,12 @@ class Header {
 
         const loginlink = (myuser) => {
             if (myuser) {
-                return (<button style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin, ...styles.noBorder }} onClick={() => appbaseddriver.logoutuser.call(this)}>Logout </button>)
+                return (<button 
+                style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline,  ...styles.noBorder, ...styles.addMargin }} 
+                onClick={() => appbaseddriver.logoutuser.call(this)}>
+                Logout 
+                </button>
+                )
 
             } else {
                 return (<Link to={`/newuser/login`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>Login</Link>)

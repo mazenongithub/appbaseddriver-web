@@ -188,7 +188,7 @@ export function MyStylesheet() {
             flex: 5
         },
         addMargin: {
-            margin: '5px'
+            margin: '10px'
         },
         csiField: {
             maxWidth: '120px',

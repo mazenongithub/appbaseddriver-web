@@ -20,22 +20,19 @@ class AppBasedDriver {
         if (this.state.width > 1200) {
             return (
                 {
-                    width: '93x',
-                    height: '45px'
+                    width: '93px'
                 })
 
         } else if (this.state.width > 600) {
             return (
                 {
-                    width: '78px',
-                    height: '38px'
+                    width: '78px'
                 })
 
         } else {
             return (
                 {
-                    width: '62px',
-                    height: '30px'
+                    width: '62px'
                 })
         }
     }

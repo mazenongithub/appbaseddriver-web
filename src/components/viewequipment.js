@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 import { MyStylesheet } from './styles';
 import AppBasedDriver from './appbaseddriver';
 import { connect } from 'react-redux';
-import { openRadio, closedRadio, removeIconSmall } from './svg'
+import { CheckedBox, EmptyBox, removeIconSmall } from './svg'
 import * as actions from './actions';
 import Header from './header';
 import MakeID from './makeid';
 import EquipmentDate from './equipmentdate';
 import SalvageDate from './salvagedate'
-import { isNumeric, formatDateStringDisplay } from './functions'
+import PurchaseDate from './purchasedate'
+import { isNumeric, formatDateStringDisplay, getUTCDate } from './functions'
 
 
 class ViewEquipment extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: true, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: true }
+        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: false, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: false,purchasecalender:false, showrepayment: true, purchaseday:'',purchasemonth:'', purchaseyear:'' }
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
     }
     componentDidMount() {
@@ -235,12 +236,12 @@ class ViewEquipment extends Component {
                     <select type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
                         value={this.getfrequency()}
                         onChange={event => { this.handlefrequency(event.target.value) }}>
-                            <option value={false}>Select Frequency Value</option>
-                            <option value={`yearly`}>Yearly</option>
-                            <option value={`monthly`}>Monthly</option>
-                            <option value={`weekly`}>Week</option>
-                            <option value={`daily`}>Daily</option>
-                        </select>
+                        <option value={false}>Select Frequency Value</option>
+                        <option value={`yearly`}>Yearly</option>
+                        <option value={`monthly`}>Monthly</option>
+                        <option value={`weekly`}>Week</option>
+                        <option value={`daily`}>Daily</option>
+                    </select>
                 </div>
 
 
@@ -327,6 +328,46 @@ class ViewEquipment extends Component {
 
     }
 
+    handlepurchase(purchase) {
+        const appbaseddriver = new AppBasedDriver();
+        const myuser = appbaseddriver.getuser.call(this)
+    
+        if (myuser) {
+    
+            const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+            if (activeequipment) {
+                const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+                if(activeequipment.hasOwnProperty("repayment")) {
+                
+    
+                myuser.equipment[i].repayment.purchase = purchase;
+                this.props.reduxUser(myuser)
+                this.setState({ render: 'render' })
+    
+                } 
+    
+               
+    
+            }
+    
+        }
+    
+    
+    }
+    
+    getpurchase() {
+        const appbaseddriver = new AppBasedDriver();
+        let equipment = "";
+        const myequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+        if(myequipment.hasOwnProperty("repayment")) {
+            equipment = myequipment.repayment.purchase;
+        }
+        
+        return equipment;
+    
+    }
+    
+
 
     handlesalvage(salvage) {
         const appbaseddriver = new AppBasedDriver();
@@ -337,10 +378,16 @@ class ViewEquipment extends Component {
             const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
             if (activeequipment) {
                 const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+                if(activeequipment.hasOwnProperty("repayment")) {
+                
 
-                myuser.equipment[i].salvage = salvage;
+                myuser.equipment[i].repayment.salvage = salvage;
                 this.props.reduxUser(myuser)
                 this.setState({ render: 'render' })
+
+                } 
+
+               
 
             }
 
@@ -353,7 +400,10 @@ class ViewEquipment extends Component {
         const appbaseddriver = new AppBasedDriver();
         let equipment = "";
         const myequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
-        equipment = myequipment.salvage;
+        if(myequipment.hasOwnProperty("repayment")) {
+            equipment = myequipment.repayment.salvage;
+        }
+        
         return equipment;
 
     }
@@ -402,97 +452,49 @@ class ViewEquipment extends Component {
 
 
 
+  
+    handleapr(apr) {
+        const appbaseddriver = new AppBasedDriver();
+        const myuser = appbaseddriver.getuser.call(this)
+    
+        if (myuser) {
+    
+            const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+            if (activeequipment) {
+                const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+                if(activeequipment.hasOwnProperty("repayment")) {
+                
+    
+                myuser.equipment[i].repayment.apr = apr;
+                this.props.reduxUser(myuser)
+                this.setState({ render: 'render' })
+    
+                } 
+    
+               
+    
+            }
+    
+        }
+    
+    
+    }
+    
     getapr() {
         const appbaseddriver = new AppBasedDriver();
-        const equipmentid = this.props.match.params.equipmentid;
-        if (this.state.activecostid) {
-            const cost = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
-            if (cost.hasOwnProperty("loan")) {
-                return cost.loan.apr;
-            }
+        let equipment = "";
+        const myequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+        if(myequipment.hasOwnProperty("repayment")) {
+            equipment = myequipment.repayment.apr;
         }
-
-
+        
+        return equipment;
+    
     }
-
-    handleapr(apr) {
-
-        if (isNumeric(apr)) {
-
-            const appbaseddriver = new AppBasedDriver();
-            const myuser = appbaseddriver.getuser.call(this)
-            if (myuser) {
-                const equipmentid = this.props.match.params.equipmentid;
-                const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
-                if (equipment) {
-                    const i = appbaseddriver.getequipmentkeybyid.call(this, equipmentid)
-                    if (this.state.activecostid) {
-                        const cost = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
-                        if (cost) {
-                            if (cost.hasOwnProperty("loan")) {
-                                const j = appbaseddriver.getequipmentcostkeybyid.call(this, equipmentid, this.state.activecostid)
-                                myuser.equipment[i].costs[j].loan.apr = apr
-                                this.props.reduxUser(myuser)
-                                this.setState({ render: 'render' })
-
-                            }
-
-                        }
-                    }
-
-                }
-            }
-
-        } else {
-            alert(`${apr} should be numeric`)
-        }
-
-    }
+    
 
 
-
-    loanForm() {
-        const appbaseddriver = new AppBasedDriver();
-        const styles = MyStylesheet();
-        const regularFont = appbaseddriver.getRegularFont.call(this)
-        return (
-            <div style={{ ...styles.generalContainer }}>
-
-
-
-                <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
-                    <span style={{ ...regularFont, ...styles.generalFont }}>Interest Rate - APR</span>
-                    <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
-                        value={this.getapr()}
-                        onChange={event => { this.handleapr(event.target.value) }} />
-                </div>
-
-            </div>
-        )
-
-    }
-
-    showactiveform() {
-        const appbaseddriver = new AppBasedDriver();
-        if (this.state.activecostid) {
-            const equipmentid = this.props.match.params.equipmentid;
-            const equipment = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
-            if (equipment) {
-                if (equipment.hasOwnProperty("reoccurring")) {
-
-                    return (this.reoccurringForm())
-
-                } else if (equipment.hasOwnProperty("loan")) {
-
-                    return (this.loanForm())
-
-                }
-
-            }
-        }
-
-    }
-
+  
     removecost(costid) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
@@ -565,30 +567,6 @@ class ViewEquipment extends Component {
                 </div>)
         }
 
-        const reoccurring = (cost) => {
-            return (
-                <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} key={cost.costid} onClick={() => { this.makecostactive(cost.costid) }}>
-                    <div style={{ ...styles.flex1 }}>
-                        <span style={{ ...regularFont, ...styles.generalFont }}>
-                            Cost Type: Reoccurring Purchase Date:{formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: ${cost.amount} Frequency: {cost.reoccurring.frequency} 
-                            <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
-                        </span>
-                    </div>
-                </div>
-            )
-        }
-
-        const loan = (cost) => {
-            return (
-                <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} onClick={() => { this.makecostactive(cost.costid) }}>
-                    <div style={{ ...styles.flex1 }}>
-                        <span style={{ ...regularFont, ...styles.generalFont }}>
-                            Cost Type: Loan, Interest, Payment: {formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: {cost.amount} APR: {cost.loan.apr}  
-                            <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
-                        </span>
-                    </div>
-                </div>)
-        }
 
 
         if (costs) {
@@ -596,15 +574,9 @@ class ViewEquipment extends Component {
             // eslint-disable-next-line
             costs.map(cost => {
 
-                if (cost.hasOwnProperty("reoccurring")) {
 
-                    ids.push(reoccurring(cost))
+                ids.push(singular(cost))
 
-                } else if (cost.hasOwnProperty("loan")) {
-                    ids.push(loan(cost))
-                } else {
-                    ids.push(singular(cost))
-                }
 
 
             })
@@ -613,6 +585,42 @@ class ViewEquipment extends Component {
 
         }
         return ids;
+    }
+    addrepayment() {
+        const appbaseddriver = new AppBasedDriver();
+        const myuser = appbaseddriver.getuser.call(this)
+
+        if (myuser) {
+            const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+            if (equipment) {
+                if (!equipment.hasOwnProperty("repayment")) {
+                    const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+                    const repayment = { purchasedate: getUTCDate(), purchase: 0,  salvagedate: getUTCDate(), salvage: 0, apr: 0 }
+                    myuser.equipment[i].repayment = repayment;
+                    this.props.reduxUser(myuser)
+                  
+
+                }
+                this.setState({showrepayment:true})
+
+            }
+        }
+
+    
+
+    }
+
+
+    removerepayment() {
+
+        if(this.state.showrepayment) {
+            this.setState({showrepayment:false})
+        } else {
+            this.setState({showrepayment:true})
+        }
+
+      
+
     }
 
     render() {
@@ -624,41 +632,170 @@ class ViewEquipment extends Component {
         const buttonWidth = appbaseddriver.radioIconWidth.call(this)
         const equipmentdate = new EquipmentDate();
         const salvagedate = new SalvageDate();
+        const purchasedate = new PurchaseDate();
 
-        const reOccurring = () => {
 
-            if (this.state.activecostid) {
-                const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, this.state.activecostid)
-                if (cost.hasOwnProperty("reoccurring")) {
-                    return (closedRadio())
-                } else {
-                    return (openRadio())
-                }
-            } else {
-                return (openRadio())
-            }
-
-        }
-
-        const loanIcon = () => {
-
-            if (this.state.activecostid) {
-                const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, this.state.activecostid)
-                if (cost.hasOwnProperty("loan")) {
-                    return (closedRadio())
-                } else {
-                    return (openRadio())
-                }
-            } else {
-                return (openRadio())
-            }
-
-        }
 
         if (myuser) {
             const header = new Header();
             const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
             if (equipment) {
+
+                const showpurchase = () => {
+                    if (this.state.width > 1200) {
+                        return (
+                        <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                            <div style={{ ...styles.flex1 }}>
+                                {purchasedate.showdate.call(this)}
+                            </div>
+                            <div style={{ ...styles.flex1 }}>
+                
+                
+                                <span style={{ ...regularFont, ...styles.generalFont }}>Purchase Amount </span>
+                                <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
+                                    value={this.getpurchase()}
+                                    onChange={event => { this.handlepurchase(event.target.value) }}
+                                />
+                
+                
+                            </div>
+                        </div>)
+                
+                    } else {
+                
+                        return (
+                            <div style={{ ...styles.generalFlex }}>
+                                <div style={{ ...styles.flex1 }}>
+                
+                                    <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                        <div style={{ ...styles.flex1 }}>
+                                            {purchasedate.showdate.call(this)}
+                                        </div>
+                                    </div>
+                
+                                    <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                        <div style={{ ...styles.flex1 }}>
+                                            <span style={{ ...regularFont, ...styles.generalFont }}>Purchase Amount </span>
+                                            <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
+                                                value={this.getpurchase()}
+                                                onChange={event => { this.handlepurchase(event.target.value) }}
+                                            />
+                
+                                        </div>
+                                    </div>
+                
+                                </div>
+                            </div>)
+                
+                    }
+                }
+
+
+                const showsalvage = () => {
+                    if (this.state.width > 1200) {
+                        return (
+                        <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                            <div style={{ ...styles.flex1 }}>
+                                {salvagedate.showdate.call(this)}
+                            </div>
+                            <div style={{ ...styles.flex1 }}>
+
+
+                                <span style={{ ...regularFont, ...styles.generalFont }}>Salvage Amount </span>
+                                <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
+                                    value={this.getsalvage()}
+                                    onChange={event => { this.handlesalvage(event.target.value) }}
+                                />
+
+
+                            </div>
+                        </div>)
+
+                    } else {
+
+                        return (
+                            <div style={{ ...styles.generalFlex }}>
+                                <div style={{ ...styles.flex1 }}>
+
+                                    <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                        <div style={{ ...styles.flex1 }}>
+                                            {salvagedate.showdate.call(this)}
+                                        </div>
+                                    </div>
+
+                                    <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                        <div style={{ ...styles.flex1 }}>
+                                            <span style={{ ...regularFont, ...styles.generalFont }}>Salvage Amount </span>
+                                            <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
+                                                value={this.getsalvage()}
+                                                onChange={event => { this.handlesalvage(event.target.value) }}
+                                            />
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>)
+
+                    }
+                }
+
+                const repayment = (equipment) => {
+                    if (equipment.hasOwnProperty("repayment") && this.state.showrepayment) {
+                        return (
+                            <div style={{ ...styles.generalFlex }}>
+                                <div style={{ ...styles.flex1 }}>
+
+                                    <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                        <div style={{ ...styles.flex1 }}>
+                                            &nbsp;
+                                    </div>
+                                        <div style={{ ...styles.flex1 }}>
+                                            &nbsp;
+                                    </div>
+                                    </div>
+
+                                    {showsalvage()}
+
+                                    {showpurchase()}
+
+
+
+                                    <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                        <div style={{ ...styles.flex1 }}>
+
+                                            <span style={{ ...regularFont, ...styles.generalFont }}>Interest Rate - APR</span>
+                                            <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
+                                                value={this.getapr()}
+                                                onChange={event => { this.handleapr(event.target.value) }} />
+
+                                        </div>
+                                        <div style={{ ...styles.flex1 }}>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                        )
+
+                    }
+
+                }
+
+                const geticon = (equipment) => {
+
+                    if (equipment.hasOwnProperty("repayment")) {
+                        return (<button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => { this.removerepayment() }}>{CheckedBox()}</button>)
+                    } else {
+                        return (<button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => { this.addrepayment() }}>{EmptyBox()}</button>)
+                    }
+                }
+
 
                 return (
                     <div style={{ ...styles.generalFlex }}>
@@ -677,36 +814,25 @@ class ViewEquipment extends Component {
                                 </div>
                             </div>
 
-                            {salvagedate.showdate.call(this)}
-
-                            <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
-                                <span style={{ ...regularFont, ...styles.generalFont }}>Salvage Amount </span>
-                                <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
-                                    value={this.getsalvage()}
-                                    onChange={event => { this.handlesalvage(event.target.value) }}
-                                />
-                            </div>
 
 
                             <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                                <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                                <div style={{ ...styles.flex1 }}>
+                                    {geticon(equipment)} <span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>Repayment</span>
+                                </div>
+                            </div>
+
+                            {repayment(equipment)}
+
+
+
+                            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                <div style={{ ...styles.flex1 }}>
                                     <span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>Costs</span>
                                 </div>
                             </div>
 
-                            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-
-                                <div style={{ ...styles.flex1 }}>
-                                    <span style={{ ...styles.generalFont, ...regularFont }} >Reoccurring Cost</span><button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => { this.createcost("reoccurring") }}>{reOccurring()}</button>
-                                </div>
-                                <div style={{ ...styles.flex1 }}>
-                                    <span style={{ ...styles.generalFont, ...regularFont }} >Loan Interest Payment</span><button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => { this.createcost("loan") }}>{loanIcon()}</button>
-                                </div>
-                            </div>
-
-                            {this.showactiveform()}
-
-                            {equipmentdate.showequipment.call(this)}
+                           {equipmentdate.showequipment.call(this)}
 
                             <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
                                 <span style={{ ...regularFont, ...styles.generalFont }}>Detail</span>

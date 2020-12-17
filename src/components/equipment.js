@@ -5,7 +5,6 @@ import MakeID from './makeid';
 import { Link } from 'react-router-dom'
 import {gotoicon} from './svg'
 import Header from './header';
-import {getUTCDate} from './functions'
 
 class Equipment {
 
@@ -15,8 +14,8 @@ class Equipment {
         const makeid = new MakeID();
         if (myuser) {
 
-            const newEquipment = (equipmentid, equipment, salvagedate,salvage) => {
-                return ({ equipmentid, equipment, salvagedate, salvage })
+            const newEquipment = (equipmentid, equipment) => {
+                return ({ equipmentid, equipment})
             }
 
             if (this.state.activeequipmentid) {
@@ -33,8 +32,8 @@ class Equipment {
 
             } else {
                 const equipmentid = makeid.equipmentid.call(this)
-                const salvagedate = getUTCDate();
-                const myequipment = newEquipment(equipmentid, value, salvagedate,0)
+             
+                const myequipment = newEquipment(equipmentid, value)
                 const getequipment = appbaseddriver.getequipment.call(this)
                 if (getequipment) {
 

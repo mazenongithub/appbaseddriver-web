@@ -1,16 +1,16 @@
 import React from 'react';
 import { MyStylesheet } from './styles'
 import AppBasedDriver from './appbaseddriver';
-import SalvageCalender from './salvagecalender'
+import PurchaseCalender from './purchasecalender'
 import { validateMonth, validateDate, validateYear, isNumeric } from './functions';
 
-class SalvageDate {
+class PurchaseDate {
 
     handleyear(year) {
 
         if (isNumeric(year)) {
 
-            this.setState({ salvageyear: year })
+            this.setState({ purchaseyear: year })
 
             const appbaseddriver = new AppBasedDriver();
 
@@ -33,10 +33,10 @@ class SalvageDate {
                             if (validateYear(year)) {
 
 
-                                let day = this.state.salvageday;
-                                let month = this.state.salvagemonth;
+                                let day = this.state.purchaseday;
+                                let month = this.state.purchasemonth;
                                 const timein = `${year}-${month}-${day}`
-                                myuser.equipment[i].repayment.salvagedate = timein;
+                                myuser.equipment[i].repayment.purchasedate = timein;
                                 this.props.reduxUser(myuser);
                                 this.setState({ render: 'render' })
 
@@ -68,7 +68,7 @@ class SalvageDate {
     handleday(day) {
         if (isNumeric(day)) {
             day = day.toString();
-            this.setState({ salvageday: day })
+            this.setState({ purchaseday: day })
             const appbaseddriver = new AppBasedDriver();
             const myuser = appbaseddriver.getuser.call(this)
             if (myuser) {
@@ -85,10 +85,10 @@ class SalvageDate {
                             if (validateDate(day)) {
 
 
-                                let year = this.state.salvageyear;
-                                let month = this.state.salvagemonth;
+                                let year = this.state.purchaseyear;
+                                let month = this.state.purchasemonth;
                                 const timein = `${year}-${month}-${day}`
-                                myuser.equipment[i].repayment.salvagedate = timein;
+                                myuser.equipment[i].repayment.purchasedate = timein;
                                 this.props.reduxUser(myuser);
                                 this.setState({ render: 'render' })
 
@@ -120,7 +120,7 @@ class SalvageDate {
     handlemonth(month) {
         if (isNumeric(month)) {
 
-            this.setState({ salvagemonth: month })
+            this.setState({ purchasemonth: month })
             const appbaseddriver = new AppBasedDriver();
             const myuser = appbaseddriver.getuser.call(this)
             if (myuser) {
@@ -138,10 +138,10 @@ class SalvageDate {
                             if (validateMonth(month)) {
 
 
-                                let day = this.state.salvageday;
-                                let year = this.state.salvageyear;
+                                let day = this.state.purchaseday;
+                                let year = this.state.purchaseyear;
                                 const timein = `${year}-${month}-${day}`
-                                myuser.equipment[i].repayment.salvagedate = timein;
+                                myuser.equipment[i].repayment.purchasedate = timein;
                                 this.props.reduxUser(myuser);
                                 this.setState({ render: 'render' })
 
@@ -172,71 +172,71 @@ class SalvageDate {
         const appbaseddriver = new AppBasedDriver();
         const headerFont = appbaseddriver.getHeaderFont.call(this)
         const regularFont = appbaseddriver.getRegularFont.call(this)
-        const equipment = new SalvageDate();
-        const calender = new SalvageCalender();
+        const equipment = new PurchaseDate();
+        const calender = new PurchaseCalender();
 
         const getequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
         if (getequipment) {
-            if(getequipment.hasOwnProperty("repayment")) {
+            if (getequipment.hasOwnProperty("repayment")) {
 
-            if (getequipment.repayment.salvagedate) {
+                if (getequipment.repayment.purchasedate) {
 
-                if (!this.state.salvageday || !this.state.salvageyear || !this.state.salvageday) {
+                    if (!this.state.purchaseday || !this.state.purchaseyear || !this.state.purchaseday) {
 
-                    const dates = getequipment.repayment.salvagedate.split('-')
-                    const year = dates[0]
-                    const month = dates[1]
-                    const day = dates[2]
-                    this.setState({ salvageyear: year, salvagemonth: month, salvageday: day })
+                        const dates = getequipment.repayment.purchasedate.split('-')
+                        const year = dates[0]
+                        const month = dates[1]
+                        const day = dates[2]
+                        this.setState({ purchaseyear: year, purchasemonth: month, purchaseday: day })
+                    }
+
                 }
 
             }
-
-        }
         }
 
 
 
         return (
             <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                <div style={{ ...styles.flex1 }}>
+                <div style={{ ...styles.flex1}}>
 
-                    <div style={{...styles.generalContainer,...styles.calenderContainer,...styles.marginAuto}}>
+                <div style={{...styles.generalContainer,...styles.calenderContainer,...styles.marginAuto}}>
 
                     <div style={{ ...styles.generalFlex }}>
                         <div style={{ ...styles.flex1 }}>
-                            <span style={{ ...styles.generalFont, ...regularFont }}>Salvage Date (MM-DD-YYYY) </span>
+                            <span style={{ ...styles.generalFont, ...regularFont }}>Purchase Date (MM-DD-YYYY) </span>
                         </div>
                     </div>
 
                     <div style={{ ...styles.generalFlex }}>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
-                            <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }} value={this.state.salvagemonth}
+                            <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }} value={this.state.purchasemonth}
                                 onChange={event => { equipment.handlemonth.call(this, event.target.value) }} />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
-                                value={this.state.salvageday}
+                                value={this.state.purchaseday}
                                 onChange={event => { equipment.handleday.call(this, event.target.value) }} />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
-                                value={this.state.salvageyear}
+                                value={this.state.purchaseyear}
                                 onChange={event => { equipment.handleyear.call(this, event.target.value) }} />
                         </div>
 
 
                     </div>
                     {calender.showEquipmentCalender.call(this)}
-</div>
 
+                </div>
                 </div>
             </div>)
     }
 
 }
 
-export default SalvageDate;
+export default PurchaseDate;

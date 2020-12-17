@@ -4,7 +4,7 @@ import AppBasedDriver from './appbaseddriver';
 import MakeID from './makeid';
 import TimeIn from './timein';
 import TimeOut from './timeout'
-import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID } from './functions'
+import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric } from './functions'
 import { removeIconSmall } from './svg'
 import Header from './header';
 class Driver {
@@ -22,7 +22,7 @@ class Driver {
 
 
 
-    createnewshift(earnings, deliveries) {
+    createnewshift(earnings, deliveries, miles) {
 
         const makeid = new MakeID();
         const appbaseddriver = new AppBasedDriver()
@@ -44,12 +44,12 @@ class Driver {
         let timeout = makeTimeString(yearout, monthout, dayout, hoursout, minutesout, timetimeout);
         timeout = UTCTimeStringfromTime(timeout);
 
-        const newShift = (shiftid, timein, timeout, earnings, deliveries) => {
-            return ({ shiftid, timein, timeout, earnings, deliveries })
+        const newShift = (shiftid, timein, timeout, earnings, deliveries, miles) => {
+            return ({ shiftid, timein, timeout, earnings, deliveries,miles })
         }
         const myuser = appbaseddriver.getuser.call(this)
         if (myuser) {
-            const createShift = newShift(shiftid, timein, timeout, earnings, deliveries)
+            const createShift = newShift(shiftid, timein, timeout, earnings, deliveries,miles)
             if (myuser.hasOwnProperty("driver")) {
 
                 if (myuser.driver.hasOwnProperty("shifts")) {
@@ -74,6 +74,7 @@ class Driver {
     }
 
     handleearnings(earnings) {
+        if(isNumeric(earnings)) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
         const driver = new Driver();
@@ -92,18 +93,22 @@ class Driver {
 
                 } else {
 
-                    driver.createnewshift.call(this, earnings, "")
+                    driver.createnewshift.call(this, earnings, 0,0)
 
 
                 }
 
 
             } else {
-                driver.createnewshift.call(this, earnings, "")
+                driver.createnewshift.call(this, earnings, 0,0)
 
             }
 
         }
+
+    } else {
+        alert(`${earnings} should be numeric`)
+    }
 
 
     }
@@ -122,6 +127,7 @@ class Driver {
 
 
     handledeliveries(deliveries) {
+        if(isNumeric(deliveries)) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
         const driver = new Driver();
@@ -140,20 +146,76 @@ class Driver {
 
                 } else {
 
-                    driver.createnewshift.call(this, 0, deliveries)
+                    driver.createnewshift.call(this, 0, deliveries,0)
 
 
                 }
 
 
             } else {
-                driver.createnewshift.call(this, 0, deliveries)
+                driver.createnewshift.call(this, 0, deliveries,0)
 
             }
 
         }
 
+    } else {
+        alert(`${deliveries} should be numeric`)
+    }
 
+    }
+
+
+    getmiles() {
+        const appbaseddriver = new AppBasedDriver();
+        let miles = "";
+        if (this.state.activeshiftid) {
+            const shift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid)
+            miles = shift.miles;
+    
+        }
+        return miles;
+    }
+    
+    
+    handlemiles(miles) {
+        if(isNumeric(miles)) {
+        const appbaseddriver = new AppBasedDriver();
+        const myuser = appbaseddriver.getuser.call(this)
+        const driver = new Driver();
+        if (myuser) {
+            if (myuser.hasOwnProperty("driver")) {
+    
+                if (this.state.activeshiftid) {
+                    const shift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid)
+                    if (shift) {
+                        const i = appbaseddriver.getshiftkeybyid.call(this, this.state.activeshiftid)
+                        myuser.driver.shifts[i].miles = miles;
+                        this.props.reduxUser(myuser)
+                        this.setState({ render: 'render' })
+    
+                    }
+    
+                } else {
+    
+                    driver.createnewshift.call(this, 0, 0,miles)
+    
+    
+                }
+    
+    
+            } else {
+                driver.createnewshift.call(this, 0, 0,miles)
+    
+            }
+    
+        }
+
+    } else {
+        alert(`${miles} should be numeric `)
+    }
+    
+    
     }
 
     makeshiftactive(shiftid) {
@@ -203,7 +265,7 @@ class Driver {
 
             return (<div style={{ ...styles.generalFlex }} key={shift.shiftid}>
                 <span style={{ ...regularFont, ...styles.generalFont, ...activebackground(shift.shiftid) }} onClick={() => { driver.makeshiftactive.call(this, shift.shiftid) }}>
-                    TimeIn: {inputUTCStringForLaborID(shift.timein)} TimeOut: {inputUTCStringForLaborID(shift.timeout)} Earnings: ${shift.earnings} Deliveries: {shift.deliveries}
+                    TimeIn: {inputUTCStringForLaborID(shift.timein)} TimeOut: {inputUTCStringForLaborID(shift.timeout)} Earnings: ${shift.earnings} Deliveries: {shift.deliveries} Miles: {shift.miles}
                 </span>
                 <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(shift.shiftid) }} onClick={() => { driver.removeshift.call(this, shift.shiftid) }}>{removeIconSmall()}</button>
             </div>)
@@ -300,18 +362,25 @@ const header = new Header();
 
 
                         <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                            <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                            <div style={{ ...styles.flex1, ...styles.alignCenter, ...styles.addMargin }}>
                                 <span style={{ ...styles.generalFont, ...regularFont }}>Earnings</span>
                                 <input
                                     value={driver.getearnings.call(this)}
                                     onChange={event => { driver.handleearnings.call(this, event.target.value) }}
                                     type="text" style={{ ...styles.generalFont, ...regularFont, ...styles.generalField }} />
                             </div>
-                            <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                            <div style={{ ...styles.flex1, ...styles.alignCenter, ...styles.addMargin }}>
                                 <span style={{ ...styles.generalFont, ...regularFont }}>Deliveries</span>
                                 <input type="text" style={{ ...styles.generalFont, ...regularFont, ...styles.generalField }}
                                     value={driver.getdeliveries.call(this)}
                                     onChange={event => { driver.handledeliveries.call(this, event.target.value) }}
+                                />
+                            </div>
+                            <div style={{ ...styles.flex1, ...styles.alignCenter, ...styles.addMargin }}>
+                                <span style={{ ...styles.generalFont, ...regularFont }}>Miles</span>
+                                <input type="text" style={{ ...styles.generalFont, ...regularFont, ...styles.generalField }}
+                                    value={driver.getmiles.call(this)}
+                                    onChange={event => { driver.handlemiles.call(this, event.target.value) }}
                                 />
                             </div>
                         </div>

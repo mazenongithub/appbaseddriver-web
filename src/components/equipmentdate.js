@@ -176,11 +176,13 @@ class EquipmentDate {
         const calender = new EquipmentCalender();
         return (
             <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                <div style={{ ...styles.flex1, ...styles.calenderContainer }}>
+                <div style={{ ...styles.flex1 }}>
+
+                <div style={{...styles.generalContainer,...styles.calenderContainer,...styles.marginAuto}}>
 
                     <div style={{ ...styles.generalFlex }}>
                         <div style={{ ...styles.flex1 }}>
-                            <span style={{ ...styles.generalFont, ...regularFont }}>Purchase Date (MM-DD-YYYY) </span>
+                            <span style={{ ...styles.generalFont, ...regularFont }}>Date of Cost (MM-DD-YYYY) </span>
                         </div>
                     </div>
 
@@ -207,7 +209,7 @@ class EquipmentDate {
                     </div>
                     {calender.showEquipmentCalender.call(this)}
 
-
+                    </div>
                 </div>
             </div>)
     }
