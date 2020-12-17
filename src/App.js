@@ -25,6 +25,8 @@ class App extends Component {
   }
   componentDidMount() {
     window.addEventListener('resize', this.updateWindowDimensions);
+    document.title = `App-Based Driver`
+    document.description = `Manage your App-Based Driver business with CivilEngineer.io. Create Profile, Add Equipment, Add Repayment, Add Costs, Add Shifts, Mileage, Delivery, Earnings, View, Net Earnings, Earnings/Delivery, Cost Per Delivery, Earnings/HR, Cost/Hr, Earnings/Mile, Cost/Mile`
     const config = () => {
       return ({
         apiKey: "AIzaSyDO-cDb5lRjsaD4ft0It270li1_uNa42BA",
