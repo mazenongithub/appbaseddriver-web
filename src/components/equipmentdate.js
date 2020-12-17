@@ -7,8 +7,9 @@ import { validateMonth, validateDate, validateYear, isNumeric } from './function
 class EquipmentDate {
 
     handleyear(year) {
-        if(isNumeric(year)) {
         this.setState({ equipmentyear: year })
+        if(isNumeric(year)) {
+       
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
         if (myuser) {
@@ -58,9 +59,10 @@ class EquipmentDate {
     }
 
     handleday(day) {
+        this.setState({ equipmentday: day })
         if(isNumeric(day)) {
         day = day.toString();
-        this.setState({ equipmentday: day })
+      
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
         if (myuser) {
@@ -109,9 +111,11 @@ class EquipmentDate {
     }
     }
 
+
     handlemonth(month) {
-        if(isNumeric(month)) {
         this.setState({ equipmentmonth: month })
+        if(isNumeric(month)) {
+        
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
         if (myuser) {

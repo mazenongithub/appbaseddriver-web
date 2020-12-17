@@ -7,10 +7,10 @@ import { validateMonth, validateDate, validateYear, isNumeric } from './function
 class SalvageDate {
 
     handleyear(year) {
-
+        this.setState({ salvageyear: year })
         if (isNumeric(year)) {
 
-            this.setState({ salvageyear: year })
+           
 
             const appbaseddriver = new AppBasedDriver();
 
@@ -66,9 +66,10 @@ class SalvageDate {
 
 
     handleday(day) {
+        this.setState({ salvageday: day })
         if (isNumeric(day)) {
             day = day.toString();
-            this.setState({ salvageday: day })
+            
             const appbaseddriver = new AppBasedDriver();
             const myuser = appbaseddriver.getuser.call(this)
             if (myuser) {
@@ -118,9 +119,10 @@ class SalvageDate {
     }
 
     handlemonth(month) {
+        this.setState({ salvagemonth: month })
         if (isNumeric(month)) {
 
-            this.setState({ salvagemonth: month })
+          
             const appbaseddriver = new AppBasedDriver();
             const myuser = appbaseddriver.getuser.call(this)
             if (myuser) {
