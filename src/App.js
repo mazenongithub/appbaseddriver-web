@@ -43,13 +43,9 @@ class App extends Component {
     this.updateWindowDimensions();
     this.timeindefault();
     this.timeoutdefault();
-    this.checkuser()
-    
-  
-   
-
-
+    this.checkuser() 
   }
+  
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions);
   }

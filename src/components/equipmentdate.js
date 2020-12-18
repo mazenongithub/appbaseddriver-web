@@ -194,19 +194,24 @@ class EquipmentDate {
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }} value={this.state.equipmentmonth}
-                                onChange={event => { equipment.handlemonth.call(this, event.target.value) }} />
+                                onChange={event => { equipment.handlemonth.call(this, event.target.value) }} 
+                                onFocus={(event)=>{event.target.select()}}
+                                />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.equipmentday}
-                                onChange={event => { equipment.handleday.call(this, event.target.value) }} />
+                                onChange={event => { equipment.handleday.call(this, event.target.value) }}
+                                onFocus={(event)=>{event.target.select()}}/>
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.equipmentyear}
-                                onChange={event => { equipment.handleyear.call(this, event.target.value) }} />
+                                onChange={event => { equipment.handleyear.call(this, event.target.value) }} 
+                                onFocus={(event)=>{event.target.select()}}
+                                />
                         </div>
                         
                        

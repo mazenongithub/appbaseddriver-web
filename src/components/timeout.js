@@ -264,14 +264,14 @@ class TimeOut {
         const timeout = new TimeOut();
         const showam = () => {
             return (<div style={{ ...styles.generalContainer }}>
-                <button style={{ ...styles.headerFamily, ...headerFont, ...styles.boldFont, ...styles.alignCenter, ...appbaseddriver.getampmicon.call(this) }} onClick={() => { timeout.toggleampm.call(this, 'pm') }}>AM</button>
+                <button style={{ ...styles.headerFamily, ...headerFont, ...styles.boldFont, ...styles.alignCenter, ...styles.generalPadding }} onClick={() => { timeout.toggleampm.call(this, 'pm') }}>AM</button>
             </div>)
 
         }
         const showpm = () => {
 
             return (<div style={{ ...styles.generalContainer }}>
-                <button style={{ ...styles.headerFamily, ...headerFont, ...styles.boldFont, ...styles.alignCenter, ...appbaseddriver.getampmicon.call(this) }} onClick={() => { timeout.toggleampm.call(this, 'am') }}>PM</button>
+                <button style={{ ...styles.headerFamily, ...headerFont, ...styles.boldFont, ...styles.alignCenter, ...styles.generalPadding }} onClick={() => { timeout.toggleampm.call(this, 'am') }}>PM</button>
             </div>)
 
         }

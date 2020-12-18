@@ -264,14 +264,14 @@ class TimeIn {
         const timein = new TimeIn();
         const showam = () => {
             return (<div style={{ ...styles.generalContainer }}>
-                <button style={{ ...styles.headerFamily, ...headerFont, ...styles.boldFont, ...styles.alignCenter, ...appbaseddriver.getampmicon.call(this) }} onClick={() => { timein.toggleampm.call(this, 'pm') }}>AM</button>
+                <button style={{ ...styles.headerFamily, ...headerFont, ...styles.boldFont, ...styles.alignCenter, ...styles.generalPadding }} onClick={() => { timein.toggleampm.call(this, 'pm') }}>AM</button>
             </div>)
 
         }
         const showpm = () => {
 
             return (<div style={{ ...styles.generalContainer }}>
-                <button style={{ ...styles.headerFamily, ...headerFont, ...styles.boldFont, ...styles.alignCenter, ...appbaseddriver.getampmicon.call(this) }} onClick={() => { timein.toggleampm.call(this, 'am') }}>PM</button>
+                <button style={{ ...styles.headerFamily, ...styles.generalPadding, ...headerFont, ...styles.boldFont, ...styles.alignCenter }} onClick={() => { timein.toggleampm.call(this, 'am') }}>PM</button>
             </div>)
 
         }
@@ -310,31 +310,40 @@ class TimeIn {
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }} 
                                  value={this.state.timeinmonth}
-                                onChange={event => { timein.handlemonth.call(this, event.target.value) }} />
+                                onChange={event => { timein.handlemonth.call(this, event.target.value) }}
+                                onFocus={(event)=>{event.target.select()}} />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.timeinday}
-                                onChange={event => { timein.handleday.call(this, event.target.value) }} />
+                                onChange={event => { timein.handleday.call(this, event.target.value) }} 
+                                onFocus={(event)=>{event.target.select()}}
+                                />
                         </div>
                         <div style={{ ...styles.flex2, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.timeinyear}
-                                onChange={event => { timein.handleyear.call(this, event.target.value) }} />
+                                onChange={event => { timein.handleyear.call(this, event.target.value) }} 
+                                onFocus={(event)=>{event.target.select()}}
+                                />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.timeinhours}
-                                onChange={event => { timein.handlehours.call(this, event.target.value) }} />
+                                onChange={event => { timein.handlehours.call(this, event.target.value) }}
+                                onFocus={(event)=>{event.target.select()}} />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.timeinminutes}
-                                onChange={event => { timein.handleminutes.call(this, event.target.value) }}
+                                onChange={event => { timein.handleminutes.call(this, event.target.value)
+                                 }}
+                                 onFocus={(event)=>{event.target.select()}}
+                                 
                             />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>

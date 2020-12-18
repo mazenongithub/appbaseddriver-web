@@ -16,7 +16,7 @@ class ViewEquipment extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: false, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: false,purchasecalender:false, showrepayment: true, purchaseday:'',purchasemonth:'', purchaseyear:'' }
+        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: false, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: false, purchasecalender: false, showrepayment: true, purchaseday: '', purchasemonth: '', purchaseyear: '' }
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
     }
     componentDidMount() {
@@ -61,93 +61,7 @@ class ViewEquipment extends Component {
 
 
 
-    createcost(costType) {
-
-        const makeid = new MakeID();
-        const appbaseddriver = new AppBasedDriver();
-        const myuser = appbaseddriver.getuser.call(this)
-        if (myuser) {
-            const equipmentid = this.props.match.params.equipmentid;
-            const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
-            if (equipment) {
-
-                const i = appbaseddriver.getequipmentkeybyid.call(this, equipmentid)
-
-                if (this.state.activecostid) {
-
-                    const mycost = appbaseddriver.getequipmentcostbyid.call(this, equipmentid, this.state.activecostid)
-                    if (mycost) {
-                        const j = appbaseddriver.getequipmentcostkeybyid.call(this, equipmentid, this.state.activecostid)
-
-                        switch (costType) {
-
-                            case 'reoccurring':
-                                const reoccurring = { interval: 0, frequency: '' }
-                                myuser.equipment[i].costs[j].reoccurring = reoccurring;
-                                delete myuser.equipment[i].costs[j].loan
-                                break;
-                            case 'loan':
-                                const loan = { apr: 0, months: 0 }
-                                myuser.equipment[i].costs[j].loan = loan
-                                delete myuser.equipment[i].costs[j].reoccurring
-                                break;
-                            default:
-                                break;
-
-                        }
-
-                        this.props.reduxUser(myuser)
-                        this.setState({ render: 'render' })
-                    }
-
-                } else {
-
-
-                    const newCost = (costid, costType, purchasedate) => {
-                        switch (costType) {
-
-                            case 'reoccurring':
-                                const reoccurring = { interval: 0, frequency: '' }
-                                return ({ costid, amount: 0, purchasedate, detail: '', reoccurring })
-                            case 'loan':
-                                const loan = { apr: 0, months: 0 }
-                                return ({ costid, purchasedate, amount: 0, detail: '', loan })
-                            default:
-                                break;
-
-                        }
-
-                    }
-                    const costid = makeid.costid.call(this, equipmentid)
-                    const costs = appbaseddriver.getequipmentscosts.call(this, equipmentid)
-                    const year = this.state.equipmentyear;
-                    const day = this.state.equipmentday;
-                    const month = this.state.equipmentmonth;
-                    const purchasedate = `${year}-${month}-${day}`;
-                    const newcost = newCost(costid, costType, purchasedate)
-                    if (costs) {
-                        myuser.equipment[i].costs.push(newcost)
-
-                    } else {
-
-                        myuser.equipment[i].costs = [newcost]
-                    }
-
-                    this.props.reduxUser(myuser)
-                    this.setState({ activecostid: costid })
-
-
-                }
-
-
-            }
-
-        }
-
-    }
-
-
-
+   
     getdetail() {
         const appbaseddriver = new AppBasedDriver();
         const equipmentid = this.props.match.params.equipmentid;
@@ -331,42 +245,42 @@ class ViewEquipment extends Component {
     handlepurchase(purchase) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
-    
+
         if (myuser) {
-    
+
             const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
             if (activeequipment) {
                 const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
-                if(activeequipment.hasOwnProperty("repayment")) {
-                
-    
-                myuser.equipment[i].repayment.purchase = purchase;
-                this.props.reduxUser(myuser)
-                this.setState({ render: 'render' })
-    
-                } 
-    
-               
-    
+                if (activeequipment.hasOwnProperty("repayment")) {
+
+
+                    myuser.equipment[i].repayment.purchase = purchase;
+                    this.props.reduxUser(myuser)
+                    this.setState({ render: 'render' })
+
+                }
+
+
+
             }
-    
+
         }
-    
-    
+
+
     }
-    
+
     getpurchase() {
         const appbaseddriver = new AppBasedDriver();
         let equipment = "";
         const myequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
-        if(myequipment.hasOwnProperty("repayment")) {
+        if (myequipment.hasOwnProperty("repayment")) {
             equipment = myequipment.repayment.purchase;
         }
-        
+
         return equipment;
-    
+
     }
-    
+
 
 
     handlesalvage(salvage) {
@@ -378,16 +292,16 @@ class ViewEquipment extends Component {
             const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
             if (activeequipment) {
                 const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
-                if(activeequipment.hasOwnProperty("repayment")) {
-                
+                if (activeequipment.hasOwnProperty("repayment")) {
 
-                myuser.equipment[i].repayment.salvage = salvage;
-                this.props.reduxUser(myuser)
-                this.setState({ render: 'render' })
 
-                } 
+                    myuser.equipment[i].repayment.salvage = salvage;
+                    this.props.reduxUser(myuser)
+                    this.setState({ render: 'render' })
 
-               
+                }
+
+
 
             }
 
@@ -400,10 +314,10 @@ class ViewEquipment extends Component {
         const appbaseddriver = new AppBasedDriver();
         let equipment = "";
         const myequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
-        if(myequipment.hasOwnProperty("repayment")) {
+        if (myequipment.hasOwnProperty("repayment")) {
             equipment = myequipment.repayment.salvage;
         }
-        
+
         return equipment;
 
     }
@@ -452,49 +366,49 @@ class ViewEquipment extends Component {
 
 
 
-  
+
     handleapr(apr) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
-    
+
         if (myuser) {
-    
+
             const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
             if (activeequipment) {
                 const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
-                if(activeequipment.hasOwnProperty("repayment")) {
-                
-    
-                myuser.equipment[i].repayment.apr = apr;
-                this.props.reduxUser(myuser)
-                this.setState({ render: 'render' })
-    
-                } 
-    
-               
-    
+                if (activeequipment.hasOwnProperty("repayment")) {
+
+
+                    myuser.equipment[i].repayment.apr = apr;
+                    this.props.reduxUser(myuser)
+                    this.setState({ render: 'render' })
+
+                }
+
+
+
             }
-    
+
         }
-    
-    
+
+
     }
-    
+
     getapr() {
         const appbaseddriver = new AppBasedDriver();
         let equipment = "";
         const myequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
-        if(myequipment.hasOwnProperty("repayment")) {
+        if (myequipment.hasOwnProperty("repayment")) {
             equipment = myequipment.repayment.apr;
         }
-        
+
         return equipment;
-    
+
     }
-    
 
 
-  
+
+
     removecost(costid) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
@@ -595,31 +509,58 @@ class ViewEquipment extends Component {
             if (equipment) {
                 if (!equipment.hasOwnProperty("repayment")) {
                     const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
-                    const repayment = { purchasedate: getUTCDate(), purchase: 0,  salvagedate: getUTCDate(), salvage: 0, apr: 0 }
+                    const repayment = { purchasedate: getUTCDate(), purchase: 0, salvagedate: getUTCDate(), salvage: 0, apr: 0 }
                     myuser.equipment[i].repayment = repayment;
                     this.props.reduxUser(myuser)
-                  
+
 
                 }
-                this.setState({showrepayment:true})
+                this.setState({ showrepayment: true })
 
             }
         }
 
-    
+
+
+    }
+
+    handlereoccurring() {
+        const appbaseddriver = new AppBasedDriver();
+        const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+        const myuser = appbaseddriver.getuser.call(this)
+        if (myuser) {
+            if (equipment) {
+                const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+                if (this.state.activecostid) {
+                    const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, this.state.activecostid)
+                    if (cost) {
+                        const j = appbaseddriver.getequipmentcostkeybyid.call(this, this.props.match.params.equipmentid, this.state.activecostid)
+                        if (cost.hasOwnProperty("reoccurring")) {
+                            delete myuser.equipment[i].costs[j].reoccurring
+                        } else {
+                            myuser.equipment[i].costs[j].reoccurring = { frequency: '' }
+                        }
+                        this.props.reduxUser(myuser)
+                        this.setState({ render: 'render' })
+
+                    }
+                }
+            }
+
+        }
 
     }
 
 
     removerepayment() {
 
-        if(this.state.showrepayment) {
-            this.setState({showrepayment:false})
+        if (this.state.showrepayment) {
+            this.setState({ showrepayment: false })
         } else {
-            this.setState({showrepayment:true})
+            this.setState({ showrepayment: true })
         }
 
-      
+
 
     }
 
@@ -644,35 +585,35 @@ class ViewEquipment extends Component {
                 const showpurchase = () => {
                     if (this.state.width > 1200) {
                         return (
-                        <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                            <div style={{ ...styles.flex1 }}>
-                                {purchasedate.showdate.call(this)}
-                            </div>
-                            <div style={{ ...styles.flex1 }}>
-                
-                
-                                <span style={{ ...regularFont, ...styles.generalFont }}>Purchase Amount </span>
-                                <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
-                                    value={this.getpurchase()}
-                                    onChange={event => { this.handlepurchase(event.target.value) }}
-                                />
-                
-                
-                            </div>
-                        </div>)
-                
+                            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                <div style={{ ...styles.flex1 }}>
+                                    {purchasedate.showdate.call(this)}
+                                </div>
+                                <div style={{ ...styles.flex1 }}>
+
+
+                                    <span style={{ ...regularFont, ...styles.generalFont }}>Purchase Amount </span>
+                                    <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
+                                        value={this.getpurchase()}
+                                        onChange={event => { this.handlepurchase(event.target.value) }}
+                                    />
+
+
+                                </div>
+                            </div>)
+
                     } else {
-                
+
                         return (
                             <div style={{ ...styles.generalFlex }}>
                                 <div style={{ ...styles.flex1 }}>
-                
+
                                     <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                                         <div style={{ ...styles.flex1 }}>
                                             {purchasedate.showdate.call(this)}
                                         </div>
                                     </div>
-                
+
                                     <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                                         <div style={{ ...styles.flex1 }}>
                                             <span style={{ ...regularFont, ...styles.generalFont }}>Purchase Amount </span>
@@ -680,13 +621,13 @@ class ViewEquipment extends Component {
                                                 value={this.getpurchase()}
                                                 onChange={event => { this.handlepurchase(event.target.value) }}
                                             />
-                
+
                                         </div>
                                     </div>
-                
+
                                 </div>
                             </div>)
-                
+
                     }
                 }
 
@@ -694,22 +635,22 @@ class ViewEquipment extends Component {
                 const showsalvage = () => {
                     if (this.state.width > 1200) {
                         return (
-                        <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                            <div style={{ ...styles.flex1 }}>
-                                {salvagedate.showdate.call(this)}
-                            </div>
-                            <div style={{ ...styles.flex1 }}>
+                            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                <div style={{ ...styles.flex1 }}>
+                                    {salvagedate.showdate.call(this)}
+                                </div>
+                                <div style={{ ...styles.flex1 }}>
 
 
-                                <span style={{ ...regularFont, ...styles.generalFont }}>Salvage Amount </span>
-                                <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
-                                    value={this.getsalvage()}
-                                    onChange={event => { this.handlesalvage(event.target.value) }}
-                                />
+                                    <span style={{ ...regularFont, ...styles.generalFont }}>Salvage Amount </span>
+                                    <input type="text" style={{ ...regularFont, ...styles.generalFont, ...styles.generalField }}
+                                        value={this.getsalvage()}
+                                        onChange={event => { this.handlesalvage(event.target.value) }}
+                                    />
 
 
-                            </div>
-                        </div>)
+                                </div>
+                            </div>)
 
                     } else {
 
@@ -787,12 +728,58 @@ class ViewEquipment extends Component {
 
                 }
 
-                const geticon = (equipment) => {
+                const getreoccuring = (equipment) => {
 
-                    if (equipment.hasOwnProperty("repayment")) {
-                        return (<button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => { this.removerepayment() }}>{CheckedBox()}</button>)
+                    if (this.state.activecostid) {
+                        const cost = appbaseddriver.getequipmentcostbyid.call(this, equipment.equipmentid, this.state.activecostid)
+                        if (cost) {
+                            if (cost.hasOwnProperty("reoccurring")) {
+                                return (CheckedBox())
+
+                            } else {
+                                return (EmptyBox())
+                            }
+                        } else {
+                            return (EmptyBox())
+                        }
                     } else {
-                        return (<button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => { this.addrepayment() }}>{EmptyBox()}</button>)
+                        return (EmptyBox())
+                    }
+
+                }
+
+                const frequency = (equipment) => {
+                    if (this.state.activecostid) {
+                        const cost = appbaseddriver.getequipmentcostbyid.call(this, equipment.equipmentid, this.state.activecostid)
+                        if (cost.hasOwnProperty("reoccurring")) {
+                            return (<select style={{ ...styles.generalField, ...regularFont, ...styles.generalFont }} 
+                            onChange={event=>{this.handlefrequency(event.target.value)}}
+                            value={this.getfrequency()}>
+                                <option value={false}>Select Frequency</option>
+                                <option value={`day`}>Daily</option>
+                                <option value={`week`}>Weekly</option>
+                                <option value={`month`}>Monthly</option>
+                                <option value={`year`}>Year</option>
+                            </select>)
+                        }
+                    }
+
+                }
+
+
+                const Reoccurring = (equipment) => {
+
+                    if (this.state.activecostid) {
+                        return (<div style={{ ...styles.generalContainer }}>
+                            <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlereoccurring()}> {getreoccuring(equipment)}</button>
+                            <span style={{ ...regularFont, ...styles.generalFont }}>
+                                Reoccurring Cost
+                            </span>
+                            {frequency(equipment)}
+
+
+                        </div>
+                        )
                     }
                 }
 
@@ -816,11 +803,6 @@ class ViewEquipment extends Component {
 
 
 
-                            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                                <div style={{ ...styles.flex1 }}>
-                                    {geticon(equipment)} <span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>Repayment</span>
-                                </div>
-                            </div>
 
                             {repayment(equipment)}
 
@@ -832,7 +814,7 @@ class ViewEquipment extends Component {
                                 </div>
                             </div>
 
-                           {equipmentdate.showequipment.call(this)}
+                            {equipmentdate.showequipment.call(this)}
 
                             <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
                                 <span style={{ ...regularFont, ...styles.generalFont }}>Detail</span>
@@ -850,6 +832,7 @@ class ViewEquipment extends Component {
                                 />
                             </div>
 
+                            {Reoccurring(equipment)}
 
                             <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                                 <div style={{ ...styles.flex1, ...styles.alignCenter }}>

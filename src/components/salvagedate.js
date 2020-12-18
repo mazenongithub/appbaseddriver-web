@@ -215,18 +215,21 @@ class SalvageDate {
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }} value={this.state.salvagemonth}
+                                onFocus={(event)=>{event.target.select()}}
                                 onChange={event => { equipment.handlemonth.call(this, event.target.value) }} />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.salvageday}
+                                onFocus={(event)=>{event.target.select()}}
                                 onChange={event => { equipment.handleday.call(this, event.target.value) }} />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.salvageyear}
+                                onFocus={(event)=>{event.target.select()}}
                                 onChange={event => { equipment.handleyear.call(this, event.target.value) }} />
                         </div>
 
