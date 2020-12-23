@@ -309,7 +309,7 @@ class TimeIn {
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }} 
-                                 value={this.state.timeinmonth}
+                                value={this.state.timeinmonth}
                                 onChange={event => { timein.handlemonth.call(this, event.target.value) }}
                                 onFocus={(event)=>{event.target.select()}} />
                         </div>

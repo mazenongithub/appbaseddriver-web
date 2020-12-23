@@ -310,31 +310,38 @@ class TimeOut {
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }} 
                                  value={this.state.timeoutmonth}
-                                onChange={event => { timeout.handlemonth.call(this, event.target.value) }} />
+                                onChange={event => { timeout.handlemonth.call(this, event.target.value) }} 
+                                onFocus={(event)=>{event.target.select()}}
+                                />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.timeoutday}
-                                onChange={event => { timeout.handleday.call(this, event.target.value) }} />
+                                onChange={event => { timeout.handleday.call(this, event.target.value) }}
+                                onFocus={(event)=>{event.target.select()}} />
                         </div>
                         <div style={{ ...styles.flex2, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.timeoutyear}
-                                onChange={event => { timeout.handleyear.call(this, event.target.value) }} />
+                                onChange={event => { timeout.handleyear.call(this, event.target.value) }}
+                                onFocus={(event)=>{event.target.select()}} />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.timeouthours}
-                                onChange={event => { timeout.handlehours.call(this, event.target.value) }} />
+                                onChange={event => { timeout.handlehours.call(this, event.target.value) }} 
+                                onFocus={(event)=>{event.target.select()}}
+                                />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>
 
                             <input type="text" style={{ ...styles.generalFont, ...headerFont, ...styles.generalField, ...styles.alignCenter }}
                                 value={this.state.timeoutminutes}
                                 onChange={event => { timeout.handleminutes.call(this, event.target.value) }}
+                                onFocus={(event)=>{event.target.select()}}
                             />
                         </div>
                         <div style={{ ...styles.flex1, ...styles.addMargin }}>

@@ -50,6 +50,107 @@ export function UTCTimeStringfromTime(timein) {
     }
     return (`${year}-${month}-${day} ${hours}:${minutes}:00`);
 }
+export function getMinutesfromTimein(timein) {
+    //let timein ='2020-05-13 20:00:00'
+    timein = timein.replace(/-/g, '/');
+    const newDate = new Date(`${timein} UTC`)
+    let minutes = newDate.getMinutes();
+    if (minutes < 10) {
+        minutes = `0${minutes}`
+    }
+    return (minutes);
+}
+
+export function getHoursfromTimein(timein) {
+    //let timein ='2020-05-13 20:00:00'
+    timein = timein.replace(/-/g, '/');
+    const newDate = new Date(`${timein} UTC`)
+    let hours = newDate.getHours();
+    if (hours > 12) {
+        hours = hours - 12;
+
+    }
+    if (hours < 10) {
+        hours = `0${hours}`
+    }
+    return (hours);
+
+}
+
+export function getDayfromTimein(timein) {
+    //let timein ='2020-05-13 20:00:00'
+    timein = timein.replace(/-/g, '/');
+    const newDate = new Date(`${timein} UTC`)
+    let date = newDate.getDate();
+    if (date < 10) {
+        date = `0${date}`
+
+    }
+    return date;
+}
+
+export function getYearfromTimein(timein) {
+    //let timein ='2020-05-13 20:00:00'
+    timein = timein.replace(/-/g, '/');
+    const newDate = new Date(`${timein} UTC`)
+    return newDate.getFullYear();
+
+}
+
+export function getAMPMfromTimeIn(timein) {
+    //let timein ='2020-05-13 20:00:00'
+    timein = timein.replace(/-/g, '/');
+    const newDate = new Date(`${timein} UTC`)
+    let hours = newDate.getHours();
+    let ampm = "";
+    if (hours > 12) {
+        ampm = 'pm'
+
+    } else {
+        ampm = 'am'
+    }
+
+    return (ampm);
+}
+
+export function getMonthfromTimein(timein) {
+
+    timein = timein.replace(/-/g, '/');
+    const newDate = new Date(`${timein} UTC`)
+    let month = newDate.getMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`
+
+    }
+
+    return month;
+}
+export function calculatetotalhours(timeout, timein) {
+// 
+    let datein = new Date(`${timein.replace(/-/g, '/')}`)
+    let dateout = new Date(`${timeout.replace(/-/g, '/')}`)
+    let totalhours = ((dateout.getTime() - datein.getTime()) / (1000 * 60 * 60))
+    return totalhours;
+}
+
+export function abbDateStr(timein) {
+//const timein = '2020-12-18 23:30:00'
+const datein = new Date(timein.replace(/-/g, '/'))
+const months = datein.getMonth()+1;
+const day = datein.getDate();
+return (`${months}/${day}`)
+}
+
+export function getXcoord(timein) {
+const datein = new Date(timein.replace(/-/g, '/'))
+const months = datein.getMonth()+1;
+const day = datein.getDate();
+
+const x0 = (months -1) * 67
+const x1 = (day/31)*67
+const x = Math.round(x0+x1)
+return x;
+}
 
 export function getUTCDate() {
    

@@ -4,9 +4,10 @@ import AppBasedDriver from './appbaseddriver';
 import MakeID from './makeid';
 import TimeIn from './timein';
 import TimeOut from './timeout'
-import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric } from './functions'
+import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric,getMonthfromTimein,getDayfromTimein,getHoursfromTimein,getYearfromTimein,getMinutesfromTimein,getAMPMfromTimeIn } from './functions'
 import { removeIconSmall } from './svg'
 import Header from './header';
+import Income from './income';
 class Driver {
 
     getearnings() {
@@ -219,11 +220,41 @@ class Driver {
     }
 
     makeshiftactive(shiftid) {
+        const appbaseddriver = new AppBasedDriver();
+     
         if (this.state.activeshiftid === shiftid) {
+            
             this.setState({ activeshiftid: false })
+            this.timeindefault();
+            this.timeoutdefault();
 
         } else {
-            this.setState({ activeshiftid: shiftid })
+            const shift = appbaseddriver.getshiftbyid.call(this,shiftid)
+            if(shift) {
+                
+                const timeinmonth = getMonthfromTimein(shift.timein);
+                const timeinday = getDayfromTimein(shift.timein);
+                const timeinyear = getYearfromTimein(shift.timein)
+                const timeinhours = getHoursfromTimein(shift.timein)
+                const timeinminutes = getMinutesfromTimein(shift.timein)
+                const timeinampm = getAMPMfromTimeIn(shift.timein)
+    
+                const timeoutmonth = getMonthfromTimein(shift.timeout);
+                const timeoutday = getDayfromTimein(shift.timeout);
+                const timeoutyear = getYearfromTimein(shift.timeout)
+                const timeouthours = getHoursfromTimein(shift.timeout)
+                const timeoutminutes = getMinutesfromTimein(shift.timeout)
+                const timeoutampm = getAMPMfromTimeIn(shift.timeout);
+                this.setState({ timeinmonth,timeinday,timeinyear,timeinhours,timeinminutes,timeinampm,timeoutmonth,timeoutday,timeoutyear,timeouthours,timeoutminutes,timeoutampm,activeshiftid: shiftid })
+                
+            } else {
+                this.setState({ activeshiftid: shiftid })
+
+            }
+
+        
+
+           
         }
     }
 
@@ -259,11 +290,13 @@ class Driver {
         const activebackground = (shiftid) => {
             if (this.state.activeshiftid === shiftid) {
                 return (styles.activeBackground)
+            } else {
+                return({backgroundColor:'#ffffff'})
             }
         }
         const showshift = (shift) => {
 
-            return (<div style={{ ...styles.generalFlex }} key={shift.shiftid}>
+            return (<div style={{ ...styles.generalFlex,...styles.bottomMargin15 }} key={shift.shiftid}>
                 <span style={{ ...regularFont, ...styles.generalFont, ...activebackground(shift.shiftid) }} onClick={() => { driver.makeshiftactive.call(this, shift.shiftid) }}>
                     TimeIn: {inputUTCStringForLaborID(shift.timein)} TimeOut: {inputUTCStringForLaborID(shift.timeout)} Earnings: ${shift.earnings} Deliveries: {shift.deliveries} Miles: {shift.miles}
                 </span>
@@ -293,6 +326,7 @@ class Driver {
         const driver = new Driver();
         const timein = new TimeIn();
         const timeout = new TimeOut();
+        const income = new Income();
 
 const header = new Header();
 
@@ -388,6 +422,8 @@ const header = new Header();
                         {driver.showshifts.call(this)}
 
                         {appbaseddriver.showsavedriver.call(this)}
+
+                        {income.showincome.call(this)}
 
                     </div>
 

@@ -46,7 +46,7 @@ export function MyStylesheet() {
             border: '1px solid'
         },
         generalField: {
-            width: '95%',
+            width: '99%',
             padding: '3px'
         },
         generalLinkonly: {
@@ -188,7 +188,7 @@ export function MyStylesheet() {
             flex: 5
         },
         addMargin: {
-            margin: '10px'
+            margin: '5px'
         },
         csiField: {
             maxWidth: '120px',

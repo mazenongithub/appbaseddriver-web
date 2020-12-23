@@ -2,8 +2,70 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { AppleLogin, LogoutUser, SaveDriver } from './actions/api'
 import { MyStylesheet } from './styles';
+import {calculatetotalhours} from './functions'
 
 class AppBasedDriver {
+    getmiles() {
+        const appbaseddriver = new AppBasedDriver();
+        const shifts = appbaseddriver.getshifts.call(this)
+        let miles= 0;
+        if(shifts) {
+            shifts.map(shift=> {
+                miles += Number(shift.miles)
+            })
+
+        }
+        return miles;   
+
+    }
+
+    getearnings() {
+        const appbaseddriver = new AppBasedDriver();
+        const shifts = appbaseddriver.getshifts.call(this)
+        let earnings = 0;
+        if(shifts) {
+            shifts.map(shift=> {
+                earnings += Number(shift.earnings)
+            })
+
+        }
+        return earnings;   
+
+    }
+
+    gethoursworked() {
+        const appbaseddriver = new AppBasedDriver();
+        const shifts = appbaseddriver.getshifts.call(this)
+        let totalhours = 0;
+        if(shifts) {
+            shifts.map(shift=> {
+                totalhours += calculatetotalhours(shift.timeout,shift.timein)
+            })
+
+        }
+        return totalhours;   
+
+    }
+
+    getdeliveries() {
+        const appbaseddriver = new AppBasedDriver();
+        const myuser = appbaseddriver.getuser.call(this)
+        let deliveries = 0;
+        if (myuser) {
+
+            if (myuser.hasOwnProperty("driver")) {
+
+                if (myuser.driver.hasOwnProperty("shifts")) {
+                    myuser.driver.shifts.map(shift => {
+                        deliveries += Number(shift.deliveries);
+
+                    })
+                }
+            }
+            
+        }
+        return deliveries;
+    }
 
     getampmicon() {
         if (this.state.width > 1200) {
@@ -38,7 +100,7 @@ class AppBasedDriver {
     }
 
     getremoveicon() {
-        if(this.state.width>1200) {
+        if (this.state.width > 1200) {
             return ({ width: '57px' })
         } else if (this.state.width > 600) {
             return ({ width: '47px' })
@@ -47,30 +109,30 @@ class AppBasedDriver {
         }
     }
 
-    getequipmentcostkeybyid(equipmentid,costid) {
-       
+    getequipmentcostkeybyid(equipmentid, costid) {
+
         const appbaseddriver = new AppBasedDriver();
-        const costs = appbaseddriver.getequipmentscosts.call(this,equipmentid)
+        const costs = appbaseddriver.getequipmentscosts.call(this, equipmentid)
         let key = false;
-        if(costs) {
+        if (costs) {
             // eslint-disable-next-line
-            costs.map((cost,i)=> {
-                if(cost.costid === costid) {
+            costs.map((cost, i) => {
+                if (cost.costid === costid) {
                     key = i
                 }
             })
         }
         return key;
-        
+
     }
 
     getshifts() {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this);
         let shifts = false;
-        if(myuser) {
-            if(myuser.hasOwnProperty("driver")) {
-                if(myuser.driver.hasOwnProperty("shifts")) {
+        if (myuser) {
+            if (myuser.hasOwnProperty("driver")) {
+                if (myuser.driver.hasOwnProperty("shifts")) {
                     shifts = myuser.driver.shifts;
                 }
             }
@@ -82,11 +144,11 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         const shifts = appbaseddriver.getshifts.call(this)
         let key = false;
-        if(shifts) {
-              // eslint-disable-next-line
-            shifts.map((shift,i)=> {
-                if(shift.shiftid === shiftid) {
-                    key=i;
+        if (shifts) {
+            // eslint-disable-next-line
+            shifts.map((shift, i) => {
+                if (shift.shiftid === shiftid) {
+                    key = i;
                 }
             })
         }
@@ -99,10 +161,10 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         const shifts = appbaseddriver.getshifts.call(this)
         let myshift = false;
-        if(shifts) {
-              // eslint-disable-next-line
-            shifts.map(shift=> {
-                if(shift.shiftid === shiftid) {
+        if (shifts) {
+            // eslint-disable-next-line
+            shifts.map(shift => {
+                if (shift.shiftid === shiftid) {
                     myshift = shift;
                 }
             })
@@ -110,29 +172,29 @@ class AppBasedDriver {
         return myshift;
 
     }
-    getequipmentcostbyid(equipmentid,costid) {
+    getequipmentcostbyid(equipmentid, costid) {
         const appbaseddriver = new AppBasedDriver();
-        const costs = appbaseddriver.getequipmentscosts.call(this,equipmentid)
+        const costs = appbaseddriver.getequipmentscosts.call(this, equipmentid)
         let mycost = false;
-        if(costs) {
+        if (costs) {
             // eslint-disable-next-line
-            costs.map(cost=> {
-                if(cost.costid === costid) {
+            costs.map(cost => {
+                if (cost.costid === costid) {
                     mycost = cost;
                 }
             })
         }
         return mycost;
-        
+
     }
 
     getequipmentscosts(equipmentid) {
         const appbaseddriver = new AppBasedDriver();
-        const equipment = appbaseddriver.getequipmentbyid.call(this,equipmentid)
+        const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
         let costs = false;
-        if(equipment) {
-            if(equipment.hasOwnProperty("costs")) {
-               costs = equipment.costs;
+        if (equipment) {
+            if (equipment.hasOwnProperty("costs")) {
+                costs = equipment.costs;
             }
         }
         return costs;
@@ -160,7 +222,7 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         const myequipment = appbaseddriver.getequipment.call(this)
         let getequipment = false;
- 
+
         if (myequipment) {
             // eslint-disable-next-line
             myequipment.map(equipment => {
@@ -220,11 +282,11 @@ class AppBasedDriver {
     }
 
     async savedriver() {
-  
+
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
         if (myuser) {
-       
+
             try {
                 console.log(myuser)
 
@@ -252,11 +314,11 @@ class AppBasedDriver {
         return (
             <div style={{ ...styles.generalContainer, ...styles.alignCenter }}>
 
-                <div style={{ ...styles.generalContainer, ...styles.alignCenter, ...styles.bottomMargin15 }}><span style={{...styles.generalFont, ...regularFont}}>{this.state.message} </span></div>
+                <div style={{ ...styles.generalContainer, ...styles.alignCenter, ...styles.bottomMargin15 }}><span style={{ ...styles.generalFont, ...regularFont }}>{this.state.message} </span></div>
                 <button
-                        style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}
-                        onClick={() => appbaseddriver.savedriver.call(this)} >Save Driver</button>
-                </div>
+                    style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}
+                    onClick={() => appbaseddriver.savedriver.call(this)} >Save Driver</button>
+            </div>
         )
     }
     getuser() {
@@ -372,7 +434,7 @@ class AppBasedDriver {
 
     }
 
-    
+
 
     async googleSignIn(type) {
         const appbaseddriver = new AppBasedDriver();
