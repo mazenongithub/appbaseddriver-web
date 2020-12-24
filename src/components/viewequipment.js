@@ -10,6 +10,7 @@ import EquipmentDate from './equipmentdate';
 import SalvageDate from './salvagedate'
 import PurchaseDate from './purchasedate'
 import { isNumeric, formatDateStringDisplay, getUTCDate } from './functions'
+import Costs from './costs';
 
 
 class ViewEquipment extends Component {
@@ -574,6 +575,7 @@ class ViewEquipment extends Component {
         const equipmentdate = new EquipmentDate();
         const salvagedate = new SalvageDate();
         const purchasedate = new PurchaseDate();
+        const costs = new Costs();
 
 
 
@@ -844,6 +846,8 @@ class ViewEquipment extends Component {
 
 
                             {appbaseddriver.showsavedriver.call(this)}
+
+                            {costs.showcosts.call(this,this.props.match.params.equipmentid)}
 
                             <div style={{ marginBottom: '40px' }}>
                                 &nbsp;

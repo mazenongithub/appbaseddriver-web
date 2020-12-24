@@ -19,6 +19,19 @@ class AppBasedDriver {
 
     }
 
+    getcostsbyequipmentid(equipmentid) {
+        const appbaseddriver = new AppBasedDriver();
+        let mycosts = 0;
+        const costs = appbaseddriver.getequipmentscosts.call(this,equipmentid)
+        if(costs) {
+            costs.map(cost=> {
+                console.log(cost)
+                mycosts +=Number(cost.amount)
+            })
+        }
+        return mycosts;
+    }
+
     getearnings() {
         const appbaseddriver = new AppBasedDriver();
         const shifts = appbaseddriver.getshifts.call(this)
