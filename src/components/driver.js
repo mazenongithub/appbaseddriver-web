@@ -238,6 +238,7 @@ class Driver {
                 const timeinhours = getHoursfromTimein(shift.timein)
                 const timeinminutes = getMinutesfromTimein(shift.timein)
                 const timeinampm = getAMPMfromTimeIn(shift.timein)
+
     
                 const timeoutmonth = getMonthfromTimein(shift.timeout);
                 const timeoutday = getDayfromTimein(shift.timeout);
@@ -245,6 +246,7 @@ class Driver {
                 const timeouthours = getHoursfromTimein(shift.timeout)
                 const timeoutminutes = getMinutesfromTimein(shift.timeout)
                 const timeoutampm = getAMPMfromTimeIn(shift.timeout);
+                
                 this.setState({ timeinmonth,timeinday,timeinyear,timeinhours,timeinminutes,timeinampm,timeoutmonth,timeoutday,timeoutyear,timeouthours,timeoutminutes,timeoutampm,activeshiftid: shiftid })
                 
             } else {

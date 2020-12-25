@@ -39,9 +39,8 @@ export function UTCTimeStringfromTime(timein) {
    }
 
 export function getMinutesfromTimein(timein) {
-    //let timein ='2020-05-13 20:00:00'
-    timein = timein.replace(/-/g, '/');
-    const newDate = new Date(`${timein} UTC`)
+ 
+    const newDate = new Date(timein)
     let minutes = newDate.getMinutes();
     if (minutes < 10) {
         minutes = `0${minutes}`
@@ -51,8 +50,8 @@ export function getMinutesfromTimein(timein) {
 
 export function getHoursfromTimein(timein) {
     //let timein ='2020-05-13 20:00:00'
-    timein = timein.replace(/-/g, '/');
-    const newDate = new Date(`${timein} UTC`)
+
+    const newDate = new Date(timein)
     let hours = newDate.getHours();
     if (hours > 12) {
         hours = hours - 12;
@@ -67,8 +66,8 @@ export function getHoursfromTimein(timein) {
 
 export function getDayfromTimein(timein) {
     //let timein ='2020-05-13 20:00:00'
-    timein = timein.replace(/-/g, '/');
-    const newDate = new Date(`${timein} UTC`)
+
+    const newDate = new Date(`${timein}`)
     let date = newDate.getDate();
     if (date < 10) {
         date = `0${date}`
@@ -79,16 +78,14 @@ export function getDayfromTimein(timein) {
 
 export function getYearfromTimein(timein) {
     //let timein ='2020-05-13 20:00:00'
-    timein = timein.replace(/-/g, '/');
-    const newDate = new Date(`${timein} UTC`)
+    const newDate = new Date(`${timein}`)
     return newDate.getFullYear();
 
 }
 
 export function getAMPMfromTimeIn(timein) {
     //let timein ='2020-05-13 20:00:00'
-    timein = timein.replace(/-/g, '/');
-    const newDate = new Date(`${timein} UTC`)
+    const newDate = new Date(timein)
     let hours = newDate.getHours();
     let ampm = "";
     if (hours > 12) {
@@ -103,8 +100,7 @@ export function getAMPMfromTimeIn(timein) {
 
 export function getMonthfromTimein(timein) {
 
-    timein = timein.replace(/-/g, '/');
-    const newDate = new Date(`${timein} UTC`)
+    const newDate = new Date(`${timein}`)
     let month = newDate.getMonth() + 1;
     if (month < 10) {
         month = `0${month}`
