@@ -4,7 +4,7 @@ import AppBasedDriver from './appbaseddriver';
 import MakeID from './makeid';
 import TimeIn from './timein';
 import TimeOut from './timeout'
-import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric,getMonthfromTimein,getDayfromTimein,getHoursfromTimein,getYearfromTimein,getMinutesfromTimein,getAMPMfromTimeIn } from './functions'
+import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric,getMonthfromTimein,getDayfromTimein,getHoursfromTimein,getYearfromTimein,getMinutesfromTimein,getAMPMfromTimeIn,calculatetotalhours } from './functions'
 import { removeIconSmall } from './svg'
 import Header from './header';
 import Income from './income';
@@ -298,7 +298,7 @@ class Driver {
 
             return (<div style={{ ...styles.generalFlex,...styles.bottomMargin15 }} key={shift.shiftid}>
                 <span style={{ ...regularFont, ...styles.generalFont, ...activebackground(shift.shiftid) }} onClick={() => { driver.makeshiftactive.call(this, shift.shiftid) }}>
-                    TimeIn: {inputUTCStringForLaborID(shift.timein)} TimeOut: {inputUTCStringForLaborID(shift.timeout)} Earnings: ${shift.earnings} Deliveries: {shift.deliveries} Miles: {shift.miles}
+                    TimeIn: {inputUTCStringForLaborID(shift.timein)} TimeOut: {inputUTCStringForLaborID(shift.timeout)} Total Hours: {+Number(calculatetotalhours(shift.timeout,shift.timein)).toFixed(2)} Earnings: ${shift.earnings} Deliveries: {shift.deliveries} Miles: {shift.miles}
                 </span>
                 <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(shift.shiftid) }} onClick={() => { driver.removeshift.call(this, shift.shiftid) }}>{removeIconSmall()}</button>
             </div>)
