@@ -44,7 +44,7 @@ class TimeOutCalender {
             let minutes = this.state.timeoutminutes;
             let timeout = makeTimeString(year, month, day, hours, minutes, time);
             timeout = UTCTimeStringfromTime(timeout)
-            const newDate = new Date(`${timeout.replace(/-/g, '/')} UTC`)
+            const newDate = new Date(timeout)
             month = monthstring(newDate.getMonth());
             const date = newDate.getDate();
             year = newDate.getFullYear();

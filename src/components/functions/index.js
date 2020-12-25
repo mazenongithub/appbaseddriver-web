@@ -1,55 +1,43 @@
 export function UTCTimeStringfromTime(timein) {
-    //let timein = '2020-06-02 04:01 pm'
-    const time = timein.substring(17, 19)
+    timein.replace(/-/g, '/')
+    let time = timein.substring(17, 19)
     let hours = timein.substring(11, 13);
     if (time === 'pm' && hours !== '12') {
-        hours = Number(hours) + 12
+           hours = Number(hours) + 12
     } else if (time === 'am' && hours === '12') {
-        hours = '00'
+           hours = '00'
     }
-    const sym = () => {
-        let myoffset = new Date().getTimezoneOffset() / 60
-        let sym = "+";
-        if (myoffset > 0) {
-            sym = "-"
-        }
-        return sym;
+       let minutes = timein.substring(14, 16)
+       let year = timein.substring(0, 4)
+       let month = timein.substring(5, 7);
+       let day = timein.substring(8, 10)
+       
+       
+       
+       const sym = (timein) => {
+           let myoffset = new Date(timein).getTimezoneOffset() / 60
+           let sym = "+";
+           if (myoffset > 0) {
+               sym = "-"
+           }
+           return sym;
+   
+       }
+         
+       const offset = (timein) => {
+           let myoffset = (new Date(timein).getTimezoneOffset() / 60)
+   
+           if (myoffset < 10) {
+               myoffset = `0${myoffset}`
+           }
+           return myoffset;
+       }
+       timein = `${year}/${month}/${day} ${hours}:${minutes}:00${sym(timein)}${offset(timein)}:00`
+    
+       return timein
+     
+   }
 
-    }
-    const extraoffset = () => {
-        let myoffset = (new Date().getTimezoneOffset() / 60) * 2
-
-        if (myoffset < 10) {
-            myoffset = `0${myoffset}`
-        }
-        return myoffset;
-    }
-    let minutes = timein.substring(14, 16)
-    let year = timein.substring(0, 4)
-    let month = timein.substring(5, 7);
-    let day = timein.substring(8, 10)
-
-    timein = `${year}/${month}/${day} ${hours}:${minutes}:00${sym()}${extraoffset()}:00`
-    const newDate = new Date(timein)
-    hours = newDate.getHours();
-    if (hours < 10) {
-        hours = `0${hours}`
-    }
-    minutes = newDate.getMinutes();
-    if (minutes < 10) {
-        minutes = `0${minutes}`
-    }
-    year = newDate.getFullYear();
-    day = newDate.getDate();
-    if (day < 10) {
-        day = `0${day}`
-    }
-    month = newDate.getMonth() + 1;
-    if (month < 10) {
-        month = `0${month}`
-    }
-    return (`${year}-${month}-${day} ${hours}:${minutes}:00`);
-}
 export function getMinutesfromTimein(timein) {
     //let timein ='2020-05-13 20:00:00'
     timein = timein.replace(/-/g, '/');
@@ -127,8 +115,8 @@ export function getMonthfromTimein(timein) {
 }
 export function calculatetotalhours(timeout, timein) {
 // 
-    let datein = new Date(`${timein.replace(/-/g, '/')}`)
-    let dateout = new Date(`${timeout.replace(/-/g, '/')}`)
+    let datein = new Date(timein)
+    let dateout = new Date(timeout)
     let totalhours = ((dateout.getTime() - datein.getTime()) / (1000 * 60 * 60))
     return totalhours;
 }
@@ -423,7 +411,7 @@ export function trailingZeros(num) {
 
 export function inputUTCStringForLaborID(timein) {
 
-    let datein = new Date(`${timein.replace(/-/g, '/')} UTC`)
+    let datein = new Date(timein)
     let hours = datein.getHours();
     let ampm
     if (hours > 12) {
