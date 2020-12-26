@@ -38,10 +38,10 @@ class Income {
         const appbaseddriver = new AppBasedDriver();
         const income = new Income();
         const shifts = appbaseddriver.getshifts.call(this)
-        console.log(shifts)
+     
         let points = [];
         if (shifts) {
-
+// eslint-disable-next-line
             shifts.map(shift => {
                 points.push(income.showpoint.call(this, shift))
 
@@ -233,7 +233,7 @@ class Income {
             }
         }
 
-        const income = new Income()
+
         const styles = MyStylesheet();
         return (
             <div style={{ ...styles.generalFlex }}>

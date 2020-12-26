@@ -10,6 +10,7 @@ class AppBasedDriver {
         const shifts = appbaseddriver.getshifts.call(this)
         let miles= 0;
         if(shifts) {
+            // eslint-disable-next-line
             shifts.map(shift=> {
                 miles += Number(shift.miles)
             })
@@ -24,8 +25,9 @@ class AppBasedDriver {
         let mycosts = 0;
         const costs = appbaseddriver.getequipmentscosts.call(this,equipmentid)
         if(costs) {
+            // eslint-disable-next-line
             costs.map(cost=> {
-                console.log(cost)
+             
                 mycosts +=Number(cost.amount)
             })
         }
@@ -37,6 +39,7 @@ class AppBasedDriver {
         const shifts = appbaseddriver.getshifts.call(this)
         let earnings = 0;
         if(shifts) {
+            // eslint-disable-next-line
             shifts.map(shift=> {
                 earnings += Number(shift.earnings)
             })
@@ -51,6 +54,7 @@ class AppBasedDriver {
         const shifts = appbaseddriver.getshifts.call(this)
         let totalhours = 0;
         if(shifts) {
+            // eslint-disable-next-line
             shifts.map(shift=> {
                 totalhours += calculatetotalhours(shift.timeout,shift.timein)
             })
@@ -69,6 +73,7 @@ class AppBasedDriver {
             if (myuser.hasOwnProperty("driver")) {
 
                 if (myuser.driver.hasOwnProperty("shifts")) {
+                    // eslint-disable-next-line
                     myuser.driver.shifts.map(shift => {
                         deliveries += Number(shift.deliveries);
 

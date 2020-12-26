@@ -4,7 +4,7 @@ import AppBasedDriver from './appbaseddriver';
 import MakeID from './makeid';
 import TimeIn from './timein';
 import TimeOut from './timeout'
-import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric,getMonthfromTimein,getDayfromTimein,getHoursfromTimein,getYearfromTimein,getMinutesfromTimein,getAMPMfromTimeIn,calculatetotalhours } from './functions'
+import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric,getMonthfromTimein,getDayfromTimein,getHoursfromTimein,getYearfromTimein,getMinutesfromTimein,getAMPMfromTimeIn,calculatetotalhours, sorttimes } from './functions'
 import { removeIconSmall } from './svg'
 import Header from './header';
 import Income from './income';
@@ -284,7 +284,10 @@ class Driver {
     showshifts() {
         const appbaseddriver = new AppBasedDriver();
         let shiftids = [];
-        const shifts = appbaseddriver.getshifts.call(this)
+        let shifts = appbaseddriver.getshifts.call(this);
+        shifts.sort((a, b) => {
+            return sorttimes(a.timein, b.timein)
+        })
         const styles = MyStylesheet();
         const regularFont = appbaseddriver.getRegularFont.call(this)
         const driver = new Driver();

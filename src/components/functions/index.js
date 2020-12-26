@@ -83,6 +83,20 @@ export function getYearfromTimein(timein) {
 
 }
 
+export function sorttimes(timeina, timeinb) {
+    timeina = new Date(timeina)
+    timeinb = new Date(timeinb)
+    if (timeina < timeinb) {
+        return -1;
+    }
+    else if (timeinb > timeina) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
 export function getAMPMfromTimeIn(timein) {
     //let timein ='2020-05-13 20:00:00'
     const newDate = new Date(timein)
