@@ -152,7 +152,7 @@ class ViewEquipment extends Component {
                         value={this.getfrequency()}
                         onChange={event => { this.handlefrequency(event.target.value) }}>
                         <option value={false}>Select Frequency Value</option>
-                        <option value={`yearly`}>Yearly</option>
+                        <option value={`annually`}>Annually</option>
                         <option value={`monthly`}>Monthly</option>
                         <option value={`weekly`}>Week</option>
                         <option value={`daily`}>Daily</option>
@@ -758,10 +758,10 @@ class ViewEquipment extends Component {
                             onChange={event=>{this.handlefrequency(event.target.value)}}
                             value={this.getfrequency()}>
                                 <option value={false}>Select Frequency</option>
-                                <option value={`day`}>Daily</option>
-                                <option value={`week`}>Weekly</option>
-                                <option value={`month`}>Monthly</option>
-                                <option value={`year`}>Year</option>
+                                <option value={`daily`}>Daily</option>
+                                <option value={`weekly`}>Weekly</option>
+                                <option value={`monthly`}>Monthly</option>
+                                <option value={`annually`}>Annually</option>
                             </select>)
                         }
                     }

@@ -4,8 +4,6 @@ import { MyStylesheet } from './styles'
 
 class Costs {
 
-
-
     showcosts(equipmentid) {
         const appbaseddriver = new AppBasedDriver();
         const regularFont = appbaseddriver.getRegularFont.call(this)
@@ -17,7 +15,7 @@ class Costs {
         const miles = appbaseddriver.getmiles.call(this)
         const dollarspermile = costs / miles
         const styles = MyStylesheet();
-        
+            
         const output = () => {
             if (this.state.width > 600) {
                 return (

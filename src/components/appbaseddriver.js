@@ -2,33 +2,95 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { AppleLogin, LogoutUser, SaveDriver } from './actions/api'
 import { MyStylesheet } from './styles';
-import {calculatetotalhours} from './functions'
+import { calculatetotalhours,  getRepaymentCosts, getInterval } from './functions'
 
 class AppBasedDriver {
+
     getmiles() {
         const appbaseddriver = new AppBasedDriver();
         const shifts = appbaseddriver.getshifts.call(this)
-        let miles= 0;
-        if(shifts) {
+        let miles = 0;
+        if (shifts) {
             // eslint-disable-next-line
-            shifts.map(shift=> {
+            shifts.map(shift => {
                 miles += Number(shift.miles)
             })
 
         }
-        return miles;   
+        return miles;
 
     }
+
+    gettransformedcostsbyequimentid(equipmentid) {
+        const appbaseddriver = new AppBasedDriver();
+        const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
+
+        let costarray = [];
+        if (equipment) {
+
+            if (equipment.hasOwnProperty("repayment")) {
+                const purchase = equipment.repayment.purchase;
+                const purchasedate = equipment.repayment.purchasedate;
+                const salvage = equipment.repayment.salvage;
+                const salvagedate = equipment.repayment.salvagedate;
+                const apr = equipment.repayment.apr;
+                const payments = getRepaymentCosts(purchase, purchasedate, salvage, salvagedate, apr);
+                
+                costarray = [...costarray, ...payments]
+                
+  
+
+            }
+
+            if (equipment.hasOwnProperty("costs")) {
+
+                // eslint-disable-next-line
+                equipment.costs.map(cost => {
+
+                    if (cost.hasOwnProperty("reoccurring")) {
+
+
+
+                        if (equipment.hasOwnProperty("repayment")) {
+
+                          
+
+                            const reoccurringcosts = getInterval(equipment.repayment.salvagedate, equipment.repayment.purchasedate, cost.reoccurring.frequency, cost.amount, cost.detail)
+
+                            costarray = [...costarray, ...reoccurringcosts]
+
+                        }
+
+
+                    } else {
+
+                        costarray.push(cost)
+
+                    }
+
+
+                })
+
+
+
+
+            }
+
+        }
+        return costarray;
+    }
+
+
 
     getcostsbyequipmentid(equipmentid) {
         const appbaseddriver = new AppBasedDriver();
         let mycosts = 0;
-        const costs = appbaseddriver.getequipmentscosts.call(this,equipmentid)
-        if(costs) {
+        const costs = appbaseddriver.gettransformedcostsbyequimentid.call(this, equipmentid)
+        if (costs) {
             // eslint-disable-next-line
-            costs.map(cost=> {
-             
-                mycosts +=Number(cost.amount)
+            costs.map(cost => {
+
+                mycosts += Number(cost.amount)
             })
         }
         return mycosts;
@@ -38,14 +100,14 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         const shifts = appbaseddriver.getshifts.call(this)
         let earnings = 0;
-        if(shifts) {
+        if (shifts) {
             // eslint-disable-next-line
-            shifts.map(shift=> {
+            shifts.map(shift => {
                 earnings += Number(shift.earnings)
             })
 
         }
-        return earnings;   
+        return earnings;
 
     }
 
@@ -53,14 +115,14 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         const shifts = appbaseddriver.getshifts.call(this)
         let totalhours = 0;
-        if(shifts) {
+        if (shifts) {
             // eslint-disable-next-line
-            shifts.map(shift=> {
-                totalhours += calculatetotalhours(shift.timeout,shift.timein)
+            shifts.map(shift => {
+                totalhours += calculatetotalhours(shift.timeout, shift.timein)
             })
 
         }
-        return totalhours;   
+        return totalhours;
 
     }
 
@@ -80,7 +142,7 @@ class AppBasedDriver {
                     })
                 }
             }
-            
+
         }
         return deliveries;
     }
@@ -306,7 +368,7 @@ class AppBasedDriver {
         if (myuser) {
 
             try {
-                console.log(myuser)
+               
 
                 let response = await SaveDriver({ myuser })
                 console.log(response)
@@ -471,7 +533,7 @@ class AppBasedDriver {
             provider.addScope('email');
             provider.addScope('profile');
             let result = await firebase.auth().signInWithPopup(provider)
-            console.log(result)
+          
             if (result.hasOwnProperty("user")) {
 
                 user = result.user;
@@ -483,7 +545,7 @@ class AppBasedDriver {
                 phonenumber = user.phoneNumber;
             }
             const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, driverid: this.state.driverid, google }
-            console.log(values)
+         
 
 
 
