@@ -17,7 +17,7 @@ class ViewEquipment extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: false, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: false, purchasecalender: false, showrepayment: true, purchaseday: '', purchasemonth: '', purchaseyear: '' }
+        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: false, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: false, purchasecalender: false, showrepayment: true, purchaseday: '', purchasemonth: '', purchaseyear: '', activeyear:2020 }
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
     }
     componentDidMount() {

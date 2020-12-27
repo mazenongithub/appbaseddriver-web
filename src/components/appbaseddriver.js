@@ -2,9 +2,11 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { AppleLogin, LogoutUser, SaveDriver } from './actions/api'
 import { MyStylesheet } from './styles';
-import { calculatetotalhours,  getRepaymentCosts, getInterval } from './functions'
+import { calculatetotalhours,  getRepaymentCosts, getInterval, getYearFromDate, currentDateCheck,getYearFromTime } from './functions'
 
 class AppBasedDriver {
+
+  
 
     getmiles() {
         const appbaseddriver = new AppBasedDriver();
@@ -13,7 +15,10 @@ class AppBasedDriver {
         if (shifts) {
             // eslint-disable-next-line
             shifts.map(shift => {
+                if(getYearFromTime(shift.timein) === this.state.activeyear) {
                 miles += Number(shift.miles)
+
+                }
             })
 
         }
@@ -86,13 +91,20 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         let mycosts = 0;
         const costs = appbaseddriver.gettransformedcostsbyequimentid.call(this, equipmentid)
+        let activecosts = [];
         if (costs) {
             // eslint-disable-next-line
             costs.map(cost => {
 
-                mycosts += Number(cost.amount)
+                if((getYearFromDate(cost.purchasedate) === this.state.activeyear) && currentDateCheck(cost.purchasedate)) {
+                    activecosts.push(cost)
+                    mycosts += Number(cost.amount)
+                }
+
+               
             })
         }
+        console.log(mycosts, activecosts)
         return mycosts;
     }
 
@@ -103,7 +115,10 @@ class AppBasedDriver {
         if (shifts) {
             // eslint-disable-next-line
             shifts.map(shift => {
+                if(getYearFromTime(shift.timein) === this.state.activeyear) {
                 earnings += Number(shift.earnings)
+
+                }
             })
 
         }
@@ -118,7 +133,10 @@ class AppBasedDriver {
         if (shifts) {
             // eslint-disable-next-line
             shifts.map(shift => {
+                if(getYearFromTime(shift.timein) === this.state.activeyear) {
                 totalhours += calculatetotalhours(shift.timeout, shift.timein)
+
+                }
             })
 
         }
@@ -137,7 +155,10 @@ class AppBasedDriver {
                 if (myuser.driver.hasOwnProperty("shifts")) {
                     // eslint-disable-next-line
                     myuser.driver.shifts.map(shift => {
-                        deliveries += Number(shift.deliveries);
+                        if(getYearFromTime(shift.timein) === this.state.activeyear) {
+                            deliveries += Number(shift.deliveries);
+                        } 
+                       
 
                     })
                 }

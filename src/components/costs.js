@@ -1,5 +1,6 @@
 import React from 'react'
 import AppBasedDriver from './appbaseddriver';
+import DriverUI from './driverui';
 import { MyStylesheet } from './styles'
 
 class Costs {
@@ -10,17 +11,22 @@ class Costs {
         const deliveries = appbaseddriver.getdeliveries.call(this)
         const hoursworked = +Number(appbaseddriver.gethoursworked.call(this))
         const costs = appbaseddriver.getcostsbyequipmentid.call(this,equipmentid)
-        const dollarsperhours = costs / hoursworked;
-        const dollarsperdelivery = costs / deliveries
+        const dollarsperhours = costs > 0 && hoursworked > 0 ? Number(costs / hoursworked).toFixed(2) : 0;
+        const dollarsperdelivery = costs > 0 && deliveries > 0 ?  Number(costs / deliveries).toFixed(2) : 0
         const miles = appbaseddriver.getmiles.call(this)
-        const dollarspermile = costs / miles
+        const dollarspermile = costs > 0 && miles > 0 ?  Number(costs / miles).toFixed(2) : 0;
         const styles = MyStylesheet();
+        const driverui = new DriverUI();
             
         const output = () => {
             if (this.state.width > 600) {
                 return (
                     <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                         <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+
+                            {driverui.showui.call(this)}
+
+
                             <span style={{ ...regularFont, ...styles.generalFont }}>
                                 Deliveries
                             </span><br />
@@ -58,6 +64,8 @@ class Costs {
 
                     <div style={{ ...styles.generalFlex }}>
                         <div style={{ ...styles.flex1 }}>
+
+                            {driverui.showui.call(this)}
 
                             <div style={{ ...styles.generalFlex,...styles.bottomMargin15 }}>
                                 <div style={{ ...styles.flex1 }}>

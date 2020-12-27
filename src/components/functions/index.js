@@ -133,6 +133,26 @@ export function newCost (costid, detail, purchasedate, amount) {
     return ({ costid, detail, purchasedate, amount })
 }
 
+export function getYearFromTime (timein) {
+   
+    let datein = new Date(timein)
+    return datein.getFullYear();
+  
+  
+}
+
+export function currentDateCheck(timein) {
+    let offset = getOffsetDate(timein);
+    let datein = new Date(`${timein.replace(/-/g, '/')} 00:00:00${offset}`)
+    let datecheck = true;
+    if(datein.getTime()>new Date().getTime()) {
+      datecheck = false
+    }
+    return datecheck
+    
+    
+  }
+
 
 export function getRepaymentCosts(purchase, purchasedate, salvage, salvagedate, i) {
 
@@ -154,7 +174,7 @@ export function getRepaymentCosts(purchase, purchasedate, salvage, salvagedate, 
     let costArray = [];
     for (let x = 0; x < period; x++) {
 
-        let cost = newCost(makeID(16), 'equipment', purchasedate, monthlyvalue)
+        let cost = newCost(makeID(16), 'repayment', purchasedate, monthlyvalue)
         costArray.push(cost)
         purchasedate = increaseDateStringByOneMonth(purchasedate)
 
@@ -610,6 +630,15 @@ export function calculateTotalDays(purchasedate, salvagedate) {
     return Math.floor(weeks)
      
    }
+
+   export function getYearFromDate(timein) {
+  
+    let offset = getOffsetDate(timein);
+    let datein = new Date(`${timein.replace(/-/g, '/')} 12:00:00${offset}`)
+    return datein.getFullYear();
+  
+  
+}
 
 export function getInterval(salvagedate, purchasedate, reoccurring, amount, detail)  {
     let period = 0;

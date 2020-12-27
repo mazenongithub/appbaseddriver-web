@@ -8,6 +8,7 @@ import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNume
 import { removeIconSmall } from './svg'
 import Header from './header';
 import Income from './income';
+import DriverUI from './driverui';
 class Driver {
 
     getearnings() {
@@ -332,6 +333,7 @@ class Driver {
         const timein = new TimeIn();
         const timeout = new TimeOut();
         const income = new Income();
+        const driverui = new DriverUI();
 
 const header = new Header();
 
@@ -427,6 +429,11 @@ const header = new Header();
                         {driver.showshifts.call(this)}
 
                         {appbaseddriver.showsavedriver.call(this)}
+
+
+                        {driverui.showui.call(this)}
+
+
 
                         {income.showincome.call(this)}
 
