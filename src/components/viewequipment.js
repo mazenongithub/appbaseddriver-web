@@ -207,19 +207,17 @@ class ViewEquipment extends Component {
                     } else {
 
 
-                        const newCost = (costid, costType, purchasedate, detail, amount) => {
-
-                            return ({ costid, costType, purchasedate, detail, amount })
-
-
+                        const newCost = (costid,  purchasedate, detail, amount) => {
+                            return ({ costid, purchasedate, detail, amount })
                         }
+                        
                         const costid = makeid.costid.call(this, equipmentid)
                         const costs = appbaseddriver.getequipmentscosts.call(this, equipmentid)
                         const year = this.state.equipmentyear;
                         const day = this.state.equipmentday;
                         const month = this.state.equipmentmonth;
                         const purchasedate = `${year}-${month}-${day}`;
-                        const newcost = newCost(costid, "", purchasedate, "", amount)
+                        const newcost = newCost(costid, purchasedate, "", amount)
                         if (costs) {
                             myuser.equipment[i].costs.push(newcost)
 

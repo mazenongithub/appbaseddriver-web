@@ -104,6 +104,7 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         let mycosts = 0;
         const costs = appbaseddriver.gettransformedcostsbyequimentid.call(this, equipmentid)
+    
         let activecosts = [];
         if (costs) {
             // eslint-disable-next-line
@@ -117,7 +118,7 @@ class AppBasedDriver {
                
             })
         }
-        console.log(mycosts, activecosts)
+       
         return mycosts;
     }
 
@@ -514,7 +515,6 @@ class AppBasedDriver {
 
         try {
             const result = await firebase.auth().signInWithPopup(provider)
-            console.log(result)
             let firstname = "";
             let lastname = "";
             let emailaddress = "";
@@ -538,7 +538,7 @@ class AppBasedDriver {
             }
 
             const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, apple, driverid: this.state.driverid }
-            console.log(values)
+   
 
             appbaseddriver.clientlogin.call(this, values)
 
