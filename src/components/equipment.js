@@ -100,7 +100,7 @@ class Equipment {
             const i = appbaseddriver.getequipmentkeybyid.call(this,equipment.equipmentid)
             myuser.equipment.splice(i,1)
             this.props.reduxUser(myuser)
-            this.setState({activequipmentid:false})
+            this.setState({activeequipmentid:false})
 
             }
             
