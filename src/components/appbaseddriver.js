@@ -85,6 +85,19 @@ class AppBasedDriver {
         return costarray;
     }
 
+    getdrivercosts() {
+        const appbaseddriver = new AppBasedDriver();
+        let costs = 0;
+        const myequipment = appbaseddriver.getequipment.call(this)
+        if(myequipment) {
+            // eslint-disable-next-line
+            myequipment.map(equipment=> {
+                costs += Number(appbaseddriver.getcostsbyequipmentid.call(this,equipment.equipmentid))
+            })
+        }
+        return costs;
+    }
+
 
 
     getcostsbyequipmentid(equipmentid) {

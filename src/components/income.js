@@ -4,6 +4,8 @@ import { MyStylesheet } from './styles'
 import { getXcoord, abbDateStr } from './functions'
 class Income {
 
+
+
     handleshowincome(shiftid) {
         if (this.state.showincome === shiftid) {
             this.setState({ showincome: false })
@@ -75,8 +77,15 @@ class Income {
         const dollarsperdelivery = earnings > 0 && deliveries > 0 ? Number(earnings / deliveries).toFixed(2) : 0;
         const miles = appbaseddriver.getmiles.call(this)
         const dollarspermile = miles > 0 && earnings > 0 ? Number(earnings / miles).toFixed(2) : 0;
+        const costs = appbaseddriver.getdrivercosts.call(this)
+        const costsperhours = costs > 0 && hoursworked > 0 ? costs / hoursworked : 0;
+        const costsperdelivery = costs > 0 && deliveries > 0 ? costs / deliveries : 0;
+        const costspermile = miles > 0 && costs > 0 ? costs / miles : 0;
+        const netperhour = dollarsperhours - costsperhours;
+        const netperdelivery = dollarsperdelivery - costsperdelivery;
+        const netpermile = dollarspermile - costspermile;
 
-        const getheight = (type) => {
+        const getheight = (type,dollarsperhours,dollarsperdelivery,dollarspermile) => {
             let height = 0
             switch (type) {
                 case 'hourly':
@@ -95,7 +104,76 @@ class Income {
 
         }
 
-        const getbarchart = (height, type) => {
+        const getnetbarchart = (height, type, netperhour,netperdelivery,netpermile) => {
+     
+            const getnettext = (type,netperhour,netperdelivery,netpermile) => {
+                switch (type) {
+                    case 'hourly':
+                        return (<text className="incomechart-3" x="328.48" y={Math.round(200 - height)}>${Number(netperhour).toFixed(2)}/hr</text>)
+                    case 'delivery':
+                        return (<text className="incomechart-3" x="300.48" y={Math.round(200 - height)}>${Number(netperdelivery).toFixed(2)}/delivery</text>)
+                    case 'miles':
+                        return (<text className="incomechart-3" x="328.48" y={Math.round(200 - height)}>${Number(netpermile).toFixed(2)}/mile</text>)
+                    default:
+                        break;
+                }
+            }
+        
+            return (
+        
+                <g>
+        
+        
+                    <g transform='translate(54.43,208.35) scale(1,-1)'>
+        
+        
+        
+                        <rect className="driverchart-8" x="286.74" y="0" width="61.48" height={getheight(type,netperhour,netperdelivery,netpermile)} />
+        
+                    </g>
+        
+                    {getnettext(type, netperhour,netperdelivery,netpermile)}
+        
+                </g>)
+        }
+        
+
+        
+
+        const getcostbarchart = (height, type, costsperhours,costsperdelivery,costspermile) => {
+
+            const getcosttext = (type,costsperhours,costsperdelivery,costspermile) => {
+                switch (type) {
+                    case 'hourly':
+                        return (<text className="incomechart-3" x="210.48" y={Math.round(200 - height)}>${Number(costsperhours).toFixed(2)}/hr</text>)
+                    case 'delivery':
+                        return (<text className="incomechart-3" x="200.48" y={Math.round(200 - height)}>${Number(costsperdelivery).toFixed(2)}/delivery</text>)
+                    case 'miles':
+                        return (<text className="incomechart-3" x="210.48" y={Math.round(200 - height)}>${Number(costspermile).toFixed(2)}/mile</text>)
+                    default:
+                        break;
+                }
+            }
+
+            return (
+
+                <g>
+
+
+                    <g transform='translate(54.43,208.35) scale(1,-1)'>
+
+
+
+                        <rect className="driverchart-7" x="155.92" y="0" width="61.48" height={getheight(type,costsperhours,costsperdelivery,costspermile)} />
+
+                    </g>
+
+                    {getcosttext(type, costsperhours,costsperdelivery,costspermile)}
+
+                </g>)
+        }
+
+        const getbarchart = (height, type, dollarsperhours,dollarsperdelivery,dollarspermile) => {
 
             const gettext = (type) => {
                 switch (type) {
@@ -118,8 +196,8 @@ class Income {
                     <g transform='translate(54.43,208.35) scale(1,-1)'>
 
 
-
-                        <rect className="incomechart-6" x="40" y="0" width="61.48" height={getheight(type)} />
+            
+                        <rect className="incomechart-6" x="40" y="0" width="61.48" height={getheight(type,dollarsperhours,dollarsperdelivery,dollarspermile)} />
 
                     </g>
 
@@ -167,16 +245,14 @@ class Income {
 
         return (
 
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 203.26 210.85" width='204px' height="210px">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 403.15 210.85" width="404px" height="211px">
                 <g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2">
-                    <path className="incomechart-1" d="M55.19,8.35q.26,100,.5,200" />
+                    
 
 
-                    <line className="incomechart-2" x1="54.43" y1="208.35" x2="203.26" y2="208.35" />
+                   
 
                     {labels(type)}
-
-
 
 
                     <line className="incomechart-4" x1="58.47" y1="8.35" x2="51.73" y2="8.35" />
@@ -184,11 +260,18 @@ class Income {
                     <line className="incomechart-4" x1="58.47" y1="88.35" x2="51.73" y2="88.35" />
                     <line className="incomechart-4" x1="58.47" y1="128.35" x2="51.73" y2="128.35" />
                     <line className="incomechart-4" x1="58.47" y1="168.35" x2="51.73" y2="168.35" />
-                    
 
 
-                    <text className="incomechart-5" transform="translate(8 51.14)">Income</text>
-                    {getbarchart(getheight(type), type)}
+                    <text className="incomechart-5" transform="translate(85 85.14)">Income</text>
+                    {getbarchart(getheight(type,dollarsperhours,dollarsperdelivery,dollarspermile), type, dollarsperhours,dollarsperdelivery,dollarspermile)}
+                    {getcostbarchart(getheight(type,costsperhours,costsperdelivery,costspermile), type, costsperhours,costsperdelivery,costspermile)}
+                    {getnetbarchart(getheight(type,netperhour,netperdelivery,netpermile), type, netperhour,netperdelivery,netpermile)}
+
+                    <text className="driverchart-5" transform="translate(190.56 122.79)">Costs</text>
+                    <text className="driverchart-5" transform="translate(326.25 144.96)">Net</text>
+                    <path className="incomechart-1" d="M55.19,8.35q.26,100,.5,200" />
+                    <line className="incomechart-2" x1="54.43" y1="208.35" x2="402.55" y2="208.35" />
+
                 </g></g></svg>)
 
     }
@@ -201,12 +284,20 @@ class Income {
         const hoursworked = appbaseddriver.gethoursworked.call(this)
 
         const earnings = appbaseddriver.getearnings.call(this)
-        console.log(hoursworked, earnings)
-        const dollarsperhours = earnings > 0 && hoursworked > 0 ? Number(earnings / hoursworked).toFixed(2) : 0;
-
-        const dollarsperdelivery = earnings > 0 && deliveries > 0 ? Number(earnings / deliveries).toFixed(2) : 0;
+        const costs = appbaseddriver.getdrivercosts.call(this)
+        const net = earnings - costs;
+        console.log(costs)
+        const dollarsperhours = earnings > 0 && hoursworked > 0 ? earnings / hoursworked : 0;
+        const dollarsperdelivery = earnings > 0 && deliveries > 0 ? Number(earnings / deliveries) : 0;
         const miles = appbaseddriver.getmiles.call(this)
-        const dollarspermile = miles > 0 && earnings > 0 ? Number(earnings / miles).toFixed(2) : 0;
+        const dollarspermile = miles > 0 && earnings > 0 ?earnings / miles : 0;
+        const costsperhours = costs > 0 && hoursworked > 0 ? costs / hoursworked : 0;
+        const costsperdelivery = costs > 0 && deliveries > 0 ? costs / deliveries : 0;
+        const costspermile = miles > 0 && costs > 0 ? costs / miles : 0;
+
+        const netperhour = dollarsperhours - costsperhours;
+        const netperdelivery = dollarsperdelivery - costsperdelivery;
+        const netpermiles = dollarspermile - costspermile;
 
         const output = () => {
             if (this.state.width > 600) {
@@ -224,7 +315,11 @@ class Income {
                         </div>
                         <div style={{ ...styles.flex1 }}>
                             <span style={{ ...regularFont, ...styles.generalFont }}>Earnings</span><br />
-                            <span style={{ ...regularFont, ...styles.generalFont }}>${Number(earnings).toFixed(2)}</span>
+                            <span style={{ ...regularFont, ...styles.generalFont }}>${Number(earnings).toFixed(2)}</span> <br />
+                            <span style={{ ...regularFont, ...styles.generalFont }}>Costs</span><br />
+                            <span style={{ ...regularFont, ...styles.generalFont }}>${Number(costs).toFixed(2)}</span> <br />
+                            <span style={{ ...regularFont, ...styles.generalFont }}>Net</span><br />
+                            <span style={{ ...regularFont, ...styles.generalFont }}>${Number(net).toFixed(2)}</span> <br />
                         </div>
                         <div style={{ ...styles.flex1 }}>
 
@@ -233,12 +328,25 @@ class Income {
 
                         </div>
                         <div style={{ ...styles.flex1 }}>
-                            <span style={{ ...regularFont, ...styles.generalFont }}>  <span style={{ ...regularFont, ...styles.generalFont }}>$/hr</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${dollarsperhours}</span> <br />
+                           
+                                <span style={{ ...regularFont, ...styles.generalFont }}>$/hr</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarsperhours).toFixed(2)}</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>costs/hr</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(costsperhours).toFixed(2)}</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>net/hr</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(netperhour).toFixed(2)}</span> <br />
                                 <span style={{ ...regularFont, ...styles.generalFont }}>$/delivery</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${dollarsperdelivery}</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarsperdelivery).toFixed(2)}</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>costs/delivery </span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(costsperdelivery).toFixed(2)}</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>net/delivery </span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(netperdelivery).toFixed(2)}</span> <br />
                                 <span style={{ ...regularFont, ...styles.generalFont }}>$/mile</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${dollarspermile}</span> <br /></span>
+                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarspermile).toFixed(2)}</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>costs/mile</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(costspermile).toFixed(2)}</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>net/mile</span> <br />
+                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(netpermiles).toFixed(2)}</span> <br />
                         </div>
 
                     </div>
@@ -266,6 +374,10 @@ class Income {
                                 <div style={{ ...styles.flex1 }}>
                                     <span style={{ ...regularFont, ...styles.generalFont }}>Earnings</span><br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>${Number(earnings).toFixed(2)}</span>
+                                    <span style={{ ...regularFont, ...styles.generalFont }}>Costs</span><br />
+                                    <span style={{ ...regularFont, ...styles.generalFont }}>${Number(costs).toFixed(2)}</span> <br />
+                                    <span style={{ ...regularFont, ...styles.generalFont }}>Net</span><br />
+                                    <span style={{ ...regularFont, ...styles.generalFont }}>${Number(net).toFixed(2)}</span> <br />
                                 </div>
                             </div>
                             <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
@@ -275,11 +387,11 @@ class Income {
                                     <span style={{ ...regularFont, ...styles.generalFont }}>{Number(miles)}</span>
                                 </div>
                                 <div style={{ ...styles.flex1 }}>
-                                    <span style={{ ...regularFont, ...styles.generalFont }}>  <span style={{ ...regularFont, ...styles.generalFont }}>$/hr</span> <br />
+                                    <span style={{ ...regularFont, ...styles.generalFont }}>  <span style={{ ...regularFont, ...styles.generalFont }}>$income/hr</span> <br />
                                         <span style={{ ...regularFont, ...styles.generalFont }}>${dollarsperhours}</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>$/delivery</span> <br />
+                                        <span style={{ ...regularFont, ...styles.generalFont }}>$income/delivery</span> <br />
                                         <span style={{ ...regularFont, ...styles.generalFont }}>${dollarsperdelivery}</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>$/mile</span> <br />
+                                        <span style={{ ...regularFont, ...styles.generalFont }}>$income/mile</span> <br />
                                         <span style={{ ...regularFont, ...styles.generalFont }}>${dollarspermile}</span> <br /></span>
                                 </div>
                             </div>
