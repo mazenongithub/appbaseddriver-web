@@ -3,8 +3,9 @@ import { MyStylesheet } from './styles';
 import AppBasedDriver from './appbaseddriver';
 import MakeID from './makeid';
 import { Link } from 'react-router-dom'
-import {gotoicon} from './svg'
+import {gotoicon, removeIconSmall} from './svg'
 import Header from './header';
+import {getUTCDate} from './functions'
 
 class Equipment {
 
@@ -15,7 +16,8 @@ class Equipment {
         if (myuser) {
 
             const newEquipment = (equipmentid, equipment) => {
-                return ({ equipmentid, equipment})
+                const repayment = { purchasedate: getUTCDate(), purchase: 0, salvagedate: getUTCDate(), salvage: 0, apr: 0 }
+                return ({ equipmentid, equipment, repayment})
             }
 
             if (this.state.activeequipmentid) {
@@ -90,6 +92,20 @@ class Equipment {
             this.setState({ activeequipmentid: equipmentid })
         }
     }
+    removeequipment(equipment) {
+        if(window.confirm(`Are you sure you want to remove ${equipment.equipment}?`)) {
+            const appbaseddriver = new AppBasedDriver();
+            const myuser = appbaseddriver.getuser.call(this)
+            if(myuser) {
+            const i = appbaseddriver.getequipmentkeybyid.call(this,equipment.equipmentid)
+            myuser.equipment.splice(i,1)
+            this.props.reduxUser(myuser)
+            this.setState({activequipmentid:false})
+
+            }
+            
+        }
+    }
 
     showequipmentid(myequipment) {
         const styles = MyStylesheet();
@@ -103,6 +119,7 @@ class Equipment {
             }
         }
         const myuser = appbaseddriver.getuser.call(this)
+        const removeIcon = appbaseddriver.getremoveicon.call(this)
         const buttonwidth =() => {
 
             if(this.state.width>1200) {
@@ -123,7 +140,7 @@ class Equipment {
                         <span style={{ ...regularFont, ...styles.generalFont, ...activebackground() }}>{myequipment.equipment}</span>
                     </div>
                     <div style={{ ...styles.generalContainer,...styles.bottomMargin15 }}>
-                        <Link to={`/${myuser.driverid}/equipment/${myequipment.equipmentid}`} style={{ ...regularFont, ...styles.generalFont, ...styles.generalLink }}><button style={{...styles.generalButton, ...buttonwidth()}}>{gotoicon()}</button>Go to {myequipment.equipment}</Link>
+                        <Link to={`/${myuser.driverid}/equipment/${myequipment.equipmentid}`} style={{ ...regularFont, ...styles.generalFont, ...styles.generalLink }}><button style={{...styles.generalButton, ...buttonwidth()}}>{gotoicon()}</button>Go to {myequipment.equipment}</Link> <button style={{ ...styles.generalButton, ...removeIcon, ...styles.marginLeft30 }} onClick={() => { equipment.removeequipment.call(this,myequipment) }}>{removeIconSmall()}</button>
                     </div>
                 </div>
             </div>

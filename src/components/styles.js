@@ -8,6 +8,9 @@ export function MyStylesheet() {
         alignCenter: {
             textAlign: 'center'
         },
+        marginLeft30:{
+            marginLeft:'30px'
+        },
         headerStyle: {
             fontFamily: 'Goldman',
         },

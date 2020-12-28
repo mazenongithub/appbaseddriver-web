@@ -215,11 +215,11 @@ class AppBasedDriver {
 
     getremoveicon() {
         if (this.state.width > 1200) {
-            return ({ width: '57px' })
-        } else if (this.state.width > 600) {
             return ({ width: '47px' })
-        } else {
+        } else if (this.state.width > 600) {
             return ({ width: '37px' })
+        } else {
+            return ({ width: '27px' })
         }
     }
 

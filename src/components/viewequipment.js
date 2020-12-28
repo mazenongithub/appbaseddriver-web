@@ -9,7 +9,7 @@ import MakeID from './makeid';
 import EquipmentDate from './equipmentdate';
 import SalvageDate from './salvagedate'
 import PurchaseDate from './purchasedate'
-import { isNumeric, formatDateStringDisplay, getUTCDate } from './functions'
+import { isNumeric, formatDateStringDisplay } from './functions'
 import Costs from './costs';
 
 
@@ -501,30 +501,7 @@ class ViewEquipment extends Component {
         }
         return ids;
     }
-    addrepayment() {
-        const appbaseddriver = new AppBasedDriver();
-        const myuser = appbaseddriver.getuser.call(this)
-
-        if (myuser) {
-            const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
-            if (equipment) {
-                if (!equipment.hasOwnProperty("repayment")) {
-                    const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
-                    const repayment = { purchasedate: getUTCDate(), purchase: 0, salvagedate: getUTCDate(), salvage: 0, apr: 0 }
-                    myuser.equipment[i].repayment = repayment;
-                    this.props.reduxUser(myuser)
-
-
-                }
-                this.setState({ showrepayment: true })
-
-            }
-        }
-
-
-
-    }
-
+  
     handlereoccurring() {
         const appbaseddriver = new AppBasedDriver();
         const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
