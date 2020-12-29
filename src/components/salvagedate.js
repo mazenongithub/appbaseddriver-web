@@ -35,7 +35,7 @@ class SalvageDate {
 
                                 let day = this.state.salvageday;
                                 let month = this.state.salvagemonth;
-                                const timein = `${year}-${month}-${day}`
+                                const timein = `${year}/${month}/${day}`
                                 myuser.equipment[i].repayment.salvagedate = timein;
                                 this.props.reduxUser(myuser);
                                 this.setState({ render: 'render' })
@@ -88,7 +88,7 @@ class SalvageDate {
 
                                 let year = this.state.salvageyear;
                                 let month = this.state.salvagemonth;
-                                const timein = `${year}-${month}-${day}`
+                                const timein = `${year}/${month}/${day}`
                                 myuser.equipment[i].repayment.salvagedate = timein;
                                 this.props.reduxUser(myuser);
                                 this.setState({ render: 'render' })
@@ -142,7 +142,7 @@ class SalvageDate {
 
                                 let day = this.state.salvageday;
                                 let year = this.state.salvageyear;
-                                const timein = `${year}-${month}-${day}`
+                                const timein = `${year}/${month}/${day}`
                                 myuser.equipment[i].repayment.salvagedate = timein;
                                 this.props.reduxUser(myuser);
                                 this.setState({ render: 'render' })

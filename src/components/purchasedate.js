@@ -36,7 +36,7 @@ class PurchaseDate {
 
                                 let day = this.state.purchaseday;
                                 let month = this.state.purchasemonth;
-                                const timein = `${year}-${month}-${day}`
+                                const timein = `${year}/${month}/${day}`
                                 myuser.equipment[i].repayment.purchasedate = timein;
                                 this.props.reduxUser(myuser);
                                 this.setState({ render: 'render' })
@@ -89,7 +89,7 @@ class PurchaseDate {
 
                                 let year = this.state.purchaseyear;
                                 let month = this.state.purchasemonth;
-                                const timein = `${year}-${month}-${day}`
+                                const timein = `${year}/${month}/${day}`
                                 myuser.equipment[i].repayment.purchasedate = timein;
                                 this.props.reduxUser(myuser);
                                 this.setState({ render: 'render' })
@@ -144,7 +144,7 @@ class PurchaseDate {
 
                                 let day = this.state.purchaseday;
                                 let year = this.state.purchaseyear;
-                                const timein = `${year}-${month}-${day}`
+                                const timein = `${year}/${month}/${day}`
                                 myuser.equipment[i].repayment.purchasedate = timein;
                                 this.props.reduxUser(myuser);
                                 this.setState({ render: 'render' })

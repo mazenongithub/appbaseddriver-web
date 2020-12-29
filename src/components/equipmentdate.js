@@ -32,7 +32,7 @@ class EquipmentDate {
                                 const j = appbaseddriver.getequipmentcostkeybyid.call(this,this.props.match.params.equipmentid,this.state.activecostid);
                                 let day = this.state.equipmentday;
                                 let month = this.state.equipmentmonth;
-                                const timein = `${year}-${month}-${day}`
+                                const timein = `${year}/${month}/${day}`
 
                                 myuser.equipment[i].costs[j].purchasedate = timein;
                                 this.props.reduxUser(myuser);
@@ -85,7 +85,7 @@ class EquipmentDate {
                                 const j = appbaseddriver.getequipmentcostkeybyid.call(this,this.props.match.params.equipmentid,this.state.activecostid);
                                 let year = this.state.equipmentyear;
                                 let month = this.state.equipmentmonth;
-                                const timein = `${year}-${month}-${day}`
+                                const timein = `${year}/${month}/${day}`
                                 myuser.equipment[i].costs[j].purchasedate = timein;
                                 this.props.reduxUser(myuser);
                                 this.setState({ render: 'render' })
@@ -141,7 +141,7 @@ class EquipmentDate {
                                 const j = appbaseddriver.getequipmentcostkeybyid.call(this,this.props.match.params.equipmentid,this.state.activecostid);
                                 let day = this.state.equipmentday;
                                 let year = this.state.equipmentyear;
-                                const timein = `${year}-${month}-${day}`
+                                const timein = `${year}/${month}/${day}`
                                 myuser.equipment[i].costs[j].purchasedate = timein;
                                 this.props.reduxUser(myuser);
                                 this.setState({ render: 'render' })

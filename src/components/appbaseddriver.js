@@ -104,7 +104,7 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         let mycosts = 0;
         const costs = appbaseddriver.gettransformedcostsbyequimentid.call(this, equipmentid)
-    
+     
         let activecosts = [];
         if (costs) {
             // eslint-disable-next-line
@@ -113,7 +113,7 @@ class AppBasedDriver {
                 if((getYearFromDate(cost.purchasedate) === this.state.activeyear) && currentDateCheck(cost.purchasedate)) {
                     activecosts.push(cost)
                     mycosts += Number(cost.amount)
-                }
+                } 
 
                
             })

@@ -114,7 +114,7 @@ class ViewEquipment extends Component {
                     const year = this.state.equipmentyear;
                     const day = this.state.equipmentday;
                     const month = this.state.equipmentmonth;
-                    const purchasedate = `${year}-${month}-${day}`;
+                    const purchasedate = `${year}/${month}/${day}`;
                     const newcost = newCost(costid, detail, purchasedate)
                     if (costs) {
                         myuser.equipment[i].costs.push(newcost)
@@ -210,13 +210,13 @@ class ViewEquipment extends Component {
                         const newCost = (costid,  purchasedate, detail, amount) => {
                             return ({ costid, purchasedate, detail, amount })
                         }
-                        
+
                         const costid = makeid.costid.call(this, equipmentid)
                         const costs = appbaseddriver.getequipmentscosts.call(this, equipmentid)
                         const year = this.state.equipmentyear;
                         const day = this.state.equipmentday;
                         const month = this.state.equipmentmonth;
-                        const purchasedate = `${year}-${month}-${day}`;
+                        const purchasedate = `${year}/${month}/${day}`;
                         const newcost = newCost(costid, purchasedate, "", amount)
                         if (costs) {
                             myuser.equipment[i].costs.push(newcost)
@@ -469,12 +469,19 @@ class ViewEquipment extends Component {
                 return ({ backgroundColor: '#FFFFFF' })
             }
         }
+
+        const reoccurring = (cost) => {
+            if(cost.hasOwnProperty("reoccurring")) {
+                return `Reoccurring ${cost.reoccurring.frequency}`
+            }
+        }
         const singular = (cost) => {
+
             return (
                 <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} key={cost.costid} onClick={() => { this.makecostactive(cost.costid) }}>
                     <div style={{ ...styles.flex1 }}>
                         <span style={{ ...regularFont, ...styles.generalFont }}>
-                            Cost Type: Singular PurchaseDate: {formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: ${cost.amount}
+                        {reoccurring(cost)} PurchaseDate: {formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: ${cost.amount}
                         </span> <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
                     </div>
                 </div>)

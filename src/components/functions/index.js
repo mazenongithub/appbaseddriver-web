@@ -1,5 +1,5 @@
 export function UTCTimeStringfromTime(timein) {
-    timein.replace(/-/g, '/')
+
     let time = timein.substring(17, 19)
     let hours = timein.substring(11, 13);
     if (time === 'pm' && hours !== '12') {
@@ -49,7 +49,7 @@ export function getMinutesfromTimein(timein) {
 }
 
 export function getHoursfromTimein(timein) {
-    //let timein ='2020-05-13 20:00:00'
+    //let timein ='2020/05/13 20:00:00'
 
     const newDate = new Date(timein)
     let hours = newDate.getHours();
@@ -68,7 +68,7 @@ export function getHoursfromTimein(timein) {
 }
 
 export function getOffsetDate(timein) {
-    let datein = new Date(`${timein.replace(/-/g, '/')} 00:00:00 UTC`)
+    let datein = new Date(`${timein} 00:00:00 UTC`)
     let offset = datein.getTimezoneOffset() / 60
     let sym = "+";
     if (offset > 0) {
@@ -84,7 +84,7 @@ export function increaseDateStringByOneMonth(timein) {
 
     const offset = getOffsetDate(timein)
 
-    let datein = new Date(`${timein.replace(/-/g, '/')} 12:00:00${offset}`);
+    let datein = new Date(`${timein} 12:00:00${offset}`);
     let month = datein.getMonth() + 1;
     let year = datein.getFullYear();
     if (month === 12) {
@@ -105,7 +105,7 @@ export function increaseDateStringByOneMonth(timein) {
         date = `0${date}`;
     }
 
-    return (`${year}-${month}-${date}`);
+    return (`${year}/${month}/${date}`);
 }
 
 export function AmmortizeFactor(i, n) {
@@ -129,41 +129,41 @@ export function FutureCostPresent(i, n, F) {
     return (F * (1 / Math.pow((1 + i), n)))
 }
 
-export function newCost (costid, detail, purchasedate, amount) {
+export function newCost(costid, detail, purchasedate, amount) {
     return ({ costid, detail, purchasedate, amount })
 }
 
-export function getYearFromTime (timein) {
-   
+export function getYearFromTime(timein) {
+
     let datein = new Date(timein)
     return datein.getFullYear();
-  
-  
+
+
 }
 
 export function currentDateCheck(timein) {
     let offset = getOffsetDate(timein);
-    let datein = new Date(`${timein.replace(/-/g, '/')} 00:00:00${offset}`)
+    let datein = new Date(`${timein} 00:00:00${offset}`)
     let datecheck = true;
-    if(datein.getTime()>new Date().getTime()) {
-      datecheck = false
+    if (datein.getTime() > new Date().getTime()) {
+        datecheck = false
     }
     return datecheck
-    
-    
-  }
+
+
+}
 
 
 export function getRepaymentCosts(purchase, purchasedate, salvage, salvagedate, i) {
 
-    // let purchasedate = '2018-05-24'
-    // const salvagedate = '2023-05-24'
+    // let purchasedate = '2018/05/24'
+    // const salvagedate = '2023/05/24'
     // const purchase = '7400'
     // let salvage = '1500'
     // const i = 16;
 
 
-    
+
 
 
     const period = calculateTotalMonths(purchasedate, salvagedate)
@@ -184,10 +184,10 @@ export function getRepaymentCosts(purchase, purchasedate, salvage, salvagedate, 
 }
 
 export function calculateTotalMonths(purchasedate, salvagedate) {
-    //  let purchasedate = '2018-05-24';
-    // let saledate = '2025-01-24'
-    const datePurchase = new Date(`${purchasedate.replace(/-/g, '/')} UTC`);
-    const salvageDate = new Date(`${salvagedate.replace(/-/g, '/')} UTC`);
+    //  let purchasedate = '2018/05/24';
+    // let saledate = '2025/01/24'
+    const datePurchase = new Date(`${purchasedate} UTC`);
+    const salvageDate = new Date(`${salvagedate} UTC`);
     const datePurchaseYear = datePurchase.getFullYear();
     const purchaseMonth = datePurchase.getMonth() + 1;
     const salvageDateYear = salvageDate.getFullYear();
@@ -200,7 +200,7 @@ export function calculateTotalMonths(purchasedate, salvagedate) {
 }
 
 export function getDayfromTimein(timein) {
-    //let timein ='2020-05-13 20:00:00'
+    //let timein ='2020/05/13 20:00:00'
 
     const newDate = new Date(`${timein}`)
     let date = newDate.getDate();
@@ -212,7 +212,7 @@ export function getDayfromTimein(timein) {
 }
 
 export function getYearfromTimein(timein) {
-    //let timein ='2020-05-13 20:00:00'
+    //let timein ='2020/05/13 20:00:00'
     const newDate = new Date(`${timein}`)
     return newDate.getFullYear();
 
@@ -233,7 +233,7 @@ export function sorttimes(timeina, timeinb) {
 }
 
 export function getAMPMfromTimeIn(timein) {
-    //let timein ='2020-05-13 20:00:00'
+    //let timein ='2020/05/13 20:00:00'
     const newDate = new Date(timein)
     let hours = newDate.getHours();
     let ampm = "";
@@ -259,23 +259,23 @@ export function getMonthfromTimein(timein) {
     return month;
 }
 export function calculatetotalhours(timeout, timein) {
-    // 
+
     let datein = new Date(timein)
     let dateout = new Date(timeout)
-    let totalhours = ((dateout.getTime() - datein.getTime()) / (1000 * 60 * 60))
+    let totalhours = ((dateout.getTime() / datein.getTime()) / (1000 * 60 * 60))
     return totalhours;
 }
 
 export function abbDateStr(timein) {
-    //const timein = '2020-12-18 23:30:00'
-    const datein = new Date(timein.replace(/-/g, '/'))
+    //const timein = '2020/12/18 23:30:00'
+    const datein = new Date(timein)
     const months = datein.getMonth() + 1;
     const day = datein.getDate();
     return (`${months}/${day}`)
 }
 
 export function getXcoord(timein) {
-    const datein = new Date(timein.replace(/-/g, '/'))
+    const datein = new Date(timein)
     const months = datein.getMonth() + 1;
     const day = datein.getDate();
 
@@ -290,27 +290,17 @@ export function getUTCDate() {
 
     const datestring = new Date().toLocaleString()
     const datestrings = datestring.split('/')
-    return `${datestrings[2].substring(0, 4)}-${datestrings[0]}-${datestrings[1]}`
+    return `${datestrings[2].substring(0, 4)}/${datestrings[0]}/${datestrings[1]}`
 
 }
 
 export function formatDateStringDisplay(timein) {
-    timein.replace(/-/g, '/')
-    timein = timein.split('-')
-    let year = "";
-    let month = "";
-    let day = "";
 
-    if (timein.length === 3) {
-        year = timein[0]
-        month = timein[1]
-        day = timein[2]
-    }
-    return (`${month}/${day}/${year}`)
+  return timein
 }
 
 export function makeTimeString(year, month, day, hours, minutes, time) {
-    return `${year}-${month}-${day} ${hours}:${minutes} ${time}`
+    return `${year}/${month}/${day} ${hours}:${minutes} ${time}`
 }
 
 export function validateMinutes(min) {
@@ -424,7 +414,7 @@ export function validateMonth(mon) {
 }
 
 export function getFirstIsOn(timein) {
-    let datein = new Date(`${timein.replace(/-/g, '/')} UTC`)
+    let datein = new Date(`${timein} UTC`)
     let monthdisplay = datein.getMonth() + 1;
     let fullyear = datein.getFullYear();
     let thefirstofthemonth = new Date(`${fullyear}/${monthdisplay}/1`);
@@ -499,7 +489,7 @@ export function getDayString(day) {
 
 
 export function check_29_feb_leapyear(timein) {
-    const dateobj = new Date(`${timein.replace(/-/g, '/')} UTC`)
+    const dateobj = new Date(`${timein} UTC`)
     let month = dateobj.getMonth();
 
     if (month === 1) {
@@ -546,61 +536,60 @@ export function check_29_feb_leapyeardate(dateobj) {
 }
 
 export function calculateTotalDays(purchasedate, salvagedate) {
-    purchasedate = purchasedate.replace(/-/g, '/')
-    salvagedate=salvagedate.replace(/-/g, '/')
+
     const purchaseDate = new Date(`${purchasedate} 12:00:00${getOffsetDate(purchasedate)}`)
     const salvageDate = new Date(`${salvagedate} 12:00:00${getOffsetDate(salvagedate)}`)
-   
+
     const purchasetime = purchaseDate.getTime();
     const salvagetime = salvageDate.getTime();
     const interval = salvagetime - purchasetime
-    const days = interval/(1000*60*60*24)
+    const days = interval / (1000 * 60 * 60 * 24)
     return Math.round(days)
-     
-   }
 
-   export function calculateTotalYears (purchasedate, salvagedate) {
+}
+
+export function calculateTotalYears(purchasedate, salvagedate) {
     let totalyears = 0;
-    const purchaseyearstr = purchasedate.split('-')
+    const purchaseyearstr = purchasedate.split('/')
     const purchaseyear = purchaseyearstr[0];
     const purchasemonth = purchaseyearstr[1];
     const purchaseday = purchaseyearstr[2];
-    const salvageyearstr = salvagedate.split('-')
+    const salvageyearstr = salvagedate.split('/')
     const salvageyear = salvageyearstr[0]
     const salvagemonth = salvageyearstr[1]
     const salvageday = salvageyearstr[2]
-    if(purchasemonth>=salvagemonth) {
-      
-          if(purchasemonth === salvagemonth) {
-          
-          if(purchaseday>=salvageday) {
-            
-            totalyears = salvageyear - purchaseyear - 1
-            
-          } else {
-            
-            totalyears = salvageyear - purchaseyear 
-            
-            
-          }
-          
-          
-        }
-      
-      
-      
-    } else {
-       totalyears = salvageyear - purchaseyear 
-      
-    }
-    return (totalyears) 
-    
-   
-  }
+    if (purchasemonth >= salvagemonth) {
 
-  export function increaseCalendarDaybyOneYear(timein) {
-    let offset = getOffsetDate(timein);
-    let datein = new Date(`${timein.replace(/-/g, '/')} 00:00:00${offset}`)
+        if (purchasemonth === salvagemonth) {
+
+            if (purchaseday >= salvageday) {
+
+                totalyears = salvageyear - purchaseyear - 1
+
+            } else {
+
+                totalyears = salvageyear - purchaseyear
+
+
+            }
+
+
+        }
+
+
+
+    } else {
+        totalyears = salvageyear - purchaseyear
+
+    }
+    return (totalyears)
+
+
+}
+
+export function increaseCalendarDaybyOneYear(timein) {
+
+    let datein = new Date(timein)
     let currentYear = datein.getFullYear();
     let increaseYear = currentYear + 1;
     let month = datein.getMonth() + 1;
@@ -611,36 +600,35 @@ export function calculateTotalDays(purchasedate, salvagedate) {
     if (day < 10) {
         day = `0${day}`
     }
-    let newDate = `${increaseYear}-${month}-${day}`
+    let newDate = `${increaseYear}/${month}/${day}`
     return (newDate)
 }
 
-  
 
-   export function calculateTotalWeeks (purchasedate, salvagedate)  {
-    purchasedate = purchasedate.replace(/-/g, '/')
-    salvagedate=salvagedate.replace(/-/g, '/')
+
+export function calculateTotalWeeks(purchasedate, salvagedate) {
+
     const purchaseDate = new Date(`${purchasedate} 12:00:00${getOffsetDate(purchasedate)}`)
     const salvageDate = new Date(`${salvagedate} 12:00:00${getOffsetDate(salvagedate)}`)
-   
+
     const purchasetime = purchaseDate.getTime();
     const salvagetime = salvageDate.getTime();
     const interval = salvagetime - purchasetime
-    const weeks = interval/(1000*60*60*24*7)
+    const weeks = interval / (1000 * 60 * 60 * 24 * 7)
     return Math.floor(weeks)
-     
-   }
 
-   export function getYearFromDate(timein) {
-  
-    let offset = getOffsetDate(timein);
-    let datein = new Date(`${timein.replace(/-/g, '/')} 12:00:00${offset}`)
-    return datein.getFullYear();
-  
-  
 }
 
-export function getInterval(salvagedate, purchasedate, reoccurring, amount, detail)  {
+export function getYearFromDate(timein) {
+
+    let offset = getOffsetDate(timein);
+    let datein = new Date(`${timein} 12:00:00${offset}`)
+    return datein.getFullYear();
+
+
+}
+
+export function getInterval(salvagedate, purchasedate, reoccurring, amount, detail) {
     let period = 0;
     let x = 0;
     let cost = {};
@@ -696,9 +684,9 @@ export function getInterval(salvagedate, purchasedate, reoccurring, amount, deta
 
 export function increasedatebyoneday(timein) {
 
-    //let timein = '2020-12-31';
-    let offset = getOffsetDate(timein);
-    let datein = new Date(`${timein.replace(/-/g, '/')} 00:00:00${offset}`);
+    //let timein = '2020/12/31';
+
+    let datein = new Date(timein);
     let newdate = new Date(datein.getTime())
     let day = newdate.getDate();
     let month = newdate.getMonth() + 1;
@@ -741,6 +729,8 @@ export function increasedatebyoneday(timein) {
             if (day === 28) {
                 day = 1;
                 month = month + 1;
+            } else {
+                day = day + 1
             }
         }
 
@@ -753,12 +743,12 @@ export function increasedatebyoneday(timein) {
     if (month < 10) {
         month = `0${month}`
     }
-    return (`${year}-${month}-${day}`)
+    return (`${year}/${month}/${day}`)
 }
 
 export function increaseDateByOneWeek(timein) {
     const offset = getOffsetDate(timein);
-    const TimeIn = new Date(`${timein.replace(/-/g, '/')} 12:00:00${offset}`);
+    const TimeIn = new Date(`${timein} 12:00:00${offset}`);
     let datetime = TimeIn.getTime();
     datetime += (1000 * 60 * 60 * 24 * 7)
     const oneWeek = new Date(datetime)
@@ -767,7 +757,7 @@ export function increaseDateByOneWeek(timein) {
     let day = oneWeek.getDate();
     day = trailingZeros(day)
     const year = oneWeek.getFullYear();
-    return (`${year}-${month}-${day}`)
+    return (`${year}/${month}/${day}`)
 
 
 }
@@ -827,7 +817,7 @@ export function check_30date(dateobj) {
 }
 
 export function check_31(timein) {
-    const dateobj = new Date(`${timein.replace(/-/g, '/')} UTC`)
+    const dateobj = new Date(`${timein} UTC`)
     let month = dateobj.getMonth();
     if (month === 0 || month === 2 || month === 4 || month === 6 || month === 7 || month === 9 || month === 11) {
         return 31;
@@ -836,7 +826,7 @@ export function check_31(timein) {
 
 
 export function check_30(timein) {
-    const dateobj = new Date(`${timein.replace(/-/g, '/')} UTC`)
+    const dateobj = new Date(`${timein} UTC`)
     let month = dateobj.getMonth();
     if (month !== 1) {
         return 30;
