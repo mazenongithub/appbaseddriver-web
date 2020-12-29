@@ -187,11 +187,13 @@ class PurchaseDate {
 
                     if (!this.state.purchaseday || !this.state.purchaseyear || !this.state.purchaseday) {
 
-                        const dates = getequipment.repayment.purchasedate.split('-')
+                        const dates = getequipment.repayment.purchasedate.split('/')
+                   
                         const year = dates[0]
                         const month = dates[1]
                         const day = dates[2]
                         this.setState({ purchaseyear: year, purchasemonth: month, purchaseday: day })
+                        
                     }
 
                 }

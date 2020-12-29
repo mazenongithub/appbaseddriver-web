@@ -185,7 +185,7 @@ class SalvageDate {
 
                 if (!this.state.salvageday || !this.state.salvageyear || !this.state.salvageday) {
 
-                    const dates = getequipment.repayment.salvagedate.split('-')
+                    const dates = getequipment.repayment.salvagedate.split('/')
                     const year = dates[0]
                     const month = dates[1]
                     const day = dates[2]
