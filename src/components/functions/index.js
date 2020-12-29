@@ -259,10 +259,10 @@ export function getMonthfromTimein(timein) {
     return month;
 }
 export function calculatetotalhours(timeout, timein) {
-
+=
     let datein = new Date(timein)
     let dateout = new Date(timeout)
-    let totalhours = ((dateout.getTime() / datein.getTime()) / (1000 * 60 * 60))
+    let totalhours = ((dateout.getTime() - datein.getTime()) / (1000 * 60 * 60))
     return totalhours;
 }
 
