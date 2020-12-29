@@ -78,9 +78,11 @@ class Profile  {
     getemailaddress() {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
+        let emailaddress = "";
         if (myuser) {
-            return myuser.emailaddress;
+            emailaddress = myuser.emailaddress;
         }
+        return emailaddress;
 
     }
     handleemailaddress(emailaddress) {
@@ -110,9 +112,11 @@ class Profile  {
     getphonenumber() {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
+        let phonenumber = "";
         if (myuser) {
-            return myuser.phonenumber;
+            phonenumber =  myuser.phonenumber;
         }
+        return phonenumber;
 
     }
     handlephonenumber(phonenumber) {
@@ -128,9 +132,11 @@ class Profile  {
     getlastname() {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
+        let lastname = "";
         if (myuser) {
-            return myuser.lastname;
+            lastname = myuser.lastname;
         }
+        return lastname;
 
     }
     handlelastname(lastname) {
@@ -146,9 +152,11 @@ class Profile  {
     getfirstname() {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
+        let firstname = "";
         if (myuser) {
-            return myuser.firstname;
+            firstname =  myuser.firstname;
         }
+        return firstname;
 
     }
     handlefirstname(firstname) {

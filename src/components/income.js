@@ -72,7 +72,7 @@ class Income {
         const deliveries = appbaseddriver.getdeliveries.call(this)
         const hoursworked = appbaseddriver.gethoursworked.call(this)
         const earnings = appbaseddriver.getearnings.call(this)
-        console.log(type)
+     
         const dollarsperhours = earnings > 0 && hoursworked > 0 ? Number(earnings / hoursworked).toFixed(2) : 0;
         const dollarsperdelivery = earnings > 0 && deliveries > 0 ? Number(earnings / deliveries).toFixed(2) : 0;
         const miles = appbaseddriver.getmiles.call(this)
@@ -286,7 +286,7 @@ class Income {
         const earnings = appbaseddriver.getearnings.call(this)
         const costs = appbaseddriver.getdrivercosts.call(this)
         const net = earnings - costs;
-        console.log(costs)
+    
         const dollarsperhours = earnings > 0 && hoursworked > 0 ? earnings / hoursworked : 0;
         const dollarsperdelivery = earnings > 0 && deliveries > 0 ? Number(earnings / deliveries) : 0;
         const miles = appbaseddriver.getmiles.call(this)
