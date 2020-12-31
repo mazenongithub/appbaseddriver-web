@@ -187,11 +187,11 @@ class Costs {
 
                                 </div>
                                 <div style={{ ...styles.flex1 }}>
-                                    <span style={{ ...regularFont, ...styles.generalFont }}>  <span style={{ ...regularFont, ...styles.generalFont }}>$/hr</span> <br />
+                                    <span style={{ ...regularFont, ...styles.generalFont }}>  <span style={{ ...regularFont, ...styles.generalFont }}>costs/hr</span> <br />
                                         <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarsperhours).toFixed(2)}</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>$/delivery</span> <br />
+                                        <span style={{ ...regularFont, ...styles.generalFont }}>costs/delivery</span> <br />
                                         <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarsperdelivery).toFixed(2)}</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>$/mile</span> <br />
+                                        <span style={{ ...regularFont, ...styles.generalFont }}>costs/mile</span> <br />
                                         <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarspermile).toFixed(2)}</span> <br /></span>
                                 </div>
 
@@ -233,11 +233,11 @@ class Costs {
                                     <span style={{ ...regularFont, ...styles.generalFont }}>{Number(miles)}</span>
                                 </div>
                                 <div style={{ ...styles.flex1 }}>
-                                    <span style={{ ...regularFont, ...styles.generalFont }}>  <span style={{ ...regularFont, ...styles.generalFont }}>$/hr</span> <br />
+                                    <span style={{ ...regularFont, ...styles.generalFont }}>  <span style={{ ...regularFont, ...styles.generalFont }}>costs/hr</span> <br />
                                         <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarsperhours).toFixed(2)}</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>$/delivery</span> <br />
+                                        <span style={{ ...regularFont, ...styles.generalFont }}>costs/delivery</span> <br />
                                         <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarsperdelivery).toFixed(2)}</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>$/mile</span> <br />
+                                        <span style={{ ...regularFont, ...styles.generalFont }}>costs/mile</span> <br />
                                         <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarspermile).toFixed(2)}</span> <br /></span>
                                 </div>
                             </div>

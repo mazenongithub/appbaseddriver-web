@@ -67,6 +67,38 @@ export function getHoursfromTimein(timein) {
 
 }
 
+export function checkactivedate (purchasedate, activemonth, activeyear) {
+  
+  let active = false
+
+  const offset = getOffsetDate(purchasedate)
+  const datein = new Date(`${purchasedate} 12:00:00${offset}`)
+  
+  if(datein.getFullYear() === activeyear) {
+   
+  const getmonth = getMonString(datein.getMonth()+1)
+
+  
+  if(activemonth) {
+    
+    
+    if(activemonth.indexOf(getmonth)>=0) {
+      active = true;
+      
+    }
+    
+    
+  } else {
+   active = true; 
+    
+  }
+    
+  }
+  return active
+ 
+  
+}
+
 export function getOffsetDate(timein) {
     let datein = new Date(`${timein} 00:00:00 UTC`)
     let offset = datein.getTimezoneOffset() / 60
@@ -141,6 +173,39 @@ export function getYearFromTime(timein) {
 
 }
 
+export function getMonString(mon) {
+
+    switch (mon) {
+        case 1:
+            return ("jan")
+        case 2:
+            return ("feb")
+        case 3:
+            return ("mar")
+        case 4:
+            return ("apr")
+        case 5:
+            return ("may")
+        case 6:
+            return ("jun")
+        case 7:
+            return ("jul")
+        case 8:
+            return ("aug")
+        case 9:
+            return ("sep")
+        case 10:
+            return ("oct")
+        case 11:
+            return ("nov")
+        case 12:
+            return ("dec")
+        default:
+            break
+    }
+
+}
+
 export function currentDateCheck(timein) {
     let offset = getOffsetDate(timein);
     let datein = new Date(`${timein} 00:00:00${offset}`)
@@ -150,6 +215,38 @@ export function currentDateCheck(timein) {
     }
     return datecheck
 
+
+}
+
+
+
+export function checkactivemonth(timein, activemonth, activeyear) {
+    // timein = '2020/05/24 12:00:00-08:00:00
+    // activemonth = []
+    // activeyear = 2020
+
+    let active = false
+    const datein = new Date(timein)
+    if (datein.getFullYear() === activeyear) {
+        const getmonth = getMonString(datein.getMonth() + 1)
+
+
+        if (activemonth) {
+
+
+            if (activemonth.indexOf(getmonth) >= 0) {
+                active = true;
+
+            }
+
+
+        } else {
+            active = true;
+
+        }
+
+    }
+    return active
 
 }
 
@@ -295,7 +392,7 @@ export function getUTCDate() {
 
 export function formatDateStringDisplay(timein) {
 
-  return timein
+    return timein
 }
 
 export function makeTimeString(year, month, day, hours, minutes, time) {

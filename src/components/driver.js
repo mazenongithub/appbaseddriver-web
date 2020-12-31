@@ -4,7 +4,7 @@ import AppBasedDriver from './appbaseddriver';
 import MakeID from './makeid';
 import TimeIn from './timein';
 import TimeOut from './timeout'
-import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric,getMonthfromTimein,getDayfromTimein,getHoursfromTimein,getYearfromTimein,getMinutesfromTimein,getAMPMfromTimeIn,calculatetotalhours, sorttimes } from './functions'
+import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric,getMonthfromTimein,getDayfromTimein,getHoursfromTimein,getYearfromTimein,getMinutesfromTimein,getAMPMfromTimeIn,calculatetotalhours, sorttimes, checkactivemonth } from './functions'
 import { removeIconSmall } from './svg'
 import Header from './header';
 import Income from './income';
@@ -315,7 +315,15 @@ class Driver {
             // eslint-disable-next-line
             shifts.map(shift => {
 
-                shiftids.push(showshift(shift))
+               
+            
+           
+
+                    if(checkactivemonth(shift.timein,this.state.activemonth, this.state.activeyear)) {
+                        shiftids.push(showshift(shift))
+                    }
+                   
+                    
 
 
             })
@@ -426,14 +434,11 @@ const header = new Header();
                             </div>
                         </div>
 
+                        {driverui.showui.call(this)}
+
                         {driver.showshifts.call(this)}
 
                         {appbaseddriver.showsavedriver.call(this)}
-
-
-                        {driverui.showui.call(this)}
-
-
 
                         {income.showincome.call(this)}
 

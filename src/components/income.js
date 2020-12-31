@@ -286,18 +286,10 @@ class Income {
         const earnings = appbaseddriver.getearnings.call(this)
         const costs = appbaseddriver.getdrivercosts.call(this)
         const net = earnings - costs;
-    
-        const dollarsperhours = earnings > 0 && hoursworked > 0 ? earnings / hoursworked : 0;
-        const dollarsperdelivery = earnings > 0 && deliveries > 0 ? Number(earnings / deliveries) : 0;
         const miles = appbaseddriver.getmiles.call(this)
-        const dollarspermile = miles > 0 && earnings > 0 ?earnings / miles : 0;
-        const costsperhours = costs > 0 && hoursworked > 0 ? costs / hoursworked : 0;
-        const costsperdelivery = costs > 0 && deliveries > 0 ? costs / deliveries : 0;
-        const costspermile = miles > 0 && costs > 0 ? costs / miles : 0;
-
-        const netperhour = dollarsperhours - costsperhours;
-        const netperdelivery = dollarsperdelivery - costsperdelivery;
-        const netpermiles = dollarspermile - costspermile;
+        
+       
+       
 
         const output = () => {
             if (this.state.width > 600) {
@@ -327,27 +319,7 @@ class Income {
                             <span style={{ ...regularFont, ...styles.generalFont }}>{Number(miles)}</span>
 
                         </div>
-                        <div style={{ ...styles.flex1 }}>
-                           
-                                <span style={{ ...regularFont, ...styles.generalFont }}>$/hr</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarsperhours).toFixed(2)}</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>costs/hr</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(costsperhours).toFixed(2)}</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>net/hr</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(netperhour).toFixed(2)}</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>$/delivery</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarsperdelivery).toFixed(2)}</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>costs/delivery </span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(costsperdelivery).toFixed(2)}</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>net/delivery </span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(netperdelivery).toFixed(2)}</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>$/mile</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarspermile).toFixed(2)}</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>costs/mile</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(costspermile).toFixed(2)}</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>net/mile</span> <br />
-                                <span style={{ ...regularFont, ...styles.generalFont }}>${Number(netpermiles).toFixed(2)}</span> <br />
-                        </div>
+                       
 
                     </div>
                 )
@@ -386,14 +358,7 @@ class Income {
                                     <span style={{ ...regularFont, ...styles.generalFont }}>Miles</span><br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>{Number(miles)}</span>
                                 </div>
-                                <div style={{ ...styles.flex1 }}>
-                                    <span style={{ ...regularFont, ...styles.generalFont }}>  <span style={{ ...regularFont, ...styles.generalFont }}>$income/hr</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>${dollarsperhours}</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>$income/delivery</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>${dollarsperdelivery}</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>$income/mile</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>${dollarspermile}</span> <br /></span>
-                                </div>
+              
                             </div>
 
                         </div>
