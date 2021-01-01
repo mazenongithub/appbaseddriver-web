@@ -181,7 +181,6 @@ class Costs {
                                     <span style={{ ...regularFont, ...styles.generalFont }}>${Number(getcosts).toFixed(2)}</span>
                                 </div>
                                 <div style={{ ...styles.flex1 }}>
-
                                     <span style={{ ...regularFont, ...styles.generalFont }}>Miles</span><br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>{Number(miles)}</span>
 
@@ -249,6 +248,49 @@ class Costs {
             }
         }
 
+        const showcosts = () => {
+            if (this.state.width > 1200) {
+                return (
+                    <div style={{ ...styles.generalFlex }}>
+                        <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                            {costs.showchart.call(this, 'hourly')}
+                        </div>
+                        <div style={{ ...styles.flex1,...styles.alignCenter}}>
+                            {costs.showchart.call(this, 'delivery')}
+                        </div>
+        
+                        <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                            {costs.showchart.call(this, 'miles')}
+                        </div>
+                    </div>)
+        
+            } else if (this.state.width > 800) {
+        
+                return (
+                    <div style={{ ...styles.generalFlex }}>
+                        <div style={{ ...styles.flex1 }}>
+        
+                            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                                    {costs.showchart.call(this, 'hourly')}
+                                </div>
+                                <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                                    {costs.showchart.call(this, 'delivery')}
+                                </div>
+                            </div>
+        
+                            <div style={{ ...styles.generalFlex }}>
+                                <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                                    {costs.showchart.call(this, 'miles')}
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>)
+            }
+
+        }
+
         return (
             <div style={{ ...styles.generalFlex }}>
                 <div style={{ ...styles.flex1 }}>
@@ -258,18 +300,7 @@ class Costs {
 
                             {output()}
 
-                            <div style={{ ...styles.generalFlex }}>
-                                <div style={{ ...styles.flex1 }}>
-                                    {costs.showchart.call(this, 'hourly')}
-                                </div>
-                                <div style={{ ...styles.flex1 }}>
-                                    {costs.showchart.call(this, 'delivery')}
-                                </div>
-
-                                <div style={{ ...styles.flex1 }}>
-                                    {costs.showchart.call(this, 'miles')}
-                                </div>
-                            </div>
+                            {showcosts()}
 
                         </div>
                     </div>

@@ -283,8 +283,8 @@ export function getRepaymentCosts(purchase, purchasedate, salvage, salvagedate, 
 export function calculateTotalMonths(purchasedate, salvagedate) {
     //  let purchasedate = '2018/05/24';
     // let saledate = '2025/01/24'
-    const datePurchase = new Date(`${purchasedate} UTC`);
-    const salvageDate = new Date(`${salvagedate} UTC`);
+    const datePurchase = new Date(`${purchasedate}`);
+    const salvageDate = new Date(`${salvagedate}`);
     const datePurchaseYear = datePurchase.getFullYear();
     const purchaseMonth = datePurchase.getMonth() + 1;
     const salvageDateYear = salvageDate.getFullYear();
@@ -386,7 +386,7 @@ export function getUTCDate() {
 
     const datestring = new Date().toLocaleString()
     const datestrings = datestring.split('/')
-    return `${datestrings[2].substring(0, 4)}/${datestrings[0]}/${datestrings[1]}`
+    return `${datestrings[2].substring(0, 4)}/${trailingZeros(datestrings[0])}/${trailingZeros(datestrings[1])}`
 
 }
 
@@ -724,7 +724,36 @@ export function getYearFromDate(timein) {
 
 }
 
+export function validateLoanPayment (purchase,purchasedate,salvage,salvagedate, apr)  {
+   console.log(purchase,purchasedate,salvage,salvagedate, apr)	
+    let validate  = true;
+    
+    if(new Date(purchasedate).getTime() > new Date(salvagedate).getTime()) {
+      
+      validate = false;
+ 
+      
+    }
+    
+    if(!Number(apr)) {
+       validate = false;
+      
+    }
+    
+    if(!Number(purchase)) {
+      
+      validate = false;
+      
+    }
+    
+    return validate;
+    
+    
+  }
+
+
 export function getInterval(salvagedate, purchasedate, reoccurring, amount, detail) {
+    console.log(salvagedate, purchasedate, reoccurring, amount, detail)
     let period = 0;
     let x = 0;
     let cost = {};

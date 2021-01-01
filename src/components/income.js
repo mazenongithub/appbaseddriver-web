@@ -72,7 +72,7 @@ class Income {
         const deliveries = appbaseddriver.getdeliveries.call(this)
         const hoursworked = appbaseddriver.gethoursworked.call(this)
         const earnings = appbaseddriver.getearnings.call(this)
-     
+
         const dollarsperhours = earnings > 0 && hoursworked > 0 ? Number(earnings / hoursworked).toFixed(2) : 0;
         const dollarsperdelivery = earnings > 0 && deliveries > 0 ? Number(earnings / deliveries).toFixed(2) : 0;
         const miles = appbaseddriver.getmiles.call(this)
@@ -85,7 +85,7 @@ class Income {
         const netperdelivery = dollarsperdelivery - costsperdelivery;
         const netpermile = dollarspermile - costspermile;
 
-        const getheight = (type,dollarsperhours,dollarsperdelivery,dollarspermile) => {
+        const getheight = (type, dollarsperhours, dollarsperdelivery, dollarspermile) => {
             let height = 0
             switch (type) {
                 case 'hourly':
@@ -104,9 +104,9 @@ class Income {
 
         }
 
-        const getnetbarchart = (height, type, netperhour,netperdelivery,netpermile) => {
-     
-            const getnettext = (type,netperhour,netperdelivery,netpermile) => {
+        const getnetbarchart = (height, type, netperhour, netperdelivery, netpermile) => {
+
+            const getnettext = (type, netperhour, netperdelivery, netpermile) => {
                 switch (type) {
                     case 'hourly':
                         return (<text className="incomechart-3" x="328.48" y={Math.round(200 - height)}>${Number(netperhour).toFixed(2)}/hr</text>)
@@ -118,31 +118,31 @@ class Income {
                         break;
                 }
             }
-        
+
             return (
-        
+
                 <g>
-        
-        
+
+
                     <g transform='translate(54.43,208.35) scale(1,-1)'>
-        
-        
-        
-                        <rect className="driverchart-8" x="286.74" y="0" width="61.48" height={getheight(type,netperhour,netperdelivery,netpermile)} />
-        
+
+
+
+                        <rect className="driverchart-8" x="286.74" y="0" width="61.48" height={getheight(type, netperhour, netperdelivery, netpermile)} />
+
                     </g>
-        
-                    {getnettext(type, netperhour,netperdelivery,netpermile)}
-        
+
+                    {getnettext(type, netperhour, netperdelivery, netpermile)}
+
                 </g>)
         }
-        
 
-        
 
-        const getcostbarchart = (height, type, costsperhours,costsperdelivery,costspermile) => {
 
-            const getcosttext = (type,costsperhours,costsperdelivery,costspermile) => {
+
+        const getcostbarchart = (height, type, costsperhours, costsperdelivery, costspermile) => {
+
+            const getcosttext = (type, costsperhours, costsperdelivery, costspermile) => {
                 switch (type) {
                     case 'hourly':
                         return (<text className="incomechart-3" x="210.48" y={Math.round(200 - height)}>${Number(costsperhours).toFixed(2)}/hr</text>)
@@ -164,16 +164,16 @@ class Income {
 
 
 
-                        <rect className="driverchart-7" x="155.92" y="0" width="61.48" height={getheight(type,costsperhours,costsperdelivery,costspermile)} />
+                        <rect className="driverchart-7" x="155.92" y="0" width="61.48" height={getheight(type, costsperhours, costsperdelivery, costspermile)} />
 
                     </g>
 
-                    {getcosttext(type, costsperhours,costsperdelivery,costspermile)}
+                    {getcosttext(type, costsperhours, costsperdelivery, costspermile)}
 
                 </g>)
         }
 
-        const getbarchart = (height, type, dollarsperhours,dollarsperdelivery,dollarspermile) => {
+        const getbarchart = (height, type, dollarsperhours, dollarsperdelivery, dollarspermile) => {
 
             const gettext = (type) => {
                 switch (type) {
@@ -196,8 +196,8 @@ class Income {
                     <g transform='translate(54.43,208.35) scale(1,-1)'>
 
 
-            
-                        <rect className="incomechart-6" x="40" y="0" width="61.48" height={getheight(type,dollarsperhours,dollarsperdelivery,dollarspermile)} />
+
+                        <rect className="incomechart-6" x="40" y="0" width="61.48" height={getheight(type, dollarsperhours, dollarsperdelivery, dollarspermile)} />
 
                     </g>
 
@@ -247,10 +247,10 @@ class Income {
 
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 403.15 210.85" width="404px" height="211px">
                 <g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2">
-                    
 
 
-                   
+
+
 
                     {labels(type)}
 
@@ -263,9 +263,9 @@ class Income {
 
 
                     <text className="incomechart-5" transform="translate(85 85.14)">Income</text>
-                    {getbarchart(getheight(type,dollarsperhours,dollarsperdelivery,dollarspermile), type, dollarsperhours,dollarsperdelivery,dollarspermile)}
-                    {getcostbarchart(getheight(type,costsperhours,costsperdelivery,costspermile), type, costsperhours,costsperdelivery,costspermile)}
-                    {getnetbarchart(getheight(type,netperhour,netperdelivery,netpermile), type, netperhour,netperdelivery,netpermile)}
+                    {getbarchart(getheight(type, dollarsperhours, dollarsperdelivery, dollarspermile), type, dollarsperhours, dollarsperdelivery, dollarspermile)}
+                    {getcostbarchart(getheight(type, costsperhours, costsperdelivery, costspermile), type, costsperhours, costsperdelivery, costspermile)}
+                    {getnetbarchart(getheight(type, netperhour, netperdelivery, netpermile), type, netperhour, netperdelivery, netpermile)}
 
                     <text className="driverchart-5" transform="translate(190.56 122.79)">Costs</text>
                     <text className="driverchart-5" transform="translate(326.25 144.96)">Net</text>
@@ -287,9 +287,79 @@ class Income {
         const costs = appbaseddriver.getdrivercosts.call(this)
         const net = earnings - costs;
         const miles = appbaseddriver.getmiles.call(this)
-        
-       
-       
+
+        const showchart = () => {
+            if (this.state.width > 1200) {
+                return (
+                    <div style={{ ...styles.generalFlex }}>
+                        <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                            {income.showchart.call(this, 'hourly')}
+                        </div>
+                        <div style={{ ...styles.flex1,...styles.alignCenter}}>
+                            {income.showchart.call(this, 'delivery')}
+                        </div>
+
+                        <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                            {income.showchart.call(this, 'miles')}
+                        </div>
+                    </div>)
+
+            } else if (this.state.width > 800) {
+
+                return (
+                    <div style={{ ...styles.generalFlex }}>
+                        <div style={{ ...styles.flex1 }}>
+
+                            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                                <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                                    {income.showchart.call(this, 'hourly')}
+                                </div>
+                                <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                                    {income.showchart.call(this, 'delivery')}
+                                </div>
+                            </div>
+
+                            <div style={{ ...styles.generalFlex }}>
+                                <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                                    {income.showchart.call(this, 'miles')}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>)
+
+            } else {
+
+                return(<div style={{ ...styles.generalFlex }}>
+                <div style={{ ...styles.flex1 }}>
+
+                    <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                        <div style={{ ...styles.flex1, ...styles.alignCenter}}>
+                            {income.showchart.call(this, 'hourly')}
+                        </div>
+                    </div>
+
+                    <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                        <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                            {income.showchart.call(this, 'delivery')}
+                        </div>
+                    </div>
+
+                    <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                        <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                            {income.showchart.call(this, 'miles')}
+                        </div>
+                    </div>
+
+                </div>
+            </div>)
+
+            }
+
+        }
+
+
+
 
         const output = () => {
             if (this.state.width > 600) {
@@ -319,7 +389,7 @@ class Income {
                             <span style={{ ...regularFont, ...styles.generalFont }}>{Number(miles)}</span>
 
                         </div>
-                       
+
 
                     </div>
                 )
@@ -358,7 +428,7 @@ class Income {
                                     <span style={{ ...regularFont, ...styles.generalFont }}>Miles</span><br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>{Number(miles)}</span>
                                 </div>
-              
+
                             </div>
 
                         </div>
@@ -376,18 +446,7 @@ class Income {
 
                     {output()}
 
-                    <div style={{ ...styles.generalFlex }}>
-                        <div style={{ ...styles.flex1 }}>
-                            {income.showchart.call(this, 'hourly')}
-                        </div>
-                        <div style={{ ...styles.flex1 }}>
-                            {income.showchart.call(this, 'delivery')}
-                        </div>
-
-                        <div style={{ ...styles.flex1 }}>
-                            {income.showchart.call(this, 'miles')}
-                        </div>
-                    </div>
+                    {showchart()}
 
                 </div>
             </div>

@@ -15,6 +15,7 @@ import Profile from './components/profile'
 import Equipment from './components/equipment'
 import ViewEquipment from './components/viewequipment';
 import Driver from './components/driver'
+import {getMonString} from './components/functions'
 
 class App extends Component {
   constructor(props) {
@@ -146,7 +147,7 @@ timeindefault() {
             return 'pm'
         }
     }
-    this.setState({ timeinmonth: timeinmonth(), timeinday: timeinday(), timeinyear: timeinyear(), timeinhours: timeinhours(), timeinminutes: timeinminutes(), timeinampm: timeinampm() })
+    this.setState({ timeinmonth: timeinmonth(), activemonth:[getMonString(Number(timeinmonth()))], timeinday: timeinday(), timeinyear: timeinyear(), timeinhours: timeinhours(), timeinminutes: timeinminutes(), timeinampm: timeinampm() })
 }
 
 

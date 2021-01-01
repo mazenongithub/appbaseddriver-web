@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { AppleLogin, LogoutUser, SaveDriver } from './actions/api'
 import { MyStylesheet } from './styles';
-import { calculatetotalhours,  getRepaymentCosts, getInterval,checkactivemonth, checkactivedate } from './functions'
+import { calculatetotalhours,  getRepaymentCosts, getInterval,checkactivemonth, checkactivedate, validateLoanPayment, calculateTotalMonths } from './functions'
 
 class AppBasedDriver {
 
@@ -34,17 +34,24 @@ class AppBasedDriver {
         if (equipment) {
 
             if (equipment.hasOwnProperty("repayment")) {
-                const purchase = equipment.repayment.purchase;
+                const purchase = Number(equipment.repayment.purchase);
                 const purchasedate = equipment.repayment.purchasedate;
-                const salvage = equipment.repayment.salvage;
+                const salvage = Number(equipment.repayment.salvage);
                 const salvagedate = equipment.repayment.salvagedate;
-                const apr = equipment.repayment.apr;
+                const apr = Number(equipment.repayment.apr);
                 // validate
-                const payments = getRepaymentCosts(purchase, purchasedate, salvage, salvagedate, apr);
-                // else
-                costarray = [...costarray, ...payments]
-                
+                const validate = validateLoanPayment(purchase, purchasedate, salvage, salvagedate, apr)
+                let payments = [];
+                if(validate) {
+                     payments = getRepaymentCosts(purchase, purchasedate, salvage, salvagedate, apr);
+                     costarray = [...costarray, ...payments]
+
+                } else if (purchase && !apr) {
   
+                    payments = getInterval(salvagedate, purchasedate, 'monthly', ((purchase-salvage)/calculateTotalMonths(purchasedate,salvagedate)), 'repayment')
+                    costarray = [...costarray, ...payments]
+
+                }
 
             }
 
@@ -53,6 +60,7 @@ class AppBasedDriver {
                 // eslint-disable-next-line
                 equipment.costs.map(cost => {
 
+                   
                     if (cost.hasOwnProperty("reoccurring")) {
 
 
@@ -60,9 +68,8 @@ class AppBasedDriver {
                         if (equipment.hasOwnProperty("repayment")) {
 
                           
-
                             const reoccurringcosts = getInterval(equipment.repayment.salvagedate, equipment.repayment.purchasedate, cost.reoccurring.frequency, cost.amount, cost.detail)
-
+                         
                             costarray = [...costarray, ...reoccurringcosts]
 
                         }
@@ -105,7 +112,7 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         let mycosts = 0;
         const costs = appbaseddriver.gettransformedcostsbyequimentid.call(this, equipmentid)
-     
+    
         let activecosts = [];
         if (costs) {
             // eslint-disable-next-line
