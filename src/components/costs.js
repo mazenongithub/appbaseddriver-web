@@ -231,14 +231,7 @@ class Costs {
                                     <span style={{ ...regularFont, ...styles.generalFont }}>Miles</span><br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>{Number(miles)}</span>
                                 </div>
-                                <div style={{ ...styles.flex1 }}>
-                                    <span style={{ ...regularFont, ...styles.generalFont }}>  <span style={{ ...regularFont, ...styles.generalFont }}>costs/hr</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarsperhours).toFixed(2)}</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>costs/delivery</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarsperdelivery).toFixed(2)}</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>costs/mile</span> <br />
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>${Number(dollarspermile).toFixed(2)}</span> <br /></span>
-                                </div>
+                                
                             </div>
 
                         </div>
@@ -287,6 +280,30 @@ class Costs {
         
                         </div>
                     </div>)
+            } else {
+                return(<div style={{ ...styles.generalFlex }}>
+                    <div style={{ ...styles.flex1 }}>
+    
+                        <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                            <div style={{ ...styles.flex1, ...styles.alignCenter}}>
+                                {costs.showchart.call(this, 'hourly')}
+                            </div>
+                        </div>
+    
+                        <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                            <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                                {costs.showchart.call(this, 'delivery')}
+                            </div>
+                        </div>
+    
+                        <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                            <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                                {costs.showchart.call(this, 'miles')}
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>)
             }
 
         }
