@@ -112,7 +112,7 @@ class Costs {
 
         return (
 
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 203.15 210.85" width="204px" height="211px">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 203.15 210.85" width="408px" height="422px">
                 <g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2">
 
 
@@ -245,14 +245,14 @@ class Costs {
             if (this.state.width > 1200) {
                 return (
                     <div style={{ ...styles.generalFlex }}>
-                        <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                        <div style={{ ...styles.flex1 }}>
                             {costs.showchart.call(this, 'hourly')}
                         </div>
-                        <div style={{ ...styles.flex1,...styles.alignCenter}}>
+                        <div style={{ ...styles.flex1}}>
                             {costs.showchart.call(this, 'delivery')}
                         </div>
         
-                        <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                        <div style={{ ...styles.flex1 }}>
                             {costs.showchart.call(this, 'miles')}
                         </div>
                     </div>)
@@ -264,10 +264,10 @@ class Costs {
                         <div style={{ ...styles.flex1 }}>
         
                             <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                                <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                                <div style={{ ...styles.flex1}}>
                                     {costs.showchart.call(this, 'hourly')}
                                 </div>
-                                <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                                <div style={{ ...styles.flex1 }}>
                                     {costs.showchart.call(this, 'delivery')}
                                 </div>
                             </div>
@@ -285,19 +285,19 @@ class Costs {
                     <div style={{ ...styles.flex1 }}>
     
                         <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                            <div style={{ ...styles.flex1, ...styles.alignCenter}}>
+                            <div style={{ ...styles.flex1}}>
                                 {costs.showchart.call(this, 'hourly')}
                             </div>
                         </div>
     
                         <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                            <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                            <div style={{ ...styles.flex1 }}>
                                 {costs.showchart.call(this, 'delivery')}
                             </div>
                         </div>
     
                         <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                            <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                            <div style={{ ...styles.flex1 }}>
                                 {costs.showchart.call(this, 'miles')}
                             </div>
                         </div>

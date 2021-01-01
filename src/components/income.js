@@ -292,14 +292,14 @@ class Income {
             if (this.state.width > 1200) {
                 return (
                     <div style={{ ...styles.generalFlex }}>
-                        <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                        <div style={{ ...styles.flex1 }}>
                             {income.showchart.call(this, 'hourly')}
                         </div>
-                        <div style={{ ...styles.flex1,...styles.alignCenter}}>
+                        <div style={{ ...styles.flex1}}>
                             {income.showchart.call(this, 'delivery')}
                         </div>
 
-                        <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                        <div style={{ ...styles.flex1}}>
                             {income.showchart.call(this, 'miles')}
                         </div>
                     </div>)
@@ -311,10 +311,10 @@ class Income {
                         <div style={{ ...styles.flex1 }}>
 
                             <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                                <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                                <div style={{ ...styles.flex1 }}>
                                     {income.showchart.call(this, 'hourly')}
                                 </div>
-                                <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                                <div style={{ ...styles.flex1 }}>
                                     {income.showchart.call(this, 'delivery')}
                                 </div>
                             </div>
@@ -334,19 +334,19 @@ class Income {
                 <div style={{ ...styles.flex1 }}>
 
                     <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                        <div style={{ ...styles.flex1, ...styles.alignCenter}}>
+                        <div style={{ ...styles.flex1}}>
                             {income.showchart.call(this, 'hourly')}
                         </div>
                     </div>
 
                     <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                        <div style={{ ...styles.flex1,...styles.alignCenter }}>
+                        <div style={{ ...styles.flex1 }}>
                             {income.showchart.call(this, 'delivery')}
                         </div>
                     </div>
 
                     <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                        <div style={{ ...styles.flex1, ...styles.alignCenter }}>
+                        <div style={{ ...styles.flex1}}>
                             {income.showchart.call(this, 'miles')}
                         </div>
                     </div>

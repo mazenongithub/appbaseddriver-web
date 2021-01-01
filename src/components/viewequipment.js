@@ -9,7 +9,7 @@ import MakeID from './makeid';
 import EquipmentDate from './equipmentdate';
 import SalvageDate from './salvagedate'
 import PurchaseDate from './purchasedate'
-import { isNumeric, formatDateStringDisplay } from './functions'
+import { isNumeric, formatDateStringDisplay, checkactivedate } from './functions'
 import Costs from './costs';
 
 
@@ -493,9 +493,15 @@ class ViewEquipment extends Component {
 
             // eslint-disable-next-line
             costs.map(cost => {
+  
 
+                if(checkactivedate(cost.purchasedate, this.state.activemonth, this.state.activeyear)) {
 
                 ids.push(singular(cost))
+
+
+
+                }
 
 
 
