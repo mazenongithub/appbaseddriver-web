@@ -2,7 +2,7 @@ import React from 'react';
 import { MyStylesheet } from './styles'
 import AppBasedDriver from './appbaseddriver';
 import PurchaseCalender from './purchasecalender'
-import { validateMonth, validateDate, validateYear, isNumeric } from './functions';
+import { validateMonth, validateDate, validateYear, isNumeric, trailingZeros } from './functions';
 
 class PurchaseDate {
 
@@ -99,6 +99,15 @@ class PurchaseDate {
                                 alert(`Invalid day format ${day}`)
                             }
 
+                        } else if (day.length === 1) {
+
+                            let purchasemonth = trailingZeros(this.state.purchasemonth)
+                            let purchaseday = trailingZeros(day);
+                            let purchaseyear = this.state.purchaseyear;
+                            let timein = `${purchaseyear}/${purchasemonth}/${purchaseday}`
+                            myuser.equipment[i].repayment.purchasedate = timein;
+                            this.props.reduxUser(myuser);
+                            this.setState({ render: 'render', purchasemonth })
                         }
 
                     } else {
@@ -153,6 +162,15 @@ class PurchaseDate {
                                 alert(`Invalid month format ${month}`)
                             }
 
+                        } else if (month.length === 1) {
+
+                            let purchasemonth = trailingZeros(month)
+                            let purchaseday = trailingZeros(this.state.purchaseday);
+                            let purchaseyear = this.state.purchaseyear;
+                            let timein = `${purchaseyear}/${purchasemonth}/${purchaseday}`
+                            myuser.equipment[i].repayment.purchasedate = timein;
+                            this.props.reduxUser(myuser);
+                            this.setState({ render: 'render', purchaseday })
                         }
 
                     } else {

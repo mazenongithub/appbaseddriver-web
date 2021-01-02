@@ -2,7 +2,7 @@ import React from 'react';
 import AppBasedDriver from './appbaseddriver';
 import { MyStylesheet } from './styles';
 import { removeIconSmall, dropDateIcon } from './svg';
-import { makeTimeString, monthstring, getFirstIsOn, check_29_feb_leapyear, check_30, check_31, UTCTimeStringfromTime, getDayString } from './functions'
+import { makeTimeString, monthstring, getFirstIsOn, check_29_feb_leapyear, check_30, check_31, UTCTimeStringfromTime, getDayString, trailingZeros } from './functions'
 import TimeOut from './timeout';
 
 class TimeOutCalender {
@@ -36,20 +36,20 @@ class TimeOutCalender {
         const headerFont = design.getHeaderFont.call(this);
         const styles = MyStylesheet();
         if (this.state.calendertimeout) {
-            let day = this.state.timeoutday;
-            let year = this.state.timeoutyear;
-            let month = this.state.timeoutmonth;
-            let hours = this.state.timeouthours;
-            let time = this.state.timeoutampm;
-            let minutes = this.state.timeoutminutes;
-            let timeout = makeTimeString(year, month, day, hours, minutes, time);
+            const timeoutday = trailingZeros(this.state.timeoutday);
+            const timeoutyear = this.state.timeoutyear;
+            const timeoutmonth = trailingZeros(this.state.timeoutmonth);
+            const timeouthours = trailingZeros(this.state.timeouthours);
+            const timeoutampm = this.state.timeoutampm;
+            const timeoutminutes = trailingZeros(this.state.timeoutminutes);
+            let timeout = makeTimeString(timeoutyear, timeoutmonth, timeoutday, timeouthours, timeoutminutes, timeoutampm);
             timeout = UTCTimeStringfromTime(timeout)
             const newDate = new Date(timeout)
-            month = monthstring(newDate.getMonth());
+            const month = monthstring(newDate.getMonth());
             const date = newDate.getDate();
-            year = newDate.getFullYear();
+            const year = newDate.getFullYear();
             const daystring = getDayString(newDate.getDay())
-
+    
             return (<span style={{ ...styles.generalFont, ...headerFont }}>{daystring}, {month} {date}, {year}</span>
             )
         } else {

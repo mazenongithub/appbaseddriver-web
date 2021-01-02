@@ -2,7 +2,7 @@ import React from 'react';
 import AppBasedDriver from './appbaseddriver';
 import { MyStylesheet } from './styles';
 import { removeIconSmall, dropDateIcon } from './svg';
-import { makeTimeString, monthstring, getFirstIsOn, check_29_feb_leapyear, check_30, check_31, UTCTimeStringfromTime, getDayString } from './functions'
+import { makeTimeString, monthstring, getFirstIsOn, check_29_feb_leapyear, check_30, check_31, UTCTimeStringfromTime, getDayString, trailingZeros} from './functions'
 import TimeIn from './timein';
 
 class TimeInCalender {
@@ -36,18 +36,18 @@ class TimeInCalender {
         const headerFont = design.getHeaderFont.call(this);
         const styles = MyStylesheet();
         if (this.state.calendertimein) {
-            let day = this.state.timeinday;
-            let year = this.state.timeinyear;
-            let month = this.state.timeinmonth;
-            let hours = this.state.timeinhours;
-            let time = this.state.timeinampm;
-            let minutes = this.state.timeinminutes;
-            let timein = makeTimeString(year, month, day, hours, minutes, time);
+            const timeinday = trailingZeros(this.state.timeinday);
+            const timeinyear = this.state.timeinyear;
+            const timeinmonth = trailingZeros(this.state.timeinmonth);
+            const timeinhours = trailingZeros(this.state.timeinhours);
+            const timeinampm = this.state.timeinampm;
+            const timeinminutes = trailingZeros(this.state.timeinminutes);
+            let timein = makeTimeString(timeinyear, timeinmonth, timeinday, timeinhours, timeinminutes, timeinampm);
             timein = UTCTimeStringfromTime(timein)
             const newDate = new Date(timein)
-            month = monthstring(newDate.getMonth());
+            const month = monthstring(newDate.getMonth());
             const date = newDate.getDate();
-            year = newDate.getFullYear();
+            const year = newDate.getFullYear();
             const daystring = getDayString(newDate.getDay())
 
             return (<span style={{ ...styles.generalFont, ...headerFont }}>{daystring}, {month} {date}, {year}</span>
@@ -1289,9 +1289,6 @@ class TimeInCalender {
                             <span style={{ ...styles.generalFont, ...regularFont }}>&nbsp;</span>
                         </div>
                     </div>
-
-
-
 
 
                 </div>

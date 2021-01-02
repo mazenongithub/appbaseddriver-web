@@ -4,7 +4,7 @@ import AppBasedDriver from './appbaseddriver';
 import MakeID from './makeid';
 import TimeIn from './timein';
 import TimeOut from './timeout'
-import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric,getMonthfromTimein,getDayfromTimein,getHoursfromTimein,getYearfromTimein,getMinutesfromTimein,getAMPMfromTimeIn,calculatetotalhours, sorttimes, checkactivemonth } from './functions'
+import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric,getMonthfromTimein,getDayfromTimein,getHoursfromTimein,getYearfromTimein,getMinutesfromTimein,getAMPMfromTimeIn,calculatetotalhours, sorttimes, checkactivemonth,trailingZeros} from './functions'
 import { removeIconSmall } from './svg'
 import Header from './header';
 import Income from './income';
@@ -29,21 +29,21 @@ class Driver {
         const makeid = new MakeID();
         const appbaseddriver = new AppBasedDriver()
         const shiftid = makeid.shiftid.call(this)
-        const dayin = this.state.timeinday;
-        const yearin = this.state.timeinyear;
-        const monthin = this.state.timeinmonth;
-        const hoursin = this.state.timeinhours;
-        const timetimein = this.state.timeinampm;
-        const minutesin = this.state.timeinminutes;
-        let timein = makeTimeString(yearin, monthin, dayin, hoursin, minutesin, timetimein);
+        const timeinday = trailingZeros(this.state.timeinday);
+        const timeinyear = this.state.timeinyear;
+        const timeinmonth = trailingZeros(this.state.timeinmonth);
+        const timeinhours = trailingZeros(this.state.timeinhours);
+        const timeinampm = this.state.timeinampm;
+        const timeinminutes = trailingZeros(this.state.timeinminutes);
+        let timein = makeTimeString(timeinyear, timeinmonth, timeinday, timeinhours, timeinminutes, timeinampm);
         timein = UTCTimeStringfromTime(timein);
-        const dayout = this.state.timeoutday;
-        const yearout = this.state.timeoutyear;
-        const monthout = this.state.timeoutmonth;
-        const hoursout = this.state.timeouthours;
-        const minutesout = this.state.timeoutminutes;
-        const timetimeout = this.state.timeoutampm;
-        let timeout = makeTimeString(yearout, monthout, dayout, hoursout, minutesout, timetimeout);
+        const timeoutday = trailingZeros(this.state.timeoutday);
+        const timeoutyear = this.state.timeoutyear;
+        const timeoutmonth = trailingZeros(this.state.timeoutmonth);
+        const timeouthours = trailingZeros(this.state.timeouthours);
+        const timeoutminutes = trailingZeros(this.state.timeoutminutes);
+        const timeoutampm = this.state.timeoutampm;
+        let timeout = makeTimeString(timeoutyear, timeoutmonth, timeoutday, timeouthours, timeoutminutes, timeoutampm);
         timeout = UTCTimeStringfromTime(timeout);
 
         const newShift = (shiftid, timein, timeout, earnings, deliveries, miles) => {
@@ -68,7 +68,8 @@ class Driver {
             }
 
             this.props.reduxUser(myuser)
-            this.setState({ activeshiftid: shiftid })
+
+            this.setState({ activeshiftid: shiftid, timeinyear, timeinmonth,timeinday,timeinhours,timeinminutes,timeinampm, timeoutyear, timeoutmonth, timeoutday, timeouthours, timeoutminutes, timeoutampm })
 
 
 
@@ -76,16 +77,23 @@ class Driver {
     }
 
     handleearnings(earnings) {
+
         if(isNumeric(earnings)) {
+
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
         const driver = new Driver();
+
         if (myuser) {
+
             if (myuser.hasOwnProperty("driver")) {
 
                 if (this.state.activeshiftid) {
+
                     const shift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid)
+                   
                     if (shift) {
+
                         const i = appbaseddriver.getshiftkeybyid.call(this, this.state.activeshiftid)
                         myuser.driver.shifts[i].earnings = earnings;
                         this.props.reduxUser(myuser)

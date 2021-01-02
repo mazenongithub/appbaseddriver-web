@@ -67,36 +67,36 @@ export function getHoursfromTimein(timein) {
 
 }
 
-export function checkactivedate (purchasedate, activemonth, activeyear) {
-  
-  let active = false
+export function checkactivedate(purchasedate, activemonth, activeyear) {
 
-  const offset = getOffsetDate(purchasedate)
-  const datein = new Date(`${purchasedate} 12:00:00${offset}`)
-  
-  if(datein.getFullYear() === activeyear) {
-   
-  const getmonth = getMonString(datein.getMonth()+1)
+    let active = false
 
-  
-  if(activemonth) {
-    
-    
-    if(activemonth.indexOf(getmonth)>=0) {
-      active = true;
-      
+    const offset = getOffsetDate(purchasedate)
+    const datein = new Date(`${purchasedate} 12:00:00${offset}`)
+
+    if (datein.getFullYear() === activeyear) {
+
+        const getmonth = getMonString(datein.getMonth() + 1)
+
+
+        if (activemonth) {
+
+
+            if (activemonth.indexOf(getmonth) >= 0) {
+                active = true;
+
+            }
+
+
+        } else {
+            active = true;
+
+        }
+
     }
-    
-    
-  } else {
-   active = true; 
-    
-  }
-    
-  }
-  return active
- 
-  
+    return active
+
+
 }
 
 export function getOffsetDate(timein) {
@@ -724,36 +724,36 @@ export function getYearFromDate(timein) {
 
 }
 
-export function validateLoanPayment (purchase,purchasedate,salvage,salvagedate, apr)  {
-   console.log(purchase,purchasedate,salvage,salvagedate, apr)	
-    let validate  = true;
-    
-    if(new Date(purchasedate).getTime() > new Date(salvagedate).getTime()) {
-      
-      validate = false;
+export function validateLoanPayment(purchase, purchasedate, salvage, salvagedate, apr) {
  
-      
+    let validate = true;
+
+    if (new Date(purchasedate).getTime() > new Date(salvagedate).getTime()) {
+
+        validate = false;
+
+
     }
-    
-    if(!Number(apr)) {
-       validate = false;
-      
+
+    if (!Number(apr)) {
+        validate = false;
+
     }
-    
-    if(!Number(purchase)) {
-      
-      validate = false;
-      
+
+    if (!Number(purchase)) {
+
+        validate = false;
+
     }
-    
+
     return validate;
-    
-    
-  }
+
+
+}
 
 
 export function getInterval(salvagedate, purchasedate, reoccurring, amount, detail) {
-    console.log(salvagedate, purchasedate, reoccurring, amount, detail)
+
     let period = 0;
     let x = 0;
     let cost = {};
@@ -888,8 +888,17 @@ export function increaseDateByOneWeek(timein) {
 }
 
 export function trailingZeros(num) {
-    if (num < 10) {
-        return (`0${num}`);
+
+    if (num.toString().length === 1) {
+
+
+        if (Number(num) < 10) {
+
+            return (`0${num}`);
+        } else {
+            return num;
+        }
+
     } else {
         return num;
     }

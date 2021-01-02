@@ -2,7 +2,7 @@ import React from 'react';
 import { MyStylesheet } from './styles'
 import AppBasedDriver from './appbaseddriver';
 import SalvageCalender from './salvagecalender'
-import { validateMonth, validateDate, validateYear, isNumeric } from './functions';
+import { validateMonth, validateDate, validateYear, isNumeric, trailingZeros } from './functions';
 
 class SalvageDate {
 
@@ -98,6 +98,15 @@ class SalvageDate {
                                 alert(`Invalid day format ${day}`)
                             }
 
+                        } else if (day.length === 1) {
+
+                            let salvagemonth = trailingZeros(this.state.salvagemonth)
+                            let salvageday = trailingZeros(day);
+                            let salvageyear = this.state.salvageyear;
+                            let timein = `${salvageyear}/${salvagemonth}/${salvageday}`
+                            myuser.equipment[i].repayment.salvagedate = timein;
+                            this.props.reduxUser(myuser);
+                            this.setState({ render: 'render', salvagemonth })
                         }
 
                     } else {
@@ -119,7 +128,10 @@ class SalvageDate {
     }
 
     handlemonth(month) {
+
         this.setState({ salvagemonth: month })
+      
+
         if (isNumeric(month)) {
 
           
@@ -135,22 +147,32 @@ class SalvageDate {
 
 
                         const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid);
+                        
                         if (month.length === 2) {
 
                             if (validateMonth(month)) {
 
 
-                                let day = this.state.salvageday;
-                                let year = this.state.salvageyear;
-                                const timein = `${year}/${month}/${day}`
+                                let salvageday = trailingZeros(this.state.salvageday);
+                                let salvageyear = this.state.salvageyear;
+                                let timein = `${salvageyear}/${month}/${salvageday}`
                                 myuser.equipment[i].repayment.salvagedate = timein;
                                 this.props.reduxUser(myuser);
-                                this.setState({ render: 'render' })
+                                this.setState({ render: 'render', salvageday })
 
                             } else {
                                 alert(`Invalid month format ${month}`)
                             }
 
+                        } else if (month.length === 1) {
+
+                            let salvagemonth = trailingZeros(month)
+                            let salvageday = trailingZeros(this.state.salvageday);
+                            let salvageyear = this.state.salvageyear;
+                            let timein = `${salvageyear}/${salvagemonth}/${salvageday}`
+                            myuser.equipment[i].repayment.salvagedate = timein;
+                            this.props.reduxUser(myuser);
+                            this.setState({ render: 'render', salvageday })
                         }
 
                     } else {

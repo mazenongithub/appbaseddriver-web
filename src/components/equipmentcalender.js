@@ -2,7 +2,7 @@ import React from 'react';
 import AppBasedDriver from './appbaseddriver';
 import { MyStylesheet } from './styles';
 import { removeIconSmall, dropDateIcon } from './svg';
-import {  monthstring, getFirstIsOnDate, check_29_feb_leapyeardate, check_30date, check_31date, getDayString } from './functions'
+import {  monthstring, getFirstIsOnDate, check_29_feb_leapyeardate, check_30date, check_31date, getDayString, trailingZeros } from './functions'
 import EquipmentDate from './equipmentdate';
 
 class EquipmentCalender {
@@ -37,9 +37,9 @@ class EquipmentCalender {
         const headerFont = appbaseddriver.getHeaderFont.call(this);
         const styles = MyStylesheet();
         if (this.state.equipmentcalender) {
-            let day = this.state.equipmentday;
+            let day = trailingZeros(this.state.equipmentday);
             let year = this.state.equipmentyear;
-            let month = this.state.equipmentmonth;
+            let month = trailingZeros(this.state.equipmentmonth);
             const datestring = `${year}/${month}/${day}`
             const newDate = new Date(datestring);
             month = monthstring(newDate.getMonth());
