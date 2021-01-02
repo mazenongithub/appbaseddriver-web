@@ -67,9 +67,9 @@ class EquipmentCalender {
         const appbaseddriver = new AppBasedDriver();
         const regularFont = appbaseddriver.getRegularFont.call(this);
         const calendertimein = new EquipmentCalender();
-        let day = this.state.equipmentday;
+        let day = trailingZeros(this.state.equipmentday);
         let year = this.state.equipmentyear;
-        let month = this.state.equipmentmonth;
+        let month = trailingZeros(this.state.equipmentmonth);
         const datestring = `${year}/${month}/${day}`
         const newDate = new Date(datestring);
         const firstofmonth =  getFirstIsOnDate(newDate);

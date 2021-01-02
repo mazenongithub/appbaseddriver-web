@@ -70,12 +70,12 @@ class TimeOutCalender {
         const design = new AppBasedDriver();
         const regularFont = design.getRegularFont.call(this);
         const calendertimeout = new TimeOutCalender();
-        let day = this.state.timeoutday;
+        let day = trailingZeros(this.state.timeoutday);
         let year = this.state.timeoutyear;
-        let month = this.state.timeoutmonth;
-        let hours = this.state.timeouthours;
+        let month = trailingZeros(this.state.timeoutmonth);
+        let hours = trailingZeros(this.state.timeouthours);
         let time = this.state.timeoutampm;
-        let minutes = this.state.timeoutminutes;
+        let minutes = trailingZeros(this.state.timeoutminutes);
         let timeout = makeTimeString(year, month, day, hours, minutes, time);
 
         timeout = UTCTimeStringfromTime(timeout);

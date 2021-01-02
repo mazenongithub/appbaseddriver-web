@@ -2,7 +2,7 @@ import React from 'react';
 import AppBasedDriver from './appbaseddriver';
 import { MyStylesheet } from './styles';
 import { removeIconSmall, dropDateIcon } from './svg';
-import {  monthstring, getFirstIsOnDate, check_29_feb_leapyeardate, check_30date, check_31date, getDayString } from './functions'
+import {  monthstring, getFirstIsOnDate, check_29_feb_leapyeardate, check_30date, check_31date, getDayString, trailingZeros } from './functions'
 import PurchaseDate from './purchasedate';
 
 class PurchaseCalender {
@@ -38,9 +38,9 @@ class PurchaseCalender {
         const headerFont = appbaseddriver.getHeaderFont.call(this);
         const styles = MyStylesheet();
         if (this.state.purchasecalender) {
-            let day = this.state.purchaseday;
+            let day = trailingZeros(this.state.purchaseday);
             let year = this.state.purchaseyear;
-            let month = this.state.purchasemonth;
+            let month = trailingZeros(this.state.purchasemonth);
             const datestring = `${year}/${month}/${day}`
          
             const newDate = new Date(datestring);
@@ -69,9 +69,9 @@ class PurchaseCalender {
         const appbaseddriver = new AppBasedDriver();
         const regularFont = appbaseddriver.getRegularFont.call(this);
         const calendertimein = new PurchaseCalender();
-        let day = this.state.purchaseday;
+        let day = trailingZeros(this.state.purchaseday);
         let year = this.state.purchaseyear;
-        let month = this.state.purchasemonth;
+        let month = trailingZeros(this.state.purchasemonth);
         const datestring = `${year}/${month}/${day}`
         const newDate = new Date(datestring);
         const firstofmonth =  getFirstIsOnDate(newDate);

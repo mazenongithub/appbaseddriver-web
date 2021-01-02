@@ -2,7 +2,7 @@ import React from 'react';
 import AppBasedDriver from './appbaseddriver';
 import { MyStylesheet } from './styles';
 import { removeIconSmall, dropDateIcon } from './svg';
-import {  monthstring, getFirstIsOnDate, check_29_feb_leapyeardate, check_30date, check_31date, getDayString } from './functions'
+import {  monthstring, getFirstIsOnDate, check_29_feb_leapyeardate, check_30date, check_31date, getDayString, trailingZeros } from './functions'
 import SalvageDate from './salvagedate';
 
 class SalvageCalender {
@@ -38,9 +38,9 @@ class SalvageCalender {
         const headerFont = appbaseddriver.getHeaderFont.call(this);
         const styles = MyStylesheet();
         if (this.state.salvagecalender) {
-            let day = this.state.salvageday;
+            let day = trailingZeros(this.state.salvageday);
             let year = this.state.salvageyear;
-            let month = this.state.salvagemonth;
+            let month = trailingZeros(this.state.salvagemonth);
             const datestring = `${year}/${month}/${day}`
          
             const newDate = new Date(datestring);
@@ -69,9 +69,9 @@ class SalvageCalender {
         const appbaseddriver = new AppBasedDriver();
         const regularFont = appbaseddriver.getRegularFont.call(this);
         const calendertimein = new SalvageCalender();
-        let day = this.state.salvageday;
+        let day = trailingZeros(this.state.salvageday);
         let year = this.state.salvageyear;
-        let month = this.state.salvagemonth;
+        let month = trailingZeros(this.state.salvagemonth);
         const datestring = `${year}/${month}/${day}`
         const newDate = new Date(datestring);
         const firstofmonth =  getFirstIsOnDate(newDate);
