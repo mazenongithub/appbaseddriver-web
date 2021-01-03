@@ -511,9 +511,9 @@ export function validateMonth(mon) {
 
 export function getFirstIsOn(timein) {
     let datein = new Date(`${timein} UTC`)
-    let monthdisplay = datein.getMonth() + 1;
+    let monthdisplay = trailingZeros(datein.getMonth() + 1);
     let fullyear = datein.getFullYear();
-    let thefirstofthemonth = new Date(`${fullyear}/${monthdisplay}/1`);
+    let thefirstofthemonth = new Date(`${fullyear}/${monthdisplay}/01`);
     let firstday = thefirstofthemonth.getDay();
     switch (firstday) {
         case 0:
@@ -537,9 +537,9 @@ export function getFirstIsOn(timein) {
 
 export function getFirstIsOnDate(datein) {
 
-    let monthdisplay = datein.getMonth() + 1;
+    let monthdisplay = trailingZeros(datein.getMonth() + 1);
     let fullyear = datein.getFullYear();
-    let thefirstofthemonth = new Date(`${fullyear}/${monthdisplay}/1`);
+    let thefirstofthemonth = new Date(`${fullyear}/${monthdisplay}/01`);
     let firstday = thefirstofthemonth.getDay();
     switch (firstday) {
         case 0:
