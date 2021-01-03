@@ -77,9 +77,8 @@ class TimeInCalender {
         let time = this.state.timeinampm;
         let minutes = trailingZeros(this.state.timeinminutes);
         let timein = makeTimeString(year, month, day, hours, minutes, time);
-
         timein = UTCTimeStringfromTime(timein);
-
+        console.log(timein)
         const firstofmonth = getFirstIsOn(timein);
         const check29 = check_29_feb_leapyear(timein);
         const check30 = check_30(timein);
