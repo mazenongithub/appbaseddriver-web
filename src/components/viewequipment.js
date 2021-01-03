@@ -17,7 +17,7 @@ class ViewEquipment extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: false, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: false, purchasecalender: false, showrepayment: true, purchaseday: '', purchasemonth: '', purchaseyear: '', activeyear: new Date().getFullYear(), activemonth:false}
+        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: false, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: false, purchasecalender: false, showrepayment: true, purchaseday: '', purchasemonth: '', purchaseyear: '', activeyear: new Date().getFullYear(), activemonth: false }
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
     }
     componentDidMount() {
@@ -62,7 +62,7 @@ class ViewEquipment extends Component {
 
 
 
-   
+
     getdetail() {
         const appbaseddriver = new AppBasedDriver();
         const equipmentid = this.props.match.params.equipmentid;
@@ -207,7 +207,7 @@ class ViewEquipment extends Component {
                     } else {
 
 
-                        const newCost = (costid,  purchasedate, detail, amount) => {
+                        const newCost = (costid, purchasedate, detail, amount) => {
                             return ({ costid, purchasedate, detail, amount })
                         }
 
@@ -244,6 +244,7 @@ class ViewEquipment extends Component {
     handlepurchase(purchase) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
+        if(isNumeric(purchase)) {
 
         if (myuser) {
 
@@ -265,6 +266,10 @@ class ViewEquipment extends Component {
 
         }
 
+    } else {
+        alert(`${purchase} should be numeric`)
+    }
+
 
     }
 
@@ -285,6 +290,7 @@ class ViewEquipment extends Component {
     handlesalvage(salvage) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
+        if(isNumeric(salvage)) {
 
         if (myuser) {
 
@@ -305,6 +311,10 @@ class ViewEquipment extends Component {
             }
 
         }
+
+    } else {
+        alert(`${salvage} should be numeric`)
+    }
 
 
     }
@@ -369,25 +379,29 @@ class ViewEquipment extends Component {
     handleapr(apr) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
+        if (isNumeric(apr)) {
+            if (myuser) {
 
-        if (myuser) {
-
-            const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
-            if (activeequipment) {
-                const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
-                if (activeequipment.hasOwnProperty("repayment")) {
+                const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+                if (activeequipment) {
+                    const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+                    if (activeequipment.hasOwnProperty("repayment")) {
 
 
-                    myuser.equipment[i].repayment.apr = apr;
-                    this.props.reduxUser(myuser)
-                    this.setState({ render: 'render' })
+                        myuser.equipment[i].repayment.apr = apr;
+                        this.props.reduxUser(myuser)
+                        this.setState({ render: 'render' })
+
+                    }
+
+
 
                 }
 
-
-
             }
 
+        } else {
+            alert(`${apr} should be numeric`)
         }
 
 
@@ -471,7 +485,7 @@ class ViewEquipment extends Component {
         }
 
         const reoccurring = (cost) => {
-            if(cost.hasOwnProperty("reoccurring")) {
+            if (cost.hasOwnProperty("reoccurring")) {
                 return `Reoccurring ${cost.reoccurring.frequency}`
             }
         }
@@ -481,7 +495,7 @@ class ViewEquipment extends Component {
                 <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} key={cost.costid} onClick={() => { this.makecostactive(cost.costid) }}>
                     <div style={{ ...styles.flex1 }}>
                         <span style={{ ...regularFont, ...styles.generalFont }}>
-                        {reoccurring(cost)} PurchaseDate: {formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: ${cost.amount}
+                            {reoccurring(cost)} PurchaseDate: {formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: ${cost.amount}
                         </span> <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
                     </div>
                 </div>)
@@ -493,11 +507,11 @@ class ViewEquipment extends Component {
 
             // eslint-disable-next-line
             costs.map(cost => {
-  
 
-                if(checkactivedate(cost.purchasedate, this.state.activemonth, this.state.activeyear)) {
 
-                ids.push(singular(cost))
+                if (checkactivedate(cost.purchasedate, this.state.activemonth, this.state.activeyear)) {
+
+                    ids.push(singular(cost))
 
 
 
@@ -512,7 +526,7 @@ class ViewEquipment extends Component {
         }
         return ids;
     }
-  
+
     handlereoccurring() {
         const appbaseddriver = new AppBasedDriver();
         const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
@@ -742,9 +756,9 @@ class ViewEquipment extends Component {
                     if (this.state.activecostid) {
                         const cost = appbaseddriver.getequipmentcostbyid.call(this, equipment.equipmentid, this.state.activecostid)
                         if (cost.hasOwnProperty("reoccurring")) {
-                            return (<select style={{ ...styles.generalField, ...regularFont, ...styles.generalFont }} 
-                            onChange={event=>{this.handlefrequency(event.target.value)}}
-                            value={this.getfrequency()}>
+                            return (<select style={{ ...styles.generalField, ...regularFont, ...styles.generalFont }}
+                                onChange={event => { this.handlefrequency(event.target.value) }}
+                                value={this.getfrequency()}>
                                 <option value={false}>Select Frequency</option>
                                 <option value={`daily`}>Daily</option>
                                 <option value={`weekly`}>Weekly</option>
@@ -835,7 +849,7 @@ class ViewEquipment extends Component {
 
                             {appbaseddriver.showsavedriver.call(this)}
 
-                            {costs.showcosts.call(this,this.props.match.params.equipmentid)}
+                            {costs.showcosts.call(this, this.props.match.params.equipmentid)}
 
                             <div style={{ marginBottom: '40px' }}>
                                 &nbsp;

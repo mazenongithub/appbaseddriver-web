@@ -99,6 +99,22 @@ export function checkactivedate(purchasedate, activemonth, activeyear) {
 
 }
 
+export function compareDates(purchasedate,salvagedate) {
+    //const purchasedate = '2021/04/20'
+    //const salvagedate = '2023/04/20'
+    
+   const salvageDate = new Date(salvagedate)
+   const purchaseDate = new Date(purchasedate)
+    
+   let compare = true;
+    
+    if(salvageDate.getTime()<purchaseDate.getTime()) {
+      compare = false; 
+    }
+    return compare; 
+    
+  }
+
 export function getOffsetDate(timein) {
     let datein = new Date(`${timein} 00:00:00 UTC`)
     let offset = datein.getTimezoneOffset() / 60

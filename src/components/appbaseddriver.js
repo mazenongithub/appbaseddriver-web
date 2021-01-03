@@ -2,11 +2,11 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { AppleLogin, LogoutUser, SaveDriver } from './actions/api'
 import { MyStylesheet } from './styles';
-import { calculatetotalhours,  getRepaymentCosts, getInterval,checkactivemonth, checkactivedate, validateLoanPayment, calculateTotalMonths } from './functions'
+import { calculatetotalhours, getRepaymentCosts, getInterval, checkactivemonth, checkactivedate, validateLoanPayment, calculateTotalMonths, compareDates } from './functions'
 
 class AppBasedDriver {
 
-  
+
 
     getmiles() {
         const appbaseddriver = new AppBasedDriver();
@@ -15,8 +15,8 @@ class AppBasedDriver {
         if (shifts) {
             // eslint-disable-next-line
             shifts.map(shift => {
-                if(checkactivemonth(shift.timein,this.state.activemonth,this.state.activeyear)) {
-                miles += Number(shift.miles)
+                if (checkactivemonth(shift.timein, this.state.activemonth, this.state.activeyear)) {
+                    miles += Number(shift.miles)
 
                 }
             })
@@ -24,6 +24,34 @@ class AppBasedDriver {
         }
         return miles;
 
+    }
+
+    validatesavedriver() {
+        const appbaseddriver = new AppBasedDriver();
+        const myuser = appbaseddriver.getuser.call(this)
+
+        let error = "";
+        if (myuser) {
+
+            if (myuser.hasOwnProperty("equipment")) {
+                // eslint-disable-next-line
+                myuser.equipment.map(equipment => {
+
+                    if (equipment.hasOwnProperty("repayment")) {
+                        if (!compareDates(equipment.purchasedate, equipment.salvagedate)) {
+                            error += `${equipment.equipment} purchase date ${equipment.repayment.purchasedate} is less than the salvage date ${equipment.repayment.salvagedate}`
+                        }
+                    }
+                })
+
+            }
+
+        } else {
+            error += `There is no user Logged In `
+
+
+        }
+        return error;
     }
 
     gettransformedcostsbyequimentid(equipmentid) {
@@ -42,13 +70,13 @@ class AppBasedDriver {
                 // validate
                 const validate = validateLoanPayment(purchase, purchasedate, salvage, salvagedate, apr)
                 let payments = [];
-                if(validate) {
-                     payments = getRepaymentCosts(purchase, purchasedate, salvage, salvagedate, apr);
-                     costarray = [...costarray, ...payments]
+                if (validate) {
+                    payments = getRepaymentCosts(purchase, purchasedate, salvage, salvagedate, apr);
+                    costarray = [...costarray, ...payments]
 
                 } else if (purchase && !apr) {
-  
-                    payments = getInterval(salvagedate, purchasedate, 'monthly', ((purchase-salvage)/calculateTotalMonths(purchasedate,salvagedate)), 'repayment')
+
+                    payments = getInterval(salvagedate, purchasedate, 'monthly', ((purchase - salvage) / calculateTotalMonths(purchasedate, salvagedate)), 'repayment')
                     costarray = [...costarray, ...payments]
 
                 }
@@ -60,16 +88,16 @@ class AppBasedDriver {
                 // eslint-disable-next-line
                 equipment.costs.map(cost => {
 
-                   
+
                     if (cost.hasOwnProperty("reoccurring")) {
 
 
 
                         if (equipment.hasOwnProperty("repayment")) {
 
-                          
+
                             const reoccurringcosts = getInterval(equipment.repayment.salvagedate, equipment.repayment.purchasedate, cost.reoccurring.frequency, cost.amount, cost.detail)
-                         
+
                             costarray = [...costarray, ...reoccurringcosts]
 
                         }
@@ -97,10 +125,10 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         let costs = 0;
         const myequipment = appbaseddriver.getequipment.call(this)
-        if(myequipment) {
+        if (myequipment) {
             // eslint-disable-next-line
-            myequipment.map(equipment=> {
-                costs += Number(appbaseddriver.getcostsbyequipmentid.call(this,equipment.equipmentid))
+            myequipment.map(equipment => {
+                costs += Number(appbaseddriver.getcostsbyequipmentid.call(this, equipment.equipmentid))
             })
         }
         return costs;
@@ -108,25 +136,27 @@ class AppBasedDriver {
 
 
 
+
+
     getcostsbyequipmentid(equipmentid) {
         const appbaseddriver = new AppBasedDriver();
         let mycosts = 0;
         const costs = appbaseddriver.gettransformedcostsbyequimentid.call(this, equipmentid)
-    
+
         let activecosts = [];
         if (costs) {
             // eslint-disable-next-line
             costs.map(cost => {
 
-                if(checkactivedate(cost.purchasedate, this.state.activemonth, this.state.activeyear)) {
+                if (checkactivedate(cost.purchasedate, this.state.activemonth, this.state.activeyear)) {
                     activecosts.push(cost)
                     mycosts += Number(cost.amount)
-                } 
+                }
 
-               
+
             })
         }
-       
+
         return mycosts;
     }
 
@@ -137,8 +167,8 @@ class AppBasedDriver {
         if (shifts) {
             // eslint-disable-next-line
             shifts.map(shift => {
-                if(checkactivemonth(shift.timein,this.state.activemonth,this.state.activeyear)) {
-                earnings += Number(shift.earnings)
+                if (checkactivemonth(shift.timein, this.state.activemonth, this.state.activeyear)) {
+                    earnings += Number(shift.earnings)
 
                 }
             })
@@ -155,8 +185,8 @@ class AppBasedDriver {
         if (shifts) {
             // eslint-disable-next-line
             shifts.map(shift => {
-                if(checkactivemonth(shift.timein,this.state.activemonth,this.state.activeyear)) {
-                totalhours += calculatetotalhours(shift.timeout, shift.timein)
+                if (checkactivemonth(shift.timein, this.state.activemonth, this.state.activeyear)) {
+                    totalhours += calculatetotalhours(shift.timeout, shift.timein)
 
                 }
             })
@@ -177,10 +207,10 @@ class AppBasedDriver {
                 if (myuser.driver.hasOwnProperty("shifts")) {
                     // eslint-disable-next-line
                     myuser.driver.shifts.map(shift => {
-                        if(checkactivemonth(shift.timein,this.state.activemonth,this.state.activeyear)) {
+                        if (checkactivemonth(shift.timein, this.state.activemonth, this.state.activeyear)) {
                             deliveries += Number(shift.deliveries);
-                        } 
-                       
+                        }
+
 
                     })
                 }
@@ -408,23 +438,29 @@ class AppBasedDriver {
 
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
-        if (myuser) {
+        const message = appbaseddriver.validatesavedriver.call(this)
+        if (!message) {
+            if (myuser) {
 
-            try {
-               
+                try {
 
-                let response = await SaveDriver({ myuser })
-                console.log(response)
-                if (response.hasOwnProperty("driverid")) {
-                    this.props.reduxUser(response)
-                    let message = `Driver Updated ${new Date().toLocaleTimeString()}`
-                    this.setState({ message })
+
+                    let response = await SaveDriver({ myuser })
+                    console.log(response)
+                    if (response.hasOwnProperty("driverid")) {
+                        this.props.reduxUser(response)
+                        let message = `Driver Updated ${new Date().toLocaleTimeString()}`
+                        this.setState({ message })
+                    }
+
+
+                } catch (err) {
+
                 }
-
-
-            } catch (err) {
-
             }
+
+        } else {
+            this.setState({ message })
         }
 
 
@@ -546,7 +582,7 @@ class AppBasedDriver {
             }
 
             const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, apple, driverid: this.state.driverid }
-   
+
 
             appbaseddriver.clientlogin.call(this, values)
 
@@ -575,7 +611,7 @@ class AppBasedDriver {
             provider.addScope('email');
             provider.addScope('profile');
             let result = await firebase.auth().signInWithPopup(provider)
-          
+
             if (result.hasOwnProperty("user")) {
 
                 user = result.user;
@@ -587,7 +623,7 @@ class AppBasedDriver {
                 phonenumber = user.phoneNumber;
             }
             const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, driverid: this.state.driverid, google }
-         
+
 
 
 
