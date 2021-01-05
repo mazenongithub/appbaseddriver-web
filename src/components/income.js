@@ -415,7 +415,7 @@ class Income {
                                 </div>
                                 <div style={{ ...styles.flex1 }}>
                                     <span style={{ ...regularFont, ...styles.generalFont }}>Earnings</span><br />
-                                    <span style={{ ...regularFont, ...styles.generalFont }}>${Number(earnings).toFixed(2)}</span>
+                                    <span style={{ ...regularFont, ...styles.generalFont }}>${Number(earnings).toFixed(2)}</span><br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>Costs</span><br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>${Number(costs).toFixed(2)}</span> <br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>Net</span><br />

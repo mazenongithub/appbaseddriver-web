@@ -838,11 +838,7 @@ class ViewEquipment extends Component {
 
                             {Reoccurring(equipment)}
 
-                            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                                <div style={{ ...styles.flex1, ...styles.alignCenter }}>
-                                    <span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>Cost IDs - Touch/Toggle Active-Edit/Deactive</span>
-                                </div>
-                            </div>
+                            
 
                             {this.showequipmentids()}
 

@@ -21,7 +21,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = { render: 'render', width: 0, height: 0, message:'', driverid: '', driveridcheck: '', client: '', clientid: '', firstname: '', lastname: '', profileurl: '', phonenumber: '', emailaddress: '', emailaddresscheck: '', activeequipmentid:false, activeshiftid:false,
-    timeinmonth: '', timeinday: '', timeinyear: '', timeinhours: '', timeinminutes: '', timeinampm: '', timeoutmonth: '', timeoutday: '', timeoutminutes: '', timeouthours: '', timeoutyear: '', timeoutampm: '', activeyear:new Date().getFullYear(), activemonth:false}
+    timeinmonth: '', timeinday: '', timeinyear: '', timeinhours: '', timeinminutes: '', timeinampm: '', timeoutmonth: '', timeoutday: '', timeoutminutes: '', timeouthours: '', timeoutyear: '', timeoutampm: '', activeyear:new Date().getFullYear(), activemonth:false,activeslideid:"driver"}
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
   componentDidMount() {

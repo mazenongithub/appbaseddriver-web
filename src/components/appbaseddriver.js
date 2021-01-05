@@ -26,6 +26,52 @@ class AppBasedDriver {
 
     }
 
+    getslidebyid(id) {
+        const appbaseddriver = new AppBasedDriver();
+        const slides = appbaseddriver.getslides.call(this)
+        let myslide = false;
+        if (slides) {
+            // eslint-disable-next-line
+            slides.map(slide => {
+                if (slide.id === id) {
+                    myslide = slide;
+                }
+            })
+        }
+        return myslide;
+    }
+    getslides() {
+        const slides = () => {
+            return ([
+    
+                {
+                    title: 'Driver',
+                    id: 'driver',
+                    url: 'http://civilengineer.io/appbaseddriver/slides/driver.png',
+                    caption: `Driver Components, Records Time, Calculates Hourly Earnings, Earnings per Delivery, Earnings Per Mile, Calculates Driver Costs`
+    
+                },
+                {
+                    title: 'Equipment',
+                    id: 'equipments',
+                    url: 'http://civilengineer.io/appbaseddriver/slides/equipment.png',
+                    caption: `Add to your list of Equipment`
+    
+                },
+                {
+                    title: 'View Equipment',
+                    id: 'viewequipment',
+                    url: 'http://civilengineer.io/appbaseddriver/slides/viewequipment.png',
+                    caption: `Add Repayment Variables, Add Single Costs, Add Reoccuring Costs, Purchase Price, Purchase Date, Salvage Value, Salvage Date, Interest APR, determines costs per delivery, costs per hours, costs per mile `
+    
+                }
+    
+    
+            ])
+        }
+        return slides();
+    }
+
     validatesavedriver() {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
