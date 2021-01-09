@@ -111,6 +111,8 @@ class PurchaseDate {
 
                         } else if (day.length === 1) {
 
+                            
+                            if(Number(day)) {
                             let purchasemonth = trailingZeros(this.state.purchasemonth)
                             let purchaseday = trailingZeros(day);
                             let purchaseyear = this.state.purchaseyear;
@@ -118,6 +120,8 @@ class PurchaseDate {
                             myuser.equipment[i].repayment.purchasedate = timein;
                             this.props.reduxUser(myuser);
                             this.setState({ render: 'render', purchasemonth })
+
+                            }
                         }
 
                     } else {
@@ -179,6 +183,8 @@ class PurchaseDate {
 
                         } else if (month.length === 1) {
 
+                            if(Number(month)) {
+
                             let purchasemonth = trailingZeros(month)
                             let purchaseday = trailingZeros(this.state.purchaseday);
                             let purchaseyear = this.state.purchaseyear;
@@ -186,6 +192,8 @@ class PurchaseDate {
                             myuser.equipment[i].repayment.purchasedate = timein;
                             this.props.reduxUser(myuser);
                             this.setState({ render: 'render', purchaseday })
+
+                            }
                         }
 
                     } else {

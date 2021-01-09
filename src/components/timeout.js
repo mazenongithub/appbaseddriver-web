@@ -1,7 +1,7 @@
 import React from 'react';
 import { MyStylesheet } from './styles'
 import AppBasedDriver from './appbaseddriver'
-import { UTCTimeStringfromTime, makeTimeString, validateMonth, validateDate, validateYear, validateMinutes } from './functions';
+import { UTCTimeStringfromTime, makeTimeString, validateMonth, validateDate, validateYear, validateMinutes, getMonString } from './functions';
 import TimeOutCalender from './timeoutcalender';
 class TimeOut {
     handleminutes(minutes) {
@@ -118,12 +118,14 @@ class TimeOut {
                             timeout = UTCTimeStringfromTime(timeout);
                             myuser.driver.shifts[i].timeout = timeout;
                             this.props.reduxUser(myuser)
-                            this.setState({ render: 'render' })
+                            
 
 
                         }
 
                     }
+                    
+                    this.setState({ activeyear:Number(year) })
 
 
                 } else {
@@ -186,6 +188,19 @@ class TimeOut {
                 if (month.length === 2) {
 
                     if (validateMonth(month)) {
+
+                        if (this.state.activemonth.hasOwnProperty("length")) {
+
+                            const monthstring = getMonString(Number(month))
+
+
+                            if (this.state.activemonth.indexOf(monthstring) === -1) {
+
+                                const activemonth = this.state.activemonth;
+                                activemonth.push(monthstring)
+                                this.setState({ activemonth })
+                            }
+                        }
                      
 
                             if (this.state.activeshiftid) {

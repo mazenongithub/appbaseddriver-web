@@ -1,7 +1,7 @@
 import React from 'react';
 import { MyStylesheet } from './styles'
 import AppBasedDriver from './appbaseddriver'
-import { UTCTimeStringfromTime, makeTimeString, validateMonth, validateDate, validateYear, validateMinutes } from './functions';
+import { UTCTimeStringfromTime, makeTimeString, validateMonth, validateDate, validateYear, validateMinutes, getMonString } from './functions';
 import TimeInCalender from './timeincalender';
 class TimeIn {
     handleminutes(minutes) {
@@ -118,12 +118,14 @@ class TimeIn {
                             timein = UTCTimeStringfromTime(timein);
                             myuser.driver.shifts[i].timein = timein;
                             this.props.reduxUser(myuser)
-                            this.setState({ render: 'render' })
+                            
 
 
                         }
+                      
 
                     }
+                    this.setState({ activeyear:Number(year) })
 
 
                 } else {
@@ -186,6 +188,19 @@ class TimeIn {
                 if (month.length === 2) {
 
                     if (validateMonth(month)) {
+
+                        if (this.state.activemonth.hasOwnProperty("length")) {
+
+                            const monthstring = getMonString(Number(month))
+
+
+                            if (this.state.activemonth.indexOf(monthstring) === -1) {
+
+                                const activemonth = this.state.activemonth;
+                                activemonth.push(monthstring)
+                                this.setState({ activemonth })
+                            }
+                        }
                      
 
                             if (this.state.activeshiftid) {

@@ -111,6 +111,8 @@ class SalvageDate {
 
                         } else if (day.length === 1) {
 
+                            if(Number(day)) {
+
                             let salvagemonth = trailingZeros(this.state.salvagemonth)
                             let salvageday = trailingZeros(day);
                             let salvageyear = this.state.salvageyear;
@@ -118,6 +120,7 @@ class SalvageDate {
                             myuser.equipment[i].repayment.salvagedate = timein;
                             this.props.reduxUser(myuser);
                             this.setState({ render: 'render', salvagemonth })
+                            }
                         }
 
                     } else {
@@ -182,6 +185,8 @@ class SalvageDate {
 
                         } else if (month.length === 1) {
 
+                            if(Number(month)) {
+
                             let salvagemonth = trailingZeros(month)
                             let salvageday = trailingZeros(this.state.salvageday);
                             let salvageyear = this.state.salvageyear;
@@ -189,6 +194,8 @@ class SalvageDate {
                             myuser.equipment[i].repayment.salvagedate = timein;
                             this.props.reduxUser(myuser);
                             this.setState({ render: 'render', salvageday })
+
+                            }
                         }
 
                     } else {

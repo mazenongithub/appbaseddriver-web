@@ -2,7 +2,7 @@ import React from 'react';
 import { MyStylesheet } from './styles'
 import AppBasedDriver from './appbaseddriver';
 import EquipmentCalender from './equipmentcalender'
-import { validateMonth, validateDate, validateYear, isNumeric, trailingZeros } from './functions';
+import { validateMonth, validateDate, validateYear, isNumeric, trailingZeros, getMonString } from './functions';
 
 class EquipmentDate {
 
@@ -13,43 +13,49 @@ class EquipmentDate {
             const appbaseddriver = new AppBasedDriver();
             const myuser = appbaseddriver.getuser.call(this)
             if (myuser) {
+                console.log(year)
 
                 const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
                 if (equipment) {
-
-
-
+                 
                     const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid);
 
-                    if (this.state.activecostid) {
-                        const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, this.state.activecostid);
-                        if (cost) {
+                   
+                    if (year.length === 4) {
+                    
+                       
+                        if (validateYear(year)) {
 
-                            if (year.length === 4) {
+                    
+                            if (this.state.activecostid) {
 
-                                if (validateYear(year)) {
-
+                                const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, this.state.activecostid);
+                                if (cost) {
 
                                     const j = appbaseddriver.getequipmentcostkeybyid.call(this, this.props.match.params.equipmentid, this.state.activecostid);
                                     let day = this.state.equipmentday;
                                     let month = this.state.equipmentmonth;
                                     const timein = `${year}/${month}/${day}`
-
                                     myuser.equipment[i].costs[j].purchasedate = timein;
                                     this.props.reduxUser(myuser);
-                                    this.setState({ render: 'render' })
 
-
-                                } else {
-                                    alert(`Invalid Year format ${year}`)
                                 }
 
-                            }
 
+                            }
+                                                     
+                            this.setState({ activeyear: Number(year) })
+
+                        } else {
+                            alert(`Invalid Year format ${year}`)
                         }
 
-
                     }
+
+
+
+
+
 
                 }
             }
@@ -99,16 +105,21 @@ class EquipmentDate {
 
                             } else if (day.length === 1) {
 
-                                let j = appbaseddriver.getequipmentcostkeybyid.call(this, this.props.match.params.equipmentid, this.state.activecostid);
-                                let equipmentday = trailingZeros(day)
-                                let equipmentmonth = trailingZeros(this.state.equipmentmonth);
-                                let equipmentyear = this.state.equipmentyear;
-                                let timein = `${equipmentyear}/${equipmentmonth}/${equipmentday}`
-                                myuser.equipment[i].costs[j].purchasedate = timein;
-                                this.props.reduxUser(myuser);
-                                this.setState({ render: 'render', equipmentmonth })
+                                if (Number(day)) {
+
+                                    let j = appbaseddriver.getequipmentcostkeybyid.call(this, this.props.match.params.equipmentid, this.state.activecostid);
+                                    let equipmentday = trailingZeros(day)
+                                    let equipmentmonth = trailingZeros(this.state.equipmentmonth);
+                                    let equipmentyear = this.state.equipmentyear;
+                                    let timein = `${equipmentyear}/${equipmentmonth}/${equipmentday}`
+                                    myuser.equipment[i].costs[j].purchasedate = timein;
+                                    this.props.reduxUser(myuser);
+                                    this.setState({ render: 'render', equipmentmonth })
+
+                                }
+
                             }
- 
+
 
                         }
 
@@ -142,6 +153,19 @@ class EquipmentDate {
                         if (validateMonth(month)) {
 
 
+                            if (this.state.activemonth.hasOwnProperty("length")) {
+
+                                const monthstring = getMonString(Number(month))
+
+
+                                if (this.state.activemonth.indexOf(monthstring) === -1) {
+
+                                    const activemonth = this.state.activemonth;
+                                    activemonth.push(monthstring)
+                                    this.setState({ activemonth })
+                                }
+                            }
+
 
 
 
@@ -152,6 +176,7 @@ class EquipmentDate {
                                     let j = appbaseddriver.getequipmentcostkeybyid.call(this, this.props.match.params.equipmentid, this.state.activecostid);
                                     let day = this.state.equipmentday;
                                     let year = this.state.equipmentyear;
+                                    console.log(month, day.year)
                                     const timein = `${year}/${month}/${day}`
                                     myuser.equipment[i].costs[j].purchasedate = timein;
                                     this.props.reduxUser(myuser);
@@ -170,14 +195,17 @@ class EquipmentDate {
 
                     } else if (month.length === 1) {
 
-                        let j = appbaseddriver.getequipmentcostkeybyid.call(this, this.props.match.params.equipmentid, this.state.activecostid);
-                        let equipmentmonth = trailingZeros(month)
-                        let equipmentday = trailingZeros(this.state.equipmentday);
-                        let equipmentyear = this.state.equipmentyear;
-                        let timein = `${equipmentyear}/${equipmentmonth}/${equipmentday}`
-                        myuser.equipment[i].costs[j].purchasedate = timein;
-                        this.props.reduxUser(myuser);
-                        this.setState({ render: 'render', equipmentday })
+                        if (Number(month)) {
+
+                            let j = appbaseddriver.getequipmentcostkeybyid.call(this, this.props.match.params.equipmentid, this.state.activecostid);
+                            let equipmentmonth = trailingZeros(month)
+                            let equipmentday = trailingZeros(this.state.equipmentday);
+                            let equipmentyear = this.state.equipmentyear;
+                            let timein = `${equipmentyear}/${equipmentmonth}/${equipmentday}`
+                            myuser.equipment[i].costs[j].purchasedate = timein;
+                            this.props.reduxUser(myuser);
+                            this.setState({ render: 'render', equipmentday })
+                        }
                     }
 
                 }
