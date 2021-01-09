@@ -2,6 +2,7 @@ import React from 'react';
 import { MyStylesheet } from './styles';
 import { appleID, googlesign } from './svg';
 import AppBasedDriver from './appbaseddriver';
+import Spinner from './spinner'
 class ClientID {
 
     showclientid(type) {
@@ -32,7 +33,7 @@ class ClientID {
                     </button>)
             }
         }
-
+        if(!this.state.spinner) {
         return (
             <div style={{ ...styles.generalFlex }}>
                 <div style={{...styles.flex1}}>
@@ -57,6 +58,10 @@ class ClientID {
 
 
             </div>)
+
+        } else {
+            return(<Spinner/>)
+        }
     }
 
 }

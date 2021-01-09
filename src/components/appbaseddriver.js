@@ -1,9 +1,10 @@
+import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { AppleLogin, LogoutUser, SaveDriver } from './actions/api'
 import { MyStylesheet } from './styles';
 import { calculatetotalhours, getRepaymentCosts, getInterval, checkactivemonth, checkactivedate, validateLoanPayment, calculateTotalMonths, compareDates } from './functions'
-
+import Spinner from './spinner'
 class AppBasedDriver {
 
 
@@ -490,17 +491,18 @@ class AppBasedDriver {
 
                 try {
 
-
+                    this.setState({spinner:true})
                     let response = await SaveDriver({ myuser })
                     console.log(response)
                     if (response.hasOwnProperty("driverid")) {
                         this.props.reduxUser(response)
                         let message = `Driver Updated ${new Date().toLocaleTimeString()}`
-                        this.setState({ message })
+                        this.setState({ spinner:false,message })
                     }
 
 
                 } catch (err) {
+                    this.setState(({spinner:false}))
 
                 }
             }
@@ -516,6 +518,7 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         const menufont = appbaseddriver.menufont.call(this)
         const regularFont = appbaseddriver.getRegularFont.call(this)
+        if(!this.state.spinner) {
         return (
             <div style={{ ...styles.generalContainer, ...styles.alignCenter }}>
 
@@ -525,6 +528,9 @@ class AppBasedDriver {
                     onClick={() => appbaseddriver.savedriver.call(this)} >Save Driver</button>
             </div>
         )
+        } else {
+            return(<Spinner/>)
+        }
     }
     getuser() {
         let user = false;
@@ -589,10 +595,12 @@ class AppBasedDriver {
 
 
         try {
+            this.setState({spinner:true})
             let response = await AppleLogin(values)
-            console.log(response)
+            this.setState({spinner:false})
             this.props.reduxUser(response)
         } catch (err) {
+            this.setState({spinner:false})
             alert(err)
         }
     }
@@ -604,6 +612,7 @@ class AppBasedDriver {
 
 
         try {
+           
             const result = await firebase.auth().signInWithPopup(provider)
             let firstname = "";
             let lastname = "";
