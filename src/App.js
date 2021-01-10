@@ -27,8 +27,9 @@ class App extends Component {
   componentDidMount() {
     window.addEventListener('resize', this.updateWindowDimensions);
     document.title = `App-Based Driver`
-    document.content = `App-Based Driver by CivilEngineer.io. Created for App-Based Drivers. Enter your earnings, miles, your deliveries, timein, timeout. Output earnings per hour, earnings per delivery, and earnings per mile. Add your equipment. Add Equipment Costs. Output Costs Per Hour, Cost Per Mile, Cost Per Delivery, Net Earnings, Net Per Hour, Net Per Delivery, Net Per Mile, Purchase Date, Salvage Date, Interest Rate, Equipment Repayment`
-    document.keywords =  `App-Based Driver, Accounting, earnings, mileage, deliveries, earnings per hour, net earnings`
+    document.getElementsByTagName('meta')["description"].content = "App-Based Driver by CivilEngineer.io. Created for App-Based Drivers. Enter your earnings, miles, your deliveries, timein, timeout. Output earnings per hour, earnings per delivery, and earnings per mile. Add your equipment. Add Equipment Costs. Output Costs Per Hour, Cost Per Mile, Cost Per Delivery, Net Earnings, Net Per Hour, Net Per Delivery, Net Per Mile, Purchase Date, Salvage Date, Interest Rate, Equipment Repayment";
+  
+    
     const config = () => {
       return ({
         apiKey: "AIzaSyDO-cDb5lRjsaD4ft0It270li1_uNa42BA",
