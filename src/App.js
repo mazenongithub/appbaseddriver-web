@@ -27,7 +27,7 @@ class App extends Component {
   componentDidMount() {
     window.addEventListener('resize', this.updateWindowDimensions);
     document.title = `App-Based Driver`
-    document.getElementsByTagName('meta')["description"].content = "App-Based Driver by CivilEngineer.io. Created for App-Based Drivers. Enter your earnings, miles, your deliveries, timein, timeout. Output earnings per hour, earnings per delivery, and earnings per mile. Add your equipment. Add Equipment Costs. Output Costs Per Hour, Cost Per Mile, Cost Per Delivery, Net Earnings, Net Per Hour, Net Per Delivery, Net Per Mile, Purchase Date, Salvage Date, Interest Rate, Equipment Repayment";
+    document.getElementsByTagName('meta')["description"].content = "Input earnings, shifts, miles, and your deliveries. Add your Equipment List. Add their costs. The Program will output gross and net earnings per hour, earnings per delivery, and earnings per mile after subtracting your costs from your earnings. Use this program to maximize your earnings as an App-Based Driver.";
   
     
     const config = () => {
