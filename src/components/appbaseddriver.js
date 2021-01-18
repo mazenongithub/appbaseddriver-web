@@ -626,6 +626,8 @@ class AppBasedDriver {
 
                 user = result.user;
                 apple = user.providerData[0].uid;
+                
+                
                 if (user.providerData[0].displayName) {
                     firstname = user.providerData[0].displayName.split(' ')[0]
                     lastname = user.providerData[0].displayName.split(' ')[1]
@@ -636,8 +638,13 @@ class AppBasedDriver {
                 phonenumber = user.phoneNumber;
             }
 
-            const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, apple, driverid: this.state.driverid }
+            if(apple) {
+                this.setState({client:'apple'})
+            }
+            
 
+            const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, apple, driverid: this.state.driverid }
+            
             appbaseddriver.clientlogin.call(this, values)
 
         } catch (err) {
@@ -675,6 +682,9 @@ class AppBasedDriver {
                 emailaddress = user.providerData[0].email
                 profileurl = user.providerData[0].photoURL
                 phonenumber = user.phoneNumber;
+            }
+            if(google) {
+                this.setState({client:'google'})
             }
             const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, driverid: this.state.driverid, google }
 

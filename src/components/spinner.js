@@ -72,8 +72,15 @@ class Spinner extends Component {
         }
 
         const topMargin = () => {
+            if(this.state.width>1200) {
+                return ({ marginTop: '30px', marginBottom: '30px' })
+            } else if (this.state.width>600) {
+                return ({ marginTop: '20px', marginBottom: '20px' })
+            } else {
+                return ({ marginTop: '10px', marginBottom: '10px' })
+            }
 
-            return ({ marginTop: '60px', marginBottom: '60px' })
+           
         }
 
         const cls_a = this.state.activespinner === "a" ? 'cls-2': 'cls-1'
