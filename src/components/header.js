@@ -16,8 +16,6 @@ class Header {
         if (mynav) {
             if (myuser) {
 
-               
-
                 switch (mynav.navigation) {
                     case 'driver':
 
@@ -93,12 +91,12 @@ class Header {
                 )
 
             } else {
-                return (<Link to={`/newuser/login`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>Login</Link>)
+                return (<Link to={`/user/access`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>Access</Link>)
 
             }
 
         }
-        const registerlink = (myuser) => {
+        const equipmentlink = (myuser) => {
 
             if (myuser) {
                 return (<Link onClick={() => {
@@ -107,13 +105,7 @@ class Header {
                 }}
                     to={`/${myuser.driverid}/equipment`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/equipment</Link>)
 
-            } else {
-
-                return (
-                    <Link to={`/newuser/register`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>Register</Link>
-                )
-
-            }
+            } 
 
         }
 
@@ -150,7 +142,7 @@ class Header {
 
                         <div style={{ ...styles.generalContainer, ...styles.generalPadding, ...styles.bottomMargin10 }}>
                             {homelink(myuser)}
-                            {registerlink(myuser)}
+                            {equipmentlink(myuser)}
                             {showdriver(myuser)}
                             {loginlink(myuser)}
                         </div>

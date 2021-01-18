@@ -301,11 +301,11 @@ class AppBasedDriver {
 
     getremoveicon() {
         if (this.state.width > 1200) {
-            return ({ width: '47px' })
+            return ({ width: '60px' })
         } else if (this.state.width > 600) {
-            return ({ width: '37px' })
+            return ({ width: '50px' })
         } else {
-            return ({ width: '27px' })
+            return ({ width:  '40px' }) 
         }
     }
 
@@ -637,7 +637,6 @@ class AppBasedDriver {
             }
 
             const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, apple, driverid: this.state.driverid }
-
 
             appbaseddriver.clientlogin.call(this, values)
 

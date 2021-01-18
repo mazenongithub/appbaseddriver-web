@@ -8,20 +8,19 @@ import { MyStylesheet } from './components/styles'
 import 'firebase/auth';
 import './App.css';
 import Header from './components/header'
-import Login from './components/login';
-import Register from './components/register';
 import Home from './components/home';
 import Profile from './components/profile'
 import Equipment from './components/equipment'
 import ViewEquipment from './components/viewequipment';
 import Driver from './components/driver'
 import {getMonString} from './components/functions'
+import Access from './components/access';
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { render: 'render', width: 0, height: 0, message:'', driverid: '', driveridcheck: '', client: '', clientid: '', firstname: '', lastname: '', profileurl: '', phonenumber: '', emailaddress: '', emailaddresscheck: '', activeequipmentid:false, activeshiftid:false,
-    timeinmonth: '', timeinday: '', timeinyear: '', timeinhours: '', timeinminutes: '', timeinampm: '', timeoutmonth: '', timeoutday: '', timeoutminutes: '', timeouthours: '', timeoutyear: '', timeoutampm: '', activeyear:new Date().getFullYear(), activemonth:false,activeslideid:"driver", spinner:false}
+    this.state = { render: 'render', width: 0, height: 0, message:'', driverid: '', checkdriverid: '', client: '', clientid: '', firstname: '', lastname: '', profileurl: '', phonenumber: '', emailaddress: '', emailaddresscheck: '', activeequipmentid:false, activeshiftid:false,
+    timeinmonth: '', timeinday: '', timeinyear: '', timeinhours: '', timeinminutes: '', timeinampm: '', timeoutmonth: '', timeoutday: '', timeoutminutes: '', timeouthours: '', timeoutyear: '', timeoutampm: '', activeyear:new Date().getFullYear(), activemonth:false,activeslideid:"driver", spinner:false, access:false}
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
   componentDidMount() {
@@ -171,19 +170,15 @@ timeindefault() {
   render() {
     const styles = MyStylesheet();
     const header = new Header();
-    const register = new Register()
+
     const home = new Home();
-    const login = new Login();
+
     const profile = new Profile();
     const equipment = new Equipment();
     const driver = new Driver();
+    const access = new Access();
   
-    const showlogin = () => {
-      return (login.showlogin.call(this))
-    }
-    const showregister = () => {
-      return (register.showregister.call(this))
-    }
+  
     const showhome = () => {
       return (home.showhome.call(this))
     }
@@ -199,6 +194,10 @@ timeindefault() {
     const showdriver = () => {
       return(driver.showdriver.call(this))
     }
+
+    const showaccess = () => {
+      return(access.showaccess.call(this))
+    }
   
 
 
@@ -210,9 +209,8 @@ timeindefault() {
             {header.showheader.call(this)}
             <Switch>
               <Route exact path="/" render={showhome} />
-              <Route exact path="/newuser/login" render={showlogin} />
-              <Route exact path="/newuser/register" render={showregister} />
               <Route exact path="/newuser/home" render={showhome} />
+              <Route exact path="/user/access" render={showaccess} />
               <Route exact path="/:driverid/profile" render={showprofile} />
               <Route exact path="/:driverid/equipment" render={showequipment} />
               <Route exact path="/:driverid/driver" render={showdriver} />

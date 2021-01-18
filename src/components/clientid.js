@@ -9,14 +9,8 @@ class ClientID {
         const styles = MyStylesheet();
         const appbaseddriver = new AppBasedDriver();
         const loginButton = appbaseddriver.getgoogleicon.call(this)
-        const regularFont = appbaseddriver.getRegularFont.call(this)
-        const signinmessage = () => {
-            if (this.state.client && this.state.clientid) {
-                return `Your Signin is secure with ${this.state.client}`
-            } else {
-                return `Secure your Sign in`
-            }
-        }
+     
+     
         const apple = () => {
             if(!this.state.client || !this.state.clientid) {
                 return( 
@@ -38,11 +32,7 @@ class ClientID {
             <div style={{ ...styles.generalFlex }}>
                 <div style={{...styles.flex1}}>
 
-                    <div style={{ ...styles.generalFlex,...styles.bottomMargin15 }}>
-                        <div style={{ ...styles.flex1,...styles.generalFont,...regularFont }}>
-                            {signinmessage()}
-                        </div>
-                    </div>
+                   
 
                     <div style={{ ...styles.generalFlex,...styles.bottomMargin15 }}>
                         <div style={{ ...styles.flex1, ...styles.alignCenter }}>
