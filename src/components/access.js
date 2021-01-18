@@ -32,6 +32,7 @@ class Access {
     }
 
     handledriverid(driverid) {
+        driverid = driverid.toLowerCase();
 
         this.setState({ driverid, client: false, access: false })
         let validate = validateDriverID(driverid)
