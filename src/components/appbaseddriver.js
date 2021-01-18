@@ -472,6 +472,7 @@ class AppBasedDriver {
                 let response = await LogoutUser(myuser.driverid);
                 console.log(response)
                 this.props.reduxUser(response)
+                this.setState({client:false, access:false, driverid:""})
 
             } catch (err) {
                 alert(err)
