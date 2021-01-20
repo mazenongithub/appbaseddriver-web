@@ -168,6 +168,20 @@ class AppBasedDriver {
         return costarray;
     }
 
+    gettransformeddrivercosts() {
+        const appbaseddriver = new AppBasedDriver();
+        let costs = []
+        const myequipment = appbaseddriver.getequipment.call(this)
+        if (myequipment) {
+            // eslint-disable-next-line
+            myequipment.map(equipment => {
+                costs = [...costs,...appbaseddriver.gettransformedcostsbyequimentid.call(this, equipment.equipmentid)]
+            })
+        }
+        return costs;
+
+    }
+
     getdrivercosts() {
         const appbaseddriver = new AppBasedDriver();
         let costs = 0;
@@ -205,6 +219,26 @@ class AppBasedDriver {
         }
 
         return mycosts;
+    }
+
+    getactiveshifts() {
+    
+            const appbaseddriver = new AppBasedDriver();
+            const shifts = appbaseddriver.getshifts.call(this)
+            let myshifts = []
+            if (shifts) {
+                // eslint-disable-next-line
+                shifts.map(shift => {
+                    if (checkactivemonth(shift.timein, this.state.activemonth, this.state.activeyear)) {
+                        myshifts.push(shift)
+    
+                    }
+                })
+    
+            }
+            return myshifts
+    
+        
     }
 
     getearnings() {

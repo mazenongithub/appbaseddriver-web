@@ -9,6 +9,7 @@ import { removeIconSmall } from './svg'
 import Header from './header';
 import Income from './income';
 import DriverUI from './driverui';
+import Diagrams from './diagrams'
 class Driver {
 
     getearnings() {
@@ -350,6 +351,7 @@ class Driver {
         const timeout = new TimeOut();
         const income = new Income();
         const driverui = new DriverUI();
+        const diagrams = new Diagrams();
 
 const header = new Header();
 
@@ -449,6 +451,8 @@ const header = new Header();
                         {appbaseddriver.showsavedriver.call(this)}
 
                         {income.showincome.call(this)}
+
+                        {diagrams.showdiagrams.call(this)}
 
                     </div>
 
