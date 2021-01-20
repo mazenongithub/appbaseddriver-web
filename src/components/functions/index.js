@@ -769,7 +769,8 @@ export function validateLoanPayment(purchase, purchasedate, salvage, salvagedate
 
 
 export function getInterval(salvagedate, purchasedate, reoccurring, amount, detail) {
-
+ 
+   
     let period = 0;
     let x = 0;
     let cost = {};
@@ -817,6 +818,7 @@ export function getInterval(salvagedate, purchasedate, reoccurring, amount, deta
 
 
     }
+
     return costArray
 
 

@@ -337,7 +337,7 @@ class CostDiagrams {
         }
 
        const costs = appbaseddriver.gettransformeddrivercosts.call(this)
-     
+    
        if(costs.length >0) {
            // eslint-disable-next-line
            costs.map(cost => {

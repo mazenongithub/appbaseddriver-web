@@ -143,7 +143,7 @@ class AppBasedDriver {
                         if (equipment.hasOwnProperty("repayment")) {
 
 
-                            const reoccurringcosts = getInterval(equipment.repayment.salvagedate, equipment.repayment.purchasedate, cost.reoccurring.frequency, cost.amount, cost.detail)
+                            const reoccurringcosts = getInterval(equipment.repayment.salvagedate, cost.purchasedate, cost.reoccurring.frequency, cost.amount, cost.detail)
 
                             costarray = [...costarray, ...reoccurringcosts]
 
