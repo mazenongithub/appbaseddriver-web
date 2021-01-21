@@ -1,126 +1,100 @@
 import React from 'react'
 import AppBasedDriver from './appbaseddriver'
-import {checkactivedate,abbMonth} from './functions'
+import { checkactivedate, abbMonth } from './functions'
 import {MyStylesheet} from './styles'
 
-class CostDiagrams {
 
-    smallDiagram() {
-        return (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 404.99 1213.93"><defs><style>
+class LargeDiagram {
 
-        </style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><text class="costdiagram-1" transform="translate(180.51 78.4)">Jan</text><text class="costdiagram-1" transform="translate(179.26 180.42)"><tspan class="costdiagram-2">F</tspan><tspan x="12.71" y="0">eb</tspan></text><text class="costdiagram-1" transform="translate(176.52 282.43)">Mar</text><text class="costdiagram-1" transform="translate(178.66 384.44)">Apr</text><text class="costdiagram-1" transform="translate(175.24 486.45)">M<tspan class="costdiagram-3" x="22.32" y="0">a</tspan><tspan x="34.45" y="0">y</tspan></text><text class="costdiagram-1" transform="translate(183.54 694.91)">Jul</text><text class="costdiagram-1" transform="translate(179.23 897.75)">Sep</text><text class="costdiagram-1" transform="translate(176.76 1101.78)">N<tspan class="costdiagram-4" x="18.14" y="0">o</tspan><tspan x="31.39" y="0">v</tspan></text><text class="costdiagram-1" transform="translate(179.98 594.28)">Jun</text><line class="costdiagram-5" x1="403.99" y1="506.89" x2="403.99" y2="526.89" /><line class="costdiagram-5" x1="403.94" y1="546.5" x2="403.94" y2="526.5" /><line class="costdiagram-5" x1="403.99" y1="511.71" x2="403.99" y2="531.71" /><line class="costdiagram-5" x1="403.99" y1="531.71" x2="403.99" y2="551.71" /><line class="costdiagram-5" x1="4.46" y1="531.71" x2="404.46" y2="531.71" /><line class="costdiagram-5" x1="4.9" y1="531.71" x2="4.9" y2="511.71" /><line class="costdiagram-5" x1="4.9" y1="551.43" x2="4.9" y2="531.43" /><polygon class="costdiagram-6" points="4.91 496.71 0.41 505.71 9.4 505.71 4.91 496.71" /><line class="costdiagram-6" x1="4.9" y1="505.71" x2="4.9" y2="531.71" /><polygon class="costdiagram-7" points="4.91 566.72 9.4 557.72 0.41 557.72 4.91 566.72" /><line class="costdiagram-6" x1="4.9" y1="557.72" x2="4.9" y2="531.71" /><line class="costdiagram-5" x1="403.94" y1="625.81" x2="403.94" y2="645.81" /><line class="costdiagram-5" x1="403.99" y1="613.94" x2="403.99" y2="633.94" /><line class="costdiagram-5" x1="403.99" y1="633.94" x2="403.99" y2="653.94" /><line class="costdiagram-5" x1="4.46" y1="633.94" x2="404.46" y2="633.94" /><line class="costdiagram-5" x1="4.9" y1="633.94" x2="4.9" y2="613.94" /><line class="costdiagram-5" x1="4.9" y1="653.66" x2="4.9" y2="633.66" /><polygon class="costdiagram-6" points="4.91 598.94 0.41 607.94 9.4 607.94 4.91 598.94" /><line class="costdiagram-6" x1="4.9" y1="607.94" x2="4.9" y2="633.94" /><polygon class="costdiagram-7" points="4.91 668.95 9.4 659.95 0.41 659.95 4.91 668.95" /><line class="costdiagram-6" x1="4.9" y1="659.95" x2="4.9" y2="633.94" /><line class="costdiagram-5" x1="403.99" y1="409.48" x2="403.99" y2="429.48" /><line class="costdiagram-5" x1="403.99" y1="429.48" x2="403.99" y2="449.48" /><line class="costdiagram-5" x1="4.46" y1="429.48" x2="404.46" y2="429.48" /><line class="costdiagram-5" x1="4.9" y1="429.48" x2="4.9" y2="409.48" /><line class="costdiagram-5" x1="4.9" y1="449.2" x2="4.9" y2="429.2" /><polygon class="costdiagram-6" points="4.91 394.48 0.41 403.48 9.4 403.48 4.91 394.48" /><line class="costdiagram-6" x1="4.9" y1="403.48" x2="4.9" y2="429.48" /><polygon class="costdiagram-7" points="4.91 464.49 9.4 455.49 0.41 455.49 4.91 464.49" /><line class="costdiagram-6" x1="4.9" y1="455.49" x2="4.9" y2="429.48" /><line class="costdiagram-5" x1="403.99" y1="307.25" x2="403.99" y2="327.25" /><line class="costdiagram-5" x1="403.99" y1="327.25" x2="403.99" y2="347.25" /><line class="costdiagram-5" x1="4.46" y1="327.25" x2="404.46" y2="327.25" /><line class="costdiagram-5" x1="4.9" y1="327.25" x2="4.9" y2="307.25" /><line class="costdiagram-5" x1="4.9" y1="346.97" x2="4.9" y2="326.97" /><polygon class="costdiagram-6" points="4.91 292.25 0.41 301.25 9.4 301.25 4.91 292.25" /><line class="costdiagram-6" x1="4.9" y1="301.24" x2="4.9" y2="327.25" /><polygon class="costdiagram-7" points="4.91 362.26 9.4 353.26 0.41 353.26 4.91 362.26" /><line class="costdiagram-6" x1="4.9" y1="353.26" x2="4.9" y2="327.25" /><line class="costdiagram-5" x1="403.99" y1="229.44" x2="403.99" y2="249.44" /><line class="costdiagram-5" x1="403.99" y1="205.02" x2="403.99" y2="225.02" /><line class="costdiagram-5" x1="403.99" y1="225.02" x2="403.99" y2="245.02" /><line class="costdiagram-5" x1="4.46" y1="225.02" x2="404.46" y2="225.02" /><line class="costdiagram-5" x1="4.9" y1="225.02" x2="4.9" y2="205.02" /><line class="costdiagram-5" x1="4.9" y1="244.74" x2="4.9" y2="224.74" /><polygon class="costdiagram-6" points="4.91 190.01 0.41 199.01 9.4 199.01 4.91 190.01" /><line class="costdiagram-6" x1="4.9" y1="199.01" x2="4.9" y2="225.02" /><polygon class="costdiagram-7" points="4.91 260.03 9.4 251.03 0.41 251.03 4.91 260.03" /><line class="costdiagram-6" x1="4.9" y1="251.03" x2="4.9" y2="225.02" /><line class="costdiagram-5" x1="403.99" y1="102.79" x2="403.99" y2="122.79" /><line class="costdiagram-5" x1="403.99" y1="122.79" x2="403.99" y2="142.79" /><line class="costdiagram-5" x1="4.46" y1="122.79" x2="404.46" y2="122.79" /><line class="costdiagram-5" x1="4.9" y1="122.79" x2="4.9" y2="102.79" /><line class="costdiagram-5" x1="4.9" y1="142.51" x2="4.9" y2="122.51" /><polygon class="costdiagram-6" points="4.91 87.78 0.41 96.78 9.4 96.78 4.91 87.78" /><line class="costdiagram-6" x1="4.9" y1="96.78" x2="4.9" y2="122.79" /><polygon class="costdiagram-7" points="4.91 157.79 9.4 148.79 0.41 148.79 4.91 157.79" /><line class="costdiagram-6" x1="4.9" y1="148.8" x2="4.9" y2="122.79" /><polygon class="costdiagram-7" points="4.91 70.57 9.4 61.57 0.41 61.57 4.91 70.57" /><line class="costdiagram-6" x1="4.9" y1="61.57" x2="4.9" y2="35.56" /><line class="costdiagram-5" x1="403.99" y1="15.56" x2="403.99" y2="35.56" /><line class="costdiagram-5" x1="403.99" y1="35.56" x2="403.99" y2="55.56" /><line class="costdiagram-5" x1="4.46" y1="35.56" x2="404.46" y2="35.56" /><line class="costdiagram-5" x1="4.9" y1="35.56" x2="4.9" y2="15.56" /><line class="costdiagram-5" x1="4.9" y1="55.28" x2="4.9" y2="35.28" /><polygon class="costdiagram-6" points="4.91 0.56 0.41 9.56 9.4 9.56 4.91 0.56" /><line class="costdiagram-6" x1="4.9" y1="9.56" x2="4.9" y2="35.56" /><line class="costdiagram-5" x1="403.99" y1="716.17" x2="403.99" y2="736.17" /><line class="costdiagram-5" x1="403.99" y1="736.17" x2="403.99" y2="756.17" /><line class="costdiagram-5" x1="4.46" y1="736.17" x2="404.46" y2="736.17" /><line class="costdiagram-5" x1="4.9" y1="736.17" x2="4.9" y2="716.17" /><line class="costdiagram-5" x1="4.9" y1="755.89" x2="4.9" y2="735.89" /><polygon class="costdiagram-6" points="4.91 701.17 0.41 710.17 9.4 710.17 4.91 701.17" /><line class="costdiagram-6" x1="4.9" y1="710.17" x2="4.9" y2="736.17" /><polygon class="costdiagram-7" points="4.91 771.18 9.4 762.18 0.41 762.18 4.91 771.18" /><line class="costdiagram-6" x1="4.9" y1="762.18" x2="4.9" y2="736.17" /><line class="costdiagram-5" x1="403.99" y1="733.29" x2="403.99" y2="753.29" /><line class="costdiagram-5" x1="403.99" y1="818.4" x2="403.99" y2="838.4" /><line class="costdiagram-5" x1="403.99" y1="838.4" x2="403.99" y2="858.4" /><line class="costdiagram-5" x1="4.46" y1="838.4" x2="404.46" y2="838.4" /><line class="costdiagram-5" x1="4.9" y1="838.4" x2="4.9" y2="818.4" /><line class="costdiagram-5" x1="4.9" y1="858.12" x2="4.9" y2="838.12" /><polygon class="costdiagram-6" points="4.91 803.4 0.41 812.4 9.4 812.4 4.91 803.4" /><line class="costdiagram-6" x1="4.9" y1="812.4" x2="4.9" y2="838.4" /><polygon class="costdiagram-7" points="4.91 873.41 9.4 864.41 0.41 864.41 4.91 873.41" /><line class="costdiagram-6" x1="4.9" y1="864.41" x2="4.9" y2="838.4" /><line class="costdiagram-5" x1="403.99" y1="835.52" x2="403.99" y2="855.52" /><line class="costdiagram-5" x1="403.99" y1="920.63" x2="403.99" y2="940.63" /><line class="costdiagram-5" x1="403.99" y1="940.63" x2="403.99" y2="960.63" /><line class="costdiagram-5" x1="4.46" y1="940.63" x2="404.46" y2="940.63" /><line class="costdiagram-5" x1="4.9" y1="940.63" x2="4.9" y2="920.63" /><line class="costdiagram-5" x1="4.9" y1="960.35" x2="4.9" y2="940.35" /><polygon class="costdiagram-6" points="4.91 905.63 0.41 914.63 9.4 914.63 4.91 905.63" /><line class="costdiagram-6" x1="4.9" y1="914.63" x2="4.9" y2="940.63" /><polygon class="costdiagram-7" points="4.91 975.64 9.4 966.64 0.41 966.64 4.91 975.64" /><line class="costdiagram-6" x1="4.9" y1="966.64" x2="4.9" y2="940.63" /><line class="costdiagram-5" x1="403.99" y1="937.76" x2="403.99" y2="957.76" /><line class="costdiagram-5" x1="403.99" y1="1022.86" x2="403.99" y2="1042.86" /><line class="costdiagram-5" x1="403.99" y1="1042.86" x2="403.99" y2="1062.86" /><line class="costdiagram-5" x1="4.46" y1="1042.86" x2="404.46" y2="1042.86" /><line class="costdiagram-5" x1="4.9" y1="1042.86" x2="4.9" y2="1022.86" /><line class="costdiagram-5" x1="4.9" y1="1062.58" x2="4.9" y2="1042.58" /><polygon class="costdiagram-6" points="4.91 1007.86 0.41 1016.86 9.4 1016.86 4.91 1007.86" /><line class="costdiagram-6" x1="4.9" y1="1016.86" x2="4.9" y2="1042.86" /><polygon class="costdiagram-7" points="4.91 1077.87 9.4 1068.87 0.41 1068.87 4.91 1077.87" /><line class="costdiagram-6" x1="4.9" y1="1068.87" x2="4.9" y2="1042.86" /><line class="costdiagram-5" x1="403.99" y1="1039.99" x2="403.99" y2="1059.99" /><line class="costdiagram-5" x1="403.99" y1="1125.09" x2="403.99" y2="1145.09" /><line class="costdiagram-5" x1="403.99" y1="1145.09" x2="403.99" y2="1165.09" /><line class="costdiagram-5" x1="4.46" y1="1145.09" x2="404.46" y2="1145.09" /><line class="costdiagram-5" x1="4.9" y1="1145.09" x2="4.9" y2="1125.09" /><line class="costdiagram-5" x1="4.9" y1="1164.81" x2="4.9" y2="1144.81" /><polygon class="costdiagram-6" points="4.91 1110.09 0.41 1119.09 9.4 1119.09 4.91 1110.09" /><line class="costdiagram-6" x1="4.9" y1="1119.09" x2="4.9" y2="1145.09" /><polygon class="costdiagram-7" points="4.91 1180.1 9.4 1171.1 0.41 1171.1 4.91 1180.1" /><line class="costdiagram-6" x1="4.9" y1="1171.1" x2="4.9" y2="1145.09" /><line class="costdiagram-5" x1="403.99" y1="1142.22" x2="403.99" y2="1162.22" /><text class="costdiagram-1" transform="translate(177.31 796.93)">Aug</text><text class="costdiagram-1" transform="translate(178.9 999.77)">Oct</text><text class="costdiagram-1" transform="translate(177.76 1209.6)">Dec</text></g></g></svg>)
-    }
 
-    mediumDiagram() {
-        return (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 605.94 710.96"><defs><style>
-        </style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><text className="mediumdiagram-1" transform="translate(116.48 101.5)">Jan</text><text className="mediumdiagram-1" transform="translate(428.37 101.5)"><tspan className="mediumdiagram-2">F</tspan><tspan x="12.71" y="0">eb</tspan></text><text className="mediumdiagram-1" transform="translate(112.48 219.98)">Mar</text><text className="mediumdiagram-1" transform="translate(427.77 219.98)">Apr</text><text className="mediumdiagram-1" transform="translate(111.2 338.47)">M<tspan className="mediumdiagram-3" x="22.32" y="0">a</tspan><tspan x="34.45" y="0">y</tspan></text><text className="mediumdiagram-1" transform="translate(429.09 342.06)">Jun</text><polygon className="mediumdiagram-4" points="4.91 71.44 9.4 62.44 0.41 62.44 4.91 71.44" /><line className="mediumdiagram-5" x1="4.9" y1="62.44" x2="4.9" y2="36.43" /><polygon className="mediumdiagram-5" points="4.91 1.43 0.41 10.43 9.4 10.43 4.91 1.43" /><line className="mediumdiagram-5" x1="4.9" y1="10.42" x2="4.9" y2="36.43" /><polygon className="mediumdiagram-4" points="304.92 73.07 309.42 64.07 300.42 64.07 304.92 73.07" /><line className="mediumdiagram-5" x1="304.92" y1="64.07" x2="304.92" y2="38.06" /><polygon className="mediumdiagram-5" points="304.94 0.56 300.44 9.56 309.44 9.56 304.94 0.56" /><line className="mediumdiagram-5" x1="304.94" y1="9.56" x2="304.94" y2="35.56" /><line className="mediumdiagram-6" x1="604.94" y1="36.43" x2="4.94" y2="36.43" /><line className="mediumdiagram-6" x1="304.94" y1="16.1" x2="304.94" y2="36.1" /><line className="mediumdiagram-6" x1="4.96" y1="36.43" x2="4.96" y2="16.43" /><line className="mediumdiagram-6" x1="604.94" y1="15.5" x2="604.94" y2="35.5" /><line className="mediumdiagram-6" x1="604.94" y1="55.56" x2="604.94" y2="35.56" /><line className="mediumdiagram-6" x1="304.94" y1="55.71" x2="304.94" y2="35.71" /><line className="mediumdiagram-6" x1="4.96" y1="56.43" x2="4.96" y2="36.43" /><polygon className="mediumdiagram-4" points="4.91 192.36 9.4 183.36 0.41 183.36 4.91 192.36" /><line className="mediumdiagram-5" x1="4.9" y1="183.36" x2="4.9" y2="157.36" /><polygon className="mediumdiagram-5" points="4.91 122.35 0.41 131.35 9.4 131.35 4.91 122.35" /><line className="mediumdiagram-5" x1="4.9" y1="131.35" x2="4.9" y2="157.36" /><polygon className="mediumdiagram-4" points="304.92 193.99 309.42 184.99 300.42 184.99 304.92 193.99" /><line className="mediumdiagram-5" x1="304.92" y1="184.99" x2="304.92" y2="158.99" /><polygon className="mediumdiagram-5" points="304.94 121.48 300.44 130.49 309.44 130.49 304.94 121.48" /><line className="mediumdiagram-5" x1="304.94" y1="130.48" x2="304.94" y2="156.49" /><line className="mediumdiagram-6" x1="604.94" y1="157.36" x2="4.94" y2="157.36" /><line className="mediumdiagram-6" x1="304.94" y1="137.02" x2="304.94" y2="157.02" /><line className="mediumdiagram-6" x1="4.96" y1="157.36" x2="4.96" y2="137.36" /><line className="mediumdiagram-6" x1="604.94" y1="136.43" x2="604.94" y2="156.43" /><line className="mediumdiagram-6" x1="604.94" y1="176.49" x2="604.94" y2="156.49" /><line className="mediumdiagram-6" x1="304.94" y1="176.63" x2="304.94" y2="156.63" /><line className="mediumdiagram-6" x1="4.96" y1="177.36" x2="4.96" y2="157.36" /><polygon className="mediumdiagram-4" points="4.91 313.29 9.4 304.29 0.41 304.29 4.91 313.29" /><line className="mediumdiagram-5" x1="4.9" y1="304.29" x2="4.9" y2="278.28" /><polygon className="mediumdiagram-5" points="4.91 243.28 0.41 252.28 9.4 252.28 4.91 243.28" /><line className="mediumdiagram-5" x1="4.9" y1="252.28" x2="4.9" y2="278.28" /><polygon className="mediumdiagram-4" points="304.92 314.92 309.42 305.92 300.42 305.92 304.92 314.92" /><line className="mediumdiagram-5" x1="304.92" y1="305.92" x2="304.92" y2="279.91" /><polygon className="mediumdiagram-5" points="304.94 242.41 300.44 251.41 309.44 251.41 304.94 242.41" /><line className="mediumdiagram-5" x1="304.94" y1="251.41" x2="304.94" y2="277.42" /><line className="mediumdiagram-6" x1="604.94" y1="278.28" x2="4.94" y2="278.28" /><line className="mediumdiagram-6" x1="304.94" y1="257.95" x2="304.94" y2="277.95" /><line className="mediumdiagram-6" x1="4.96" y1="278.28" x2="4.96" y2="258.28" /><line className="mediumdiagram-6" x1="604.94" y1="257.35" x2="604.94" y2="277.35" /><line className="mediumdiagram-6" x1="604.94" y1="297.42" x2="604.94" y2="277.42" /><line className="mediumdiagram-6" x1="304.94" y1="297.56" x2="304.94" y2="277.56" /><line className="mediumdiagram-6" x1="4.96" y1="298.28" x2="4.96" y2="278.28" /><polygon className="mediumdiagram-4" points="4.91 434.21 9.4 425.21 0.41 425.21 4.91 434.21" /><line className="mediumdiagram-5" x1="4.9" y1="425.21" x2="4.9" y2="399.21" /><polygon className="mediumdiagram-5" points="4.91 364.2 0.41 373.2 9.4 373.2 4.91 364.2" /><line className="mediumdiagram-5" x1="4.9" y1="373.2" x2="4.9" y2="399.21" /><polygon className="mediumdiagram-4" points="304.92 435.84 309.42 426.84 300.42 426.84 304.92 435.84" /><line className="mediumdiagram-5" x1="304.92" y1="426.84" x2="304.92" y2="400.84" /><polygon className="mediumdiagram-5" points="304.94 363.34 300.44 372.34 309.44 372.34 304.94 363.34" /><line className="mediumdiagram-5" x1="304.94" y1="372.34" x2="304.94" y2="398.34" /><line className="mediumdiagram-6" x1="604.94" y1="399.21" x2="4.94" y2="399.21" /><line className="mediumdiagram-6" x1="304.94" y1="378.87" x2="304.94" y2="398.87" /><line className="mediumdiagram-6" x1="4.96" y1="399.21" x2="4.96" y2="379.21" /><line className="mediumdiagram-6" x1="604.94" y1="378.28" x2="604.94" y2="398.28" /><line className="mediumdiagram-6" x1="604.94" y1="418.34" x2="604.94" y2="398.34" /><line className="mediumdiagram-6" x1="304.94" y1="418.48" x2="304.94" y2="398.48" /><line className="mediumdiagram-6" x1="4.96" y1="419.21" x2="4.96" y2="399.21" /><polygon className="mediumdiagram-4" points="4.91 555.14 9.4 546.14 0.41 546.14 4.91 555.14" /><line className="mediumdiagram-5" x1="4.9" y1="546.14" x2="4.9" y2="520.13" /><polygon className="mediumdiagram-5" points="4.91 485.13 0.41 494.13 9.4 494.13 4.91 485.13" /><line className="mediumdiagram-5" x1="4.9" y1="494.13" x2="4.9" y2="520.13" /><polygon className="mediumdiagram-4" points="304.92 556.77 309.42 547.77 300.42 547.77 304.92 556.77" /><line className="mediumdiagram-5" x1="304.92" y1="547.77" x2="304.92" y2="521.76" /><polygon className="mediumdiagram-5" points="304.94 484.26 300.44 493.26 309.44 493.26 304.94 484.26" /><line className="mediumdiagram-5" x1="304.94" y1="493.26" x2="304.94" y2="519.27" /><line className="mediumdiagram-6" x1="604.94" y1="520.13" x2="4.94" y2="520.13" /><line className="mediumdiagram-6" x1="304.94" y1="499.8" x2="304.94" y2="519.8" /><line className="mediumdiagram-6" x1="4.96" y1="520.13" x2="4.96" y2="500.13" /><line className="mediumdiagram-6" x1="604.94" y1="499.2" x2="604.94" y2="519.2" /><line className="mediumdiagram-6" x1="604.94" y1="539.27" x2="604.94" y2="519.27" /><line className="mediumdiagram-6" x1="304.94" y1="539.41" x2="304.94" y2="519.41" /><line className="mediumdiagram-6" x1="4.96" y1="540.13" x2="4.96" y2="520.13" /><polygon className="mediumdiagram-4" points="4.91 676.06 9.4 667.06 0.41 667.06 4.91 676.06" /><line className="mediumdiagram-5" x1="4.9" y1="667.06" x2="4.9" y2="641.06" /><polygon className="mediumdiagram-5" points="4.91 606.05 0.41 615.05 9.4 615.05 4.91 606.05" /><line className="mediumdiagram-5" x1="4.9" y1="615.05" x2="4.9" y2="641.06" /><polygon className="mediumdiagram-4" points="304.92 677.7 309.42 668.7 300.42 668.7 304.92 677.7" /><line className="mediumdiagram-5" x1="304.92" y1="668.7" x2="304.92" y2="642.69" /><polygon className="mediumdiagram-5" points="304.94 605.19 300.44 614.19 309.44 614.19 304.94 605.19" /><line className="mediumdiagram-5" x1="304.94" y1="614.19" x2="304.94" y2="640.19" /><line className="mediumdiagram-6" x1="604.94" y1="641.06" x2="4.94" y2="641.06" /><line className="mediumdiagram-6" x1="304.94" y1="620.72" x2="304.94" y2="640.72" /><line className="mediumdiagram-6" x1="4.96" y1="641.06" x2="4.96" y2="621.06" /><line className="mediumdiagram-6" x1="604.94" y1="620.13" x2="604.94" y2="640.13" /><line className="mediumdiagram-6" x1="604.94" y1="660.19" x2="604.94" y2="640.19" /><line className="mediumdiagram-6" x1="304.94" y1="660.34" x2="304.94" y2="640.34" /><line className="mediumdiagram-6" x1="4.96" y1="661.06" x2="4.96" y2="641.06" /><text className="mediumdiagram-1" transform="translate(119.51 462.76)">Jul</text><text className="mediumdiagram-1" transform="translate(426.43 463.36)">Aug</text><text className="mediumdiagram-1" transform="translate(115.19 581.25)">Sep</text><text className="mediumdiagram-1" transform="translate(428.02 581.25)">Oct</text><text className="mediumdiagram-1" transform="translate(112.73 699.73)">N<tspan className="mediumdiagram-7" x="18.14" y="0">o</tspan><tspan x="31.39" y="0">v</tspan></text><text className="mediumdiagram-1" transform="translate(426.87 703.33)">Dec</text></g></g></svg>)
-    }
 
-    largeDiagram() {
+
+    showdiagrams() {
+
         const appbaseddriver = new AppBasedDriver();
-        const smallFont = {fontSize:'10px'}
         const styles = MyStylesheet();
-        const labelwidth = {width:'83px', lineHeight:'50%'}
-
-
 
         const showlabels = () => {
-            return (<g>
-                <text className="largediagram-3" transform="translate(116.48 101.64)">Jan</text>
-                <text className="largediagram-3" transform="translate(426.64 101.64)">
-                    <tspan className="largediagram-4">F</tspan><tspan x="12.71" y="0">eb</tspan>
-                </text>
-                <text className="largediagram-3" transform="translate(731.45 101.64)">Mar</text>
-                <text className="largediagram-3" transform="translate(1037.75 101.64)">Apr</text>
-                <text className="largediagram-3" transform="translate(111.2 213.29)">M<tspan className="largediagram-5" x="22.32" y="0">a</tspan><tspan x="34.45" y="0">y</tspan>
-                </text>
-                <text className="largediagram-3" transform="translate(420.95 213.29)">June</text>
-                <text className="largediagram-3" transform="translate(732.07 213.29)">July</text>
-                <text className="largediagram-3" transform="translate(1036.41 213.29)">Aug</text>
-                <text className="largediagram-3" transform="translate(110.54 324.94)">Sept</text>
-                <text className="largediagram-3" transform="translate(426.29 324.94)">Oct</text>
-                <text className="largediagram-3" transform="translate(731.69 324.94)">N<tspan className="largediagram-6" x="18.14" y="0">o</tspan><tspan x="31.39" y="0">v</tspan>
-                </text>
-                <text className="largediagram-3" transform="translate(1036.85 324.94)">Dec</text>
-            </g>)
+            return (
+                <g>
+                    <text className="largeexpanded-1" transform="translate(122.86 143.86)">Jan</text>
+                    <text className="largeexpanded-1" transform="translate(433.02 143.86)"><tspan className="largeexpanded-8">F</tspan><tspan x="12.71" y="0">eb</tspan></text>
+                    <text className="largeexpanded-1" transform="translate(737.83 143.86)">Mar</text>
+                    <text className="largeexpanded-1" transform="translate(1044.14 143.86)">Apr</text>
+                    <text className="largeexpanded-1" transform="translate(117.58 314.63)">M<tspan className="largeexpanded-2" x="22.32" y="0">a</tspan><tspan x="34.45" y="0">y</tspan></text>
+                    <text className="largeexpanded-1" transform="translate(427.33 314.63)">June</text>
+                    <text className="largeexpanded-1" transform="translate(738.45 314.63)">July</text>
+                    <text className="largeexpanded-1" transform="translate(1042.79 314.63)">Aug</text>
+                    <text className="largeexpanded-1" transform="translate(116.93 485.4)">Sept</text>
+                    <text className="largeexpanded-1" transform="translate(432.67 489)">Oct</text>
+                    <text className="largeexpanded-1" transform="translate(738.07 487.2)">N<tspan className="largeexpanded-3" x="18.14" y="0">o</tspan><tspan x="31.39" y="0">v</tspan></text>
+                    <text className="largeexpanded-1" transform="translate(1043.24 489)">Dec</text>
+
+                </g>)
         }
 
         const showtickmarks = () => {
 
-            return (<g>
+            return (
+                <g>
 
+                    <line className="largeexpanded-9" x1="4.9" y1="83.27" x2="4.9" y2="43.27" />
+                    <line className="largeexpanded-9" x1="4.9" y1="247.8" x2="4.9" y2="207.8" />
+                    <line className="largeexpanded-9" x1="4.9" y1="412.32" x2="4.9" y2="372.32" />
 
-                <line className="largediagram-7" x1="4.9" y1="35.71" x2="4.9" y2="15.71" />
-                <line className="largediagram-7" x1="4.9" y1="55.71" x2="4.9" y2="35.71" />
-                <line className="largediagram-7" x1="4.9" y1="146.85" x2="4.9" y2="126.85" />
-                <line className="largediagram-7" x1="4.9" y1="166.85" x2="4.9" y2="146.85" />
-                <line className="largediagram-7" x1="4.9" y1="257.99" x2="4.9" y2="237.99" />
-                <line className="largediagram-7" x1="4.9" y1="277.99" x2="4.9" y2="257.99" />
+                    <line className="largeexpanded-9" x1="304.94" y1="43.81" x2="304.94" y2="83.42" />
+                    <line className="largeexpanded-9" x1="304.94" y1="208.33" x2="304.94" y2="247.94" />
+                    <line className="largeexpanded-9" x1="304.94" y1="372.86" x2="304.94" y2="412.47" />
 
+                    <line className="largeexpanded-9" x1="604.94" y1="43.45" x2="604.94" y2="83.45" />
+                    <line className="largeexpanded-9" x1="604.94" y1="207.97" x2="604.94" y2="247.97" />
+                    <line className="largeexpanded-9" x1="604.94" y1="372.5" x2="604.94" y2="412.5" />
 
-                <line className="largediagram-7" x1="304.94" y1="16.24" x2="304.94" y2="36.24" />
-                <line className="largediagram-7" x1="304.94" y1="55.85" x2="304.94" y2="35.85" />
-                <line className="largediagram-7" x1="304.94" y1="127.38" x2="304.94" y2="147.38" />
-                <line className="largediagram-7" x1="304.94" y1="166.99" x2="304.94" y2="146.99" />
-                <line className="largediagram-7" x1="304.94" y1="238.52" x2="304.94" y2="258.52" />
-                <line className="largediagram-7" x1="304.94" y1="278.13" x2="304.94" y2="258.13" />
+                    <line className="largeexpanded-9" x1="904.94" y1="43.24" x2="904.94" y2="83.24" />
+                    <line className="largeexpanded-9" x1="904.94" y1="207.77" x2="904.94" y2="247.77" />
+                    <line className="largeexpanded-9" x1="904.94" y1="372.29" x2="904.94" y2="412.29" />
 
-                <line className="largediagram-7" x1="604.94" y1="55.71" x2="604.94" y2="35.71" />
-                <line className="largediagram-7" x1="604.94" y1="16.06" x2="604.94" y2="35.23" />
-                <line className="largediagram-7" x1="604.94" y1="166.85" x2="604.94" y2="146.85" />
-                <line className="largediagram-7" x1="604.94" y1="127.2" x2="604.94" y2="146.37" />
-                <line className="largediagram-7" x1="604.94" y1="238.34" x2="604.94" y2="257.52" />
-                <line className="largediagram-7" x1="604.94" y1="277.99" x2="604.94" y2="257.99" />
+                    <line className="largeexpanded-9" x1="1204.97" y1="43.28" x2="1204.97" y2="83.28" />
+                    <line className="largeexpanded-9" x1="1204.97" y1="207.8" x2="1204.97" y2="247.8" />
+                    <line className="largeexpanded-9" x1="1204.97" y1="372.33" x2="1204.97" y2="412.33" />
 
-                <line className="largediagram-7" x1="904.94" y1="15.64" x2="904.94" y2="35.64" />
-                <line className="largediagram-7" x1="904.94" y1="55.71" x2="904.94" y2="35.71" />
-                <line className="largediagram-7" x1="904.94" y1="126.79" x2="904.94" y2="146.79" />
-                <line className="largediagram-7" x1="904.94" y1="166.85" x2="904.94" y2="146.85" />
-                <line className="largediagram-7" x1="904.94" y1="237.93" x2="904.94" y2="257.93" />
-                <line className="largediagram-7" x1="904.94" y1="277.99" x2="904.94" y2="257.99" />
+                </g>)
 
-                <line className="largediagram-7" x1="1205.01" y1="15.71" x2="1205.01" y2="35.71" />
-                <line className="largediagram-7" x1="1205.01" y1="35.71" x2="1205.01" y2="55.71" />
-                <line className="largediagram-7" x1="1205.01" y1="126.79" x2="1205.01" y2="146.79" />
-                <line className="largediagram-7" x1="1205.01" y1="166.85" x2="1205.01" y2="146.85" />
-                <line className="largediagram-7" x1="1204.97" y1="237.93" x2="1204.97" y2="257.93" />
-                <line className="largediagram-7" x1="1204.97" y1="277.99" x2="1204.97" y2="257.99" />
-
-            </g>)
         }
 
         const showaxis = () => {
             return (
                 <g>
-                    <line className="largediagram-7" x1="4.97" y1="35.71" x2="1204.97" y2="35.71" />
-                    <line className="largediagram-7" x1="4.97" y1="146.85" x2="1204.97" y2="146.85" />
-                    <line className="largediagram-7" x1="4.97" y1="257.99" x2="1204.97" y2="257.99" />
-                </g>)
+                    <line className="largeexpanded-9" x1="4.97" y1="63.27" x2="1204.97" y2="63.27" />
+                    <line className="largeexpanded-9" x1="4.97" y1="227.8" x2="1204.97" y2="227.8" />
+                    <line className="largeexpanded-9" x1="4.97" y1="392.32" x2="1204.97" y2="392.32" />
+
+                </g>
+            )
         }
+
         const januaryearnings = (shift) => {
-           
+
             const day = new Date(shift.timein).getDate()
 
             return (
                 <g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
-                    <polygon className="largediagram-2" points="4.96 1.57 0.46 10.57 9.46 10.57 4.96 1.57" />
-                    <line className="largediagram-2" x1="4.96" y1="10.57" x2="4.96" y2="36.57" />
+                    <polygon className="largeexpanded-4" points="4.96 29.13 0.46 38.13 9.46 38.13 4.96 29.13" />
+                    <line className="largeexpanded-4" x1="4.96" y1="38.13" x2="4.96" y2="64.14" />
+                    <path className="largeexpanded-6" d="M91.34,3.43V29.36a1.91,1.91,0,0,1-1.91,1.91H22a2.16,2.16,0,0,0-.51.07L9.08,34.81a1.91,1.91,0,0,1-2.35-2.35l3-10.72a1.86,1.86,0,0,0,.07-.52V3.43a1.91,1.91,0,0,1,1.91-1.91H89.43A1.92,1.92,0,0,1,91.34,3.43Z" />
+                    <text className="largeexpanded-7" transform="translate(13.02 13.43)"><tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)}, </tspan><tspan x="0" y="12">earnings</tspan></text>
                 </g>)
         }
 
         const januarycosts = (cost) => {
-            
+
             const day = new Date(cost.purchasedate).getDate();
             return (<g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
-                <line className="largediagram-2" x1="4.9" y1="63.44" x2="4.9" y2="37.44" />
-                <polygon className="largediagram-1" points="4.91 72.44 9.4 63.44 0.41 63.44 4.91 72.44" />
-                <foreignObject x={12} y={63.44} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
+                <polygon className="largeexpanded-5" points="4.91 98.28 9.4 89.28 0.41 89.28 4.91 98.28" />
+                <line className="largeexpanded-4" x1="4.9" y1="89.28" x2="4.9" y2="63.27" />
+                <path className="largeexpanded-6" d="M91.09,98.83v27.65a1.11,1.11,0,0,1-1.17,1h-79a1.11,1.11,0,0,1-1.17-1V104.27a.86.86,0,0,0,0-.28L6.94,95.11a1.12,1.12,0,0,1,1.43-1.3l17,3.94a1.53,1.53,0,0,0,.3,0H89.92A1.11,1.11,0,0,1,91.09,98.83Z" />
+                <text className="largeexpanded-7" transform="translate(13.18 109.43)"><tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)}, </tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
 
-                </foreignObject>
-                
 
             </g>)
         }
@@ -130,9 +104,11 @@ class CostDiagrams {
 
             return (
                 <g transform={`translate(${day * 10.34},0)`} key={`svg${shift.shiftid}`}>
-                    <polygon className="largediagram-2" points="304.94 0.7 300.44 9.7 309.44 9.7 304.94 0.7" />
-                    <line className="largediagram-2" x1="304.94" y1="9.7" x2="304.94" y2="35.71" />
-                    
+                    <polygon className="largeexpanded-4" points="304.94 28.27 300.44 37.27 309.44 37.27 304.94 28.27" />
+                    <line className="largeexpanded-4" x1="304.94" y1="37.27" x2="304.94" y2="63.27" />
+                    <path className="largeexpanded-6" d="M392.37,2.16V28.09A1.92,1.92,0,0,1,390.46,30H323a1.81,1.81,0,0,0-.52.07l-12.36,3.47a1.91,1.91,0,0,1-2.36-2.35l3-10.73a1.75,1.75,0,0,0,.08-.51V2.16A1.91,1.91,0,0,1,312.75.25h77.71A1.92,1.92,0,0,1,392.37,2.16Z" />
+                    <text className="largeexpanded-7" transform="translate(314.05 12.16)"><tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)}, </tspan><tspan x="0" y="12">earnings</tspan></text>
+
                 </g>)
         }
 
@@ -140,16 +116,10 @@ class CostDiagrams {
             const day = new Date(cost.purchasedate).getDate();
             return (
                 <g transform={`translate(${day * 10.34},0)`} key={`svg${cost.costid}`}>
-                    <polygon className="largediagram-1" points="304.92 73.21 309.42 64.21 300.42 64.21 304.92 73.21" />
-
-                    <foreignObject x={312} y={63.44} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
-
-                </foreignObject>
-
-                    <line className="largediagram-2" x1="304.92" y1="64.21" x2="304.92" y2="38.2" />
+                    <polygon className="largeexpanded-5" points="304.92 98.62 309.42 89.62 300.42 89.62 304.92 98.62" />
+                    <line className="largeexpanded-4" x1="304.92" y1="89.62" x2="304.92" y2="63.61" />
+                    <path className="largeexpanded-6" d="M390.77,100.73v27.65a1.12,1.12,0,0,1-1.17,1.05h-79a1.11,1.11,0,0,1-1.17-1.05V106.17a.87.87,0,0,0-.05-.28L306.62,97a1.11,1.11,0,0,1,1.42-1.3l17,3.94a1.43,1.43,0,0,0,.29,0H389.6A1.12,1.12,0,0,1,390.77,100.73Z" />
+                    <text className="largeexpanded-7" transform="translate(312.86 111.33)"><tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)}, </tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
 
 
                 </g>)
@@ -158,12 +128,14 @@ class CostDiagrams {
         const marchearnings = (shift) => {
 
             const day = new Date(shift.timein).getDate()
-            
+
             return (<g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
-                <polygon className="largediagram-2" points="604.97 0.56 600.47 9.56 609.47 9.56 604.97 0.56" />
-                <line className="largediagram-2" x1="604.97" y1="9.56" x2="604.97" y2="35.56" />
-                
-            
+                <polygon className="largeexpanded-4" points="604.97 28.62 600.47 37.62 609.47 37.62 604.97 28.62" />
+                <line className="largeexpanded-4" x1="604.97" y1="37.62" x2="604.97" y2="63.63" />
+                <path className="largeexpanded-6" d="M692.47,4V29.88a1.9,1.9,0,0,1-1.9,1.91H623.1a2.25,2.25,0,0,0-.52.07l-12.36,3.47A1.91,1.91,0,0,1,607.86,33l3-10.72a1.86,1.86,0,0,0,.07-.52V4A1.92,1.92,0,0,1,612.85,2h77.72A1.91,1.91,0,0,1,692.47,4Z" />
+                <text className="largeexpanded-7" transform="translate(614.16 13.95)"><tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)},</tspan><tspan x="0" y="12">earnings</tspan></text>
+
+
             </g>)
         }
 
@@ -171,37 +143,30 @@ class CostDiagrams {
             const day = new Date(cost.purchasedate).getDate();
             return (
                 <g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
-                    <polygon className="largediagram-1" points="604.97 73.21 609.47 64.21 600.47 64.21 604.97 73.21" />
-                    <line className="largediagram-2" x1="604.97" y1="64.21" x2="604.97" y2="38.2" />
-                    <foreignObject x={612} y={63.44} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
-
-                </foreignObject>
+                    <polygon className="largeexpanded-5" points="604.97 98.14 609.47 89.14 600.47 89.14 604.97 98.14" />
+                    <line className="largeexpanded-4" x1="604.97" y1="89.14" x2="604.97" y2="63.13" />
+                    <path className="largeexpanded-6" d="M691.46,98.69v27.65a1.11,1.11,0,0,1-1.17,1h-79a1.12,1.12,0,0,1-1.17-1V104.13a.86.86,0,0,0,0-.28L607.32,95a1.11,1.11,0,0,1,1.42-1.29l17,3.94a1.36,1.36,0,0,0,.29,0h64.27A1.11,1.11,0,0,1,691.46,98.69Z" />
+                    <text className="largeexpanded-7" transform="translate(613.56 109.29)"><tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)}, </tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
                 </g>)
         }
 
         const aprilearnings = (shift) => {
             const day = new Date(shift.timein).getDate()
             return (<g transform={`translate(${day * 10},0)`} key={`svg${shift.shiftid}`}>
-                <polygon className="largediagram-2" points="904.97 0.56 900.47 9.56 909.47 9.56 904.97 0.56" />
-                <line className="largediagram-2" x1="904.97" y1="9.56" x2="904.97" y2="35.56" />
+                <polygon className="largeexpanded-4" points="904.97 28.13 900.47 37.13 909.47 37.13 904.97 28.13" />
+                <line className="largeexpanded-4" x1="904.97" y1="37.13" x2="904.97" y2="63.13" />
+                <path className="largeexpanded-6" d="M992.41,2.16V28.09A1.92,1.92,0,0,1,990.5,30H923a1.81,1.81,0,0,0-.52.07l-12.36,3.47a1.91,1.91,0,0,1-2.36-2.35l3-10.73a1.75,1.75,0,0,0,.08-.51V2.16A1.91,1.91,0,0,1,912.79.25H990.5A1.92,1.92,0,0,1,992.41,2.16Z" />
+                <text className="largeexpanded-7" transform="translate(914.09 12.16)"><tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)}, </tspan><tspan x="0" y="12">earnings</tspan></text>
             </g>)
         }
 
         const aprilcosts = (cost) => {
             const day = new Date(cost.purchasedate).getDate();
             return (<g transform={`translate(${day * 10},0)`} key={`svg${cost.costid}`}>
-                <polygon className="largediagram-1" points="904.94 73.21 909.44 64.21 900.44 64.21 904.94 73.21" />
-                <line className="largediagram-2" x1="904.94" y1="64.21" x2="904.94" y2="38.2" />
-            
-                <foreignObject x={912} y={63.44} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
-
-                </foreignObject>
+                <polygon className="largeexpanded-5" points="904.94 98.28 909.44 89.28 900.44 89.28 904.94 98.28" />
+                <line className="largeexpanded-4" x1="904.94" y1="89.28" x2="904.94" y2="63.27" />
+                <path className="largeexpanded-6" d="M990.76,99.57v27.65a1.11,1.11,0,0,1-1.17,1.05h-79a1.11,1.11,0,0,1-1.17-1.05V105a1.26,1.26,0,0,0,0-.28l-2.76-8.88A1.11,1.11,0,0,1,908,94.56l17,3.93a1.53,1.53,0,0,0,.3,0h64.27A1.11,1.11,0,0,1,990.76,99.57Z" />
+                <text className="largeexpanded-7" transform="translate(912.85 110.17)"><tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)}, </tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
             </g>)
         }
 
@@ -210,8 +175,10 @@ class CostDiagrams {
             const day = new Date(shift.timein).getDate()
             return (
                 <g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
-                    <polygon className="largediagram-2" points="4.96 112.71 0.46 121.71 9.46 121.71 4.96 112.71" />
-                    <line className="largediagram-2" x1="4.96" y1="121.71" x2="4.96" y2="147.71" />
+                    <polygon className="largeexpanded-5" points="4.91 262.81 9.4 253.81 0.41 253.81 4.91 262.81" />
+                    <line className="largeexpanded-4" x1="4.9" y1="253.81" x2="4.9" y2="227.8" />
+                    <path className="largeexpanded-6" d="M91.59,166.7v25.93a1.91,1.91,0,0,1-1.91,1.91H22.21a1.82,1.82,0,0,0-.52.08L9.33,198.09A1.91,1.91,0,0,1,7,195.73L10,185a1.82,1.82,0,0,0,.08-.52V166.7A1.91,1.91,0,0,1,12,164.79H89.68A1.92,1.92,0,0,1,91.59,166.7Z" />
+                    <text className="largeexpanded-7" transform="translate(13.27 176.71)"> <tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)}, </tspan><tspan x="0" y="12">earnings</tspan></text>
                 </g>)
         }
 
@@ -219,61 +186,52 @@ class CostDiagrams {
             const day = new Date(cost.purchasedate).getDate();
             return (
                 <g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
-                    <line className="largediagram-2" x1="4.9" y1="174.59" x2="4.9" y2="148.58" />
-                    <polygon className="largediagram-1" points="4.91 183.59 9.4 174.59 0.41 174.59 4.91 183.59" />
-                
-                    <foreignObject x={12} y={175} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
-
-                </foreignObject>
+                    <polygon className="largeexpanded-4" points="4.96 193.66 0.46 202.66 9.46 202.66 4.96 193.66" />
+                    <line className="largeexpanded-4" x1="4.96" y1="202.66" x2="4.96" y2="228.66" />
+                    <path className="largeexpanded-6" d="M91.34,263.35V291a1.11,1.11,0,0,1-1.17,1.05h-79A1.11,1.11,0,0,1,10,291V268.79a.92.92,0,0,0-.05-.28l-2.75-8.88a1.11,1.11,0,0,1,1.42-1.29l17,3.93a1,1,0,0,0,.29,0H90.17A1.11,1.11,0,0,1,91.34,263.35Z" />
+                    <text className="largeexpanded-7" transform="translate(13.43 273.96)"><tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)}, </tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
                 </g>)
         }
 
         const juneearnings = (shift) => {
             const day = new Date(shift.timein).getDate()
             return (<g transform={`translate(${day * 10},0)`} key={`svg${shift.shiftid}`}>
-                <polygon className="largediagram-2" points="304.94 111.84 300.44 120.84 309.44 120.84 304.94 111.84" />
-                <line className="largediagram-2" x1="304.94" y1="120.84" x2="304.94" y2="146.85" />
-                
+                <polygon className="largeexpanded-4" points="304.94 192.79 300.44 201.79 309.44 201.79 304.94 192.79" />
+                <line className="largeexpanded-4" x1="304.94" y1="201.79" x2="304.94" y2="227.8" />
+                <path className="largeexpanded-6" d="M393.86,166.7v25.93a1.91,1.91,0,0,1-1.91,1.91H324.48a1.75,1.75,0,0,0-.51.08l-12.37,3.47a1.91,1.91,0,0,1-2.35-2.36l3-10.72a1.81,1.81,0,0,0,.07-.52V166.7a1.91,1.91,0,0,1,1.91-1.91H392A1.92,1.92,0,0,1,393.86,166.7Z" />
+                <text className="largeexpanded-7" transform="translate(315.54 176.71)"><tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)}, </tspan><tspan x="0" y="12">earnings</tspan></text>
+
             </g>)
         }
 
         const junecosts = (cost) => {
             const day = new Date(cost.purchasedate).getDate();
             return (<g transform={`translate(${day * 10},0)`} key={`svg${cost.costid}`}>
-                <polygon className="largediagram-1" points="304.92 184.35 309.42 175.35 300.42 175.35 304.92 184.35" />
-                <line className="largediagram-2" x1="304.92" y1="175.35" x2="304.92" y2="149.35" />
-                <foreignObject x={312} y={175} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
-
-                </foreignObject>
+                <polygon className="largeexpanded-5" points="304.92 262.81 309.42 253.81 300.42 253.81 304.92 262.81" />
+                <line className="largeexpanded-4" x1="304.92" y1="253.81" x2="304.92" y2="227.8" />
+                <path className="largeexpanded-6" d="M393.61,263.35V291a1.11,1.11,0,0,1-1.17,1.05h-79a1.12,1.12,0,0,1-1.17-1.05V268.79a.9.9,0,0,0,0-.28l-2.75-8.88a1.11,1.11,0,0,1,1.42-1.29l17,3.93a1,1,0,0,0,.3,0h64.27A1.11,1.11,0,0,1,393.61,263.35Z" />
+                <text className="largeexpanded-7" transform="translate(315.7 273.96)"><tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)}, </tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
             </g>)
         }
 
         const julyearnings = (shift) => {
             const day = new Date(shift.timein).getDate()
             return (<g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
-                <polygon className="largediagram-2" points="604.97 111.7 600.47 120.7 609.47 120.7 604.97 111.7" />
-                <line className="largediagram-2" x1="604.97" y1="120.7" x2="604.97" y2="146.71" />
-              
+                <polygon className="largeexpanded-4" points="604.97 192.65 600.47 201.65 609.47 201.65 604.97 192.65" />
+                <line className="largeexpanded-4" x1="604.97" y1="201.65" x2="604.97" y2="227.66" />
+                <path className="largeexpanded-6" d="M691.84,166.7v25.93a1.91,1.91,0,0,1-1.91,1.91H622.46a1.88,1.88,0,0,0-.52.08l-12.36,3.47a1.91,1.91,0,0,1-2.35-2.36l3-10.72a2.25,2.25,0,0,0,.07-.52V166.7a1.91,1.91,0,0,1,1.91-1.91h77.71A1.92,1.92,0,0,1,691.84,166.7Z" />
+                <text className="largeexpanded-7" transform="translate(613.52 176.71)"><tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)}, </tspan><tspan x="0" y="12">earnings</tspan></text>
+
             </g>)
         }
 
         const julycosts = (cost) => {
             const day = new Date(cost.purchasedate).getDate();
             return (<g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
-                <polygon className="largediagram-1" points="604.97 184.35 609.47 175.35 600.47 175.35 604.97 184.35" />
-                <line className="largediagram-2" x1="604.97" y1="175.35" x2="604.97" y2="149.35" />
-                <foreignObject x={612} y={175} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
-
-                </foreignObject>
+                <polygon className="largeexpanded-5" points="604.97 262.66 609.47 253.66 600.47 253.66 604.97 262.66" />
+                <line className="largeexpanded-4" x1="604.97" y1="253.66" x2="604.97" y2="227.66" />
+                <path className="largeexpanded-6" d="M691.59,263.35V291a1.11,1.11,0,0,1-1.17,1.05h-79a1.11,1.11,0,0,1-1.17-1.05V268.79a1.35,1.35,0,0,0,0-.28l-2.76-8.88a1.11,1.11,0,0,1,1.42-1.29l17,3.93a1,1,0,0,0,.3,0h64.27A1.11,1.11,0,0,1,691.59,263.35Z" />
+                <text className="largeexpanded-7" transform="translate(613.68 273.96)"> <tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)},</tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
             </g>)
         }
 
@@ -281,23 +239,21 @@ class CostDiagrams {
             const day = new Date(shift.timein).getDate()
             return (
                 <g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
-                    <polygon className="largediagram-2" points="904.97 111.7 900.47 120.7 909.47 120.7 904.97 111.7" />
-                    <line className="largediagram-2" x1="904.97" y1="120.7" x2="904.97" y2="146.71" />
+                    <polygon className="largeexpanded-4" points="904.97 192.65 900.47 201.65 909.47 201.65 904.97 192.65" />
+                    <line className="largeexpanded-4" x1="904.97" y1="201.65" x2="904.97" y2="227.66" />
+                    <path className="largeexpanded-6" d="M992.49,166.7v25.93a1.9,1.9,0,0,1-1.91,1.91H923.11a1.81,1.81,0,0,0-.51.08l-12.36,3.47a1.91,1.91,0,0,1-2.36-2.36l3-10.72a1.81,1.81,0,0,0,.07-.52V166.7a1.92,1.92,0,0,1,1.91-1.91h77.71A1.91,1.91,0,0,1,992.49,166.7Z" />
+                    <text className="largeexpanded-7" transform="translate(914.17 176.71)"><tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)}, </tspan><tspan x="0" y="12">earnings</tspan></text>
                 </g>)
         }
 
         const augustcosts = (cost) => {
-            
+
             const day = new Date(cost.purchasedate).getDate();
             return (<g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
-                <polygon className="largediagram-1" points="904.94 182 909.44 173 900.44 173 904.94 182" />
-                <line className="largediagram-2" x1="904.94" y1="173" x2="904.94" y2="146.99" />
-                <foreignObject x={912} y={175} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
-
-                </foreignObject>
+                <polygon className="largeexpanded-5" points="904.94 262.81 909.44 253.81 900.44 253.81 904.94 262.81" />
+                <line className="largeexpanded-4" x1="904.94" y1="253.81" x2="904.94" y2="227.8" />
+                <path className="largeexpanded-6" d="M991.3,263.35V291a1.11,1.11,0,0,1-1.17,1.05h-79A1.11,1.11,0,0,1,910,291V268.79a1.35,1.35,0,0,0,0-.28l-2.76-8.88a1.11,1.11,0,0,1,1.42-1.29l17,3.93a1,1,0,0,0,.3,0h64.27A1.11,1.11,0,0,1,991.3,263.35Z" />
+                <text className="largeexpanded-7" transform="translate(913.39 273.96)"><tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)}, </tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
             </g>)
         }
 
@@ -306,8 +262,10 @@ class CostDiagrams {
             const day = new Date(shift.timein).getDate()
             return (
                 <g transform={`translate(${day * 10},0)`} key={`svg${shift.shiftid}`}>
-                    <polygon className="largediagram-2" points="4.96 223.85 0.46 232.85 9.46 232.85 4.96 223.85" />
-                    <line className="largediagram-2" x1="4.96" y1="232.85" x2="4.96" y2="258.86" />
+                    <polygon className="largeexpanded-4" points="4.96 358.18 0.46 367.18 9.46 367.18 4.96 358.18" />
+                    <line className="largeexpanded-4" x1="4.96" y1="367.18" x2="4.96" y2="393.19" />
+                    <path className="largeexpanded-6" d="M91.83,332.48v25.93a1.9,1.9,0,0,1-1.91,1.91H22.45a2.24,2.24,0,0,0-.51.07L9.57,363.86a1.91,1.91,0,0,1-2.35-2.35l3-10.72a1.81,1.81,0,0,0,.07-.52V332.48a1.92,1.92,0,0,1,1.91-1.91H89.92A1.91,1.91,0,0,1,91.83,332.48Z" />
+                    <text className="largeexpanded-7" transform="translate(13.02 343.76)"><tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)}, </tspan><tspan x="0" y="12">earnings</tspan></text>
                 </g>
             )
         }
@@ -315,14 +273,10 @@ class CostDiagrams {
         const septembercosts = (cost) => {
             const day = new Date(cost.purchasedate).getDate();
             return (<g transform={`translate(${day * 10},0)`} key={`svg${cost.costid}`}>
-                <polygon className="largediagram-1" points="4.91 294.73 9.4 285.73 0.41 285.73 4.91 294.73" />
-                <line className="largediagram-2" x1="4.9" y1="285.73" x2="4.9" y2="259.72" />
-                <foreignObject x={12} y={286} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
-
-                </foreignObject>
+                <polygon className="largeexpanded-5" points="4.91 427.33 9.4 418.33 0.41 418.33 4.91 427.33" />
+                <line className="largeexpanded-4" x1="4.9" y1="418.33" x2="4.9" y2="392.32" />
+                <path className="largeexpanded-6" d="M90.93,427.88v27.65a1.11,1.11,0,0,1-1.17,1.05h-79a1.11,1.11,0,0,1-1.17-1.05V433.32a.87.87,0,0,0-.05-.28l-2.75-8.88a1.11,1.11,0,0,1,1.42-1.29l17,3.93.29,0H89.76A1.11,1.11,0,0,1,90.93,427.88Z" />
+                <text className="largeexpanded-7" transform="translate(13.02 437.53)"><tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)}, </tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
             </g>)
         }
 
@@ -331,8 +285,10 @@ class CostDiagrams {
             const day = new Date(shift.timein).getDate()
             return (
                 <g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
-                    <polygon className="largediagram-2" points="304.94 222.99 300.44 231.99 309.44 231.99 304.94 222.99" />
-                    <line className="largediagram-2" x1="304.94" y1="231.98" x2="304.94" y2="257.99" />
+                    <polygon className="largeexpanded-4" points="304.94 357.32 300.44 366.32 309.44 366.32 304.94 357.32" />
+                    <line className="largeexpanded-4" x1="304.94" y1="366.32" x2="304.94" y2="392.32" />
+                    <path className="largeexpanded-6" d="M392,331.33v25.93a1.91,1.91,0,0,1-1.91,1.91H322.67a1.81,1.81,0,0,0-.52.07l-12.36,3.47a1.91,1.91,0,0,1-2.36-2.36l3-10.72a1.79,1.79,0,0,0,.07-.51V331.33a1.91,1.91,0,0,1,1.91-1.91h77.71A1.9,1.9,0,0,1,392,331.33Z" />
+                    <text className="largeexpanded-7" transform="translate(313.72 341.33)"><tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)}, </tspan><tspan x="0" y="12">earnings</tspan></text>
                 </g>)
         }
 
@@ -340,14 +296,10 @@ class CostDiagrams {
             const day = new Date(cost.purchasedate).getDate();
             return (
                 <g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
-                    <polygon className="largediagram-1" points="304.92 295.49 309.42 286.49 300.42 286.49 304.92 295.49" />
-                    <line className="largediagram-2" x1="304.92" y1="286.49" x2="304.92" y2="260.49" />
-                    <foreignObject x={312} y={286} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
-
-                </foreignObject>
+                    <polygon className="largeexpanded-5" points="304.92 427.33 309.42 418.33 300.42 418.33 304.92 427.33" />
+                    <line className="largeexpanded-4" x1="304.92" y1="418.33" x2="304.92" y2="392.32" />
+                    <path className="largeexpanded-6" d="M391.38,427.88v27.65a1.11,1.11,0,0,1-1.17,1.05h-79a1.11,1.11,0,0,1-1.17-1.05V433.32a.87.87,0,0,0,0-.28l-2.75-8.88a1.11,1.11,0,0,1,1.42-1.29l17,3.93a1.43,1.43,0,0,0,.29,0h64.28A1.11,1.11,0,0,1,391.38,427.88Z" />
+                    <text className="largeexpanded-7" transform="translate(313.47 437.53)"><tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)}, </tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
                 </g>
             )
         }
@@ -356,22 +308,20 @@ class CostDiagrams {
         const novemberearnings = (shift) => {
             const day = new Date(shift.timein).getDate()
             return (<g transform={`translate(${day * 10},0)`} key={`svg${shift.shiftid}`}>
-                <polygon className="largediagram-2" points="604.97 222.84 600.47 231.84 609.47 231.84 604.97 222.84" />
-                <line className="largediagram-2" x1="604.97" y1="231.84" x2="604.97" y2="257.85" />
+                <polygon className="largeexpanded-4" points="604.97 357.18 600.47 366.18 609.47 366.18 604.97 357.18" />
+                <line className="largeexpanded-4" x1="604.97" y1="366.18" x2="604.97" y2="392.18" />
+                <path className="largeexpanded-6" d="M691.84,330.05V356a1.91,1.91,0,0,1-1.91,1.91H622.46a1.88,1.88,0,0,0-.52.08l-12.36,3.47a1.91,1.91,0,0,1-2.35-2.36l3-10.72a2.25,2.25,0,0,0,.07-.52V330.05a1.91,1.91,0,0,1,1.91-1.91h77.71A1.92,1.92,0,0,1,691.84,330.05Z" />
+                <text className="largeexpanded-7" transform="translate(613.52 340.06)"><tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)}, </tspan><tspan x="0" y="12">earnings</tspan></text>
             </g>)
         }
 
         const novembercosts = (cost) => {
             const day = new Date(cost.purchasedate).getDate();
             return (<g transform={`translate(${day * 10},0)`} key={`svg${cost.costid}`}>
-                <polygon className="largediagram-1" points="604.97 295.49 609.47 286.49 600.47 286.49 604.97 295.49" />
-                <line className="largediagram-2" x1="604.97" y1="286.49" x2="604.97" y2="260.49" />
-                <foreignObject x={612} y={286} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
-
-                </foreignObject>
+                <polygon className="largeexpanded-5" points="604.97 427.5 609.47 418.5 600.47 418.5 604.97 427.5" />
+                <line className="largeexpanded-4" x1="604.97" y1="418.5" x2="604.97" y2="392.5" />
+                <path className="largeexpanded-6" d="M691.59,428.33V456a1.11,1.11,0,0,1-1.17,1h-79a1.11,1.11,0,0,1-1.17-1V433.77a1.35,1.35,0,0,0,0-.28l-2.76-8.88a1.11,1.11,0,0,1,1.42-1.29l17,3.93.3,0h64.27A1.11,1.11,0,0,1,691.59,428.33Z" />
+                <text className="largeexpanded-7" transform="translate(613.68 437.98)"><tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)}, </tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
             </g>)
         }
 
@@ -380,30 +330,28 @@ class CostDiagrams {
         const decemberearnings = (shift) => {
             const day = new Date(shift.timein).getDate()
             return (<g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
-                <polygon className="largediagram-2" points="904.97 222.84 900.47 231.84 909.47 231.84 904.97 222.84" />
-                <line className="largediagram-2" x1="904.97" y1="231.84" x2="904.97" y2="257.85" />
+                <polygon className="largeexpanded-4" points="904.97 357.18 900.47 366.18 909.47 366.18 904.97 357.18" />
+                <line className="largeexpanded-4" x1="904.97" y1="366.18" x2="904.97" y2="392.18" />
+                <path className="largeexpanded-6" d="M991.55,330.05V356a1.91,1.91,0,0,1-1.91,1.91H922.17a1.88,1.88,0,0,0-.52.08l-12.36,3.47a1.91,1.91,0,0,1-2.35-2.36l3-10.72a2.25,2.25,0,0,0,.07-.52V330.05a1.91,1.91,0,0,1,1.91-1.91h77.71A1.92,1.92,0,0,1,991.55,330.05Z" />
+                <text className="largeexpanded-7" transform="translate(913.23 340.06)"><tspan>{abbMonth(shift.timein)}, ${Number(shift.earnings).toFixed(2)}, </tspan><tspan x="0" y="12">earnings</tspan></text>
             </g>)
         }
 
         const decembercosts = (cost) => {
             const day = new Date(cost.purchasedate).getDate();
             return (<g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
-            <foreignObject x={912} y={286} width="83px" height="80px">
-                   <div style={{...labelwidth,...styles.generalContainer}}> 
-                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
-                   </div>
 
-                </foreignObject>
-
-                <polygon className="largediagram-1" points="904.94 295.49 909.44 286.49 900.44 286.49 904.94 295.49" />
-                <line className="largediagram-2" x1="904.94" y1="286.49" x2="904.94" y2="260.49" />
+                <polygon className="largeexpanded-5" points="904.97 427.5 909.47 418.5 900.47 418.5 904.97 427.5" />
+                <line className="largeexpanded-4" x1="904.97" y1="418.5" x2="904.97" y2="392.5" />
+                <path className="largeexpanded-6" d="M991.3,428.33V456a1.11,1.11,0,0,1-1.17,1h-79a1.11,1.11,0,0,1-1.17-1V433.77a1.35,1.35,0,0,0,0-.28l-2.76-8.88a1.11,1.11,0,0,1,1.42-1.29l17,3.93.3,0h64.27A1.11,1.11,0,0,1,991.3,428.33Z" />
+                <text className="largeexpanded-7" transform="translate(913.39 437.98)"><tspan>{abbMonth(cost.purchasedate)}, ${Number(cost.amount).toFixed(2)}, </tspan><tspan x="0" y="12">{cost.detail}</tspan></text>
             </g>)
         }
 
         let earningsArrows = [];
         let costsArrows = [];
         const shifts = appbaseddriver.getactiveshifts.call(this)
-     
+
         if (shifts) {
             // eslint-disable-next-line
             shifts.map(shift => {
@@ -454,87 +402,83 @@ class CostDiagrams {
             })
         }
 
-       const costs = appbaseddriver.gettransformeddrivercosts.call(this)
-     
-    
-       if(costs.length >0) {
-           // eslint-disable-next-line
-           costs.map(cost => {
-            
-            if (checkactivedate(cost.purchasedate, this.state.activemonth, this.state.activeyear)) {
+        const costs = appbaseddriver.gettransformeddrivercosts.call(this)
 
-            const costdate = new Date(cost.purchasedate)
-      
-        
-            switch (costdate.getMonth() + 1) {
-                case 1:
-                    costsArrows.push(januarycosts(cost))
-                    break;
-                case 2:
-                    costsArrows.push(februarycosts(cost))
-                    break;
-                case 3:
-                    costsArrows.push(marchcosts(cost))
-                    break;
-                case 4:
-                    costsArrows.push(aprilcosts(cost))
-                    break;
-                case 5:
-                    costsArrows.push(maycosts(cost))
-                    break;
-                case 6:
-                    costsArrows.push(junecosts(cost))
-                    break;
-                case 7:
-                    costsArrows.push(julycosts(cost))
-                    break;
-                case 8:
-                    costsArrows.push(augustcosts(cost))
-                    break;
-                case 9:
-                    costsArrows.push(septembercosts(cost))
-                    break;
-                case 10:
-                    costsArrows.push(octobercosts(cost))
-                    break;
-                case 11:
-                    costsArrows.push(novembercosts(cost))
-                    break;
-                case 12:
-                    costsArrows.push(decembercosts(cost))
-                    break;
-                default:
-                    break;
-        
-            }
 
+        if (costs.length > 0) {
+            // eslint-disable-next-line
+            costs.map(cost => {
+
+                if (checkactivedate(cost.purchasedate, this.state.activemonth, this.state.activeyear)) {
+
+                    const costdate = new Date(cost.purchasedate)
+
+
+                    switch (costdate.getMonth() + 1) {
+                        case 1:
+                            costsArrows.push(januarycosts(cost))
+                            break;
+                        case 2:
+                            costsArrows.push(februarycosts(cost))
+                            break;
+                        case 3:
+                            costsArrows.push(marchcosts(cost))
+                            break;
+                        case 4:
+                            costsArrows.push(aprilcosts(cost))
+                            break;
+                        case 5:
+                            costsArrows.push(maycosts(cost))
+                            break;
+                        case 6:
+                            costsArrows.push(junecosts(cost))
+                            break;
+                        case 7:
+                            costsArrows.push(julycosts(cost))
+                            break;
+                        case 8:
+                            costsArrows.push(augustcosts(cost))
+                            break;
+                        case 9:
+                            costsArrows.push(septembercosts(cost))
+                            break;
+                        case 10:
+                            costsArrows.push(octobercosts(cost))
+                            break;
+                        case 11:
+                            costsArrows.push(novembercosts(cost))
+                            break;
+                        case 12:
+                            costsArrows.push(decembercosts(cost))
+                            break;
+                        default:
+                            break;
+
+                    }
+
+                }
+
+            })
         }
-        
-        })
-       }
-      
 
+
+    
         return (
-            <div style={{...styles.generalContainer, ...styles.marginTop10, ...styles.bottomMargin10}}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1206.01 336.17">
-                <g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2">
-                    {showaxis()}
-                    {showtickmarks()}
-                    {showlabels()}
-                    {earningsArrows}
-                    {costsArrows}
 
-                </g></g></svg>
-                </div>)
+                <div style={{...styles.generalContainer, ...styles.topMargin30}}>
 
-    }
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1205.97 496.63">
+                <defs><style></style></defs>
+                <g id="Layer_2" data-name="Layer 2">
+                    <g id="Layer_2-2" data-name="Layer 2">
+                        {showaxis()}
+                        {showtickmarks()}
+                        {showlabels()}
 
-
-    showdiagrams() {
-        const costdiagrams = new CostDiagrams();
-
-
-        return (costdiagrams.largeDiagram.call(this))
+                        {earningsArrows}
+                        {costsArrows}
+                    </g></g></svg>
+                    </div>)
 
 
 
@@ -542,4 +486,4 @@ class CostDiagrams {
 
 }
 
-export default CostDiagrams
+export default LargeDiagram

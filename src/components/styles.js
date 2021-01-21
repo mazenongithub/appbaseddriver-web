@@ -33,6 +33,9 @@ export function MyStylesheet() {
         doublegrid: {
             gridTemplateColumns: '50% 50%'
         },
+        topMargin30:{
+            marginTop:'30px'
+        },
         triplegrid: {
             gridTemplateColumns: '33% 33% 33%'
         },
