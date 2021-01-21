@@ -825,6 +825,15 @@ export function getInterval(salvagedate, purchasedate, reoccurring, amount, deta
 
 }
 
+export function abbMonth (mon) {
+  
+    // mon = 2021/01/23
+     const newDate = new Date(mon)
+     return (`${newDate.getMonth()+1}/${newDate.getDate()}`)
+     
+     
+   }
+
 export function increasedatebyoneday(timein) {
 
     //let timein = '2020/12/31';

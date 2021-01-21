@@ -1,7 +1,8 @@
 import React from 'react'
 import AppBasedDriver from './appbaseddriver'
-import {checkactivedate} from './functions'
+import {checkactivedate,abbMonth} from './functions'
 import {MyStylesheet} from './styles'
+
 class CostDiagrams {
 
     smallDiagram() {
@@ -17,6 +18,9 @@ class CostDiagrams {
 
     largeDiagram() {
         const appbaseddriver = new AppBasedDriver();
+        const smallFont = {fontSize:'10px'}
+        const styles = MyStylesheet();
+        const labelwidth = {width:'83px', lineHeight:'50%'}
 
 
 
@@ -93,190 +97,303 @@ class CostDiagrams {
                     <line className="largediagram-7" x1="4.97" y1="257.99" x2="1204.97" y2="257.99" />
                 </g>)
         }
-        const januaryearnings = (day) => {
+        const januaryearnings = (shift) => {
+           
+            const day = new Date(shift.timein).getDate()
 
             return (
-                <g transform={`translate(${day * 9.67},0)`}>
+                <g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
                     <polygon className="largediagram-2" points="4.96 1.57 0.46 10.57 9.46 10.57 4.96 1.57" />
                     <line className="largediagram-2" x1="4.96" y1="10.57" x2="4.96" y2="36.57" />
                 </g>)
         }
 
-        const januarycosts = (day) => {
-            return (<g transform={`translate(${day * 9.67},0)`}>
+        const januarycosts = (cost) => {
+            
+            const day = new Date(cost.purchasedate).getDate();
+            return (<g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
                 <line className="largediagram-2" x1="4.9" y1="63.44" x2="4.9" y2="37.44" />
                 <polygon className="largediagram-1" points="4.91 72.44 9.4 63.44 0.41 63.44 4.91 72.44" />
+                <foreignObject x={12} y={63.44} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
+                
 
             </g>)
         }
 
-        const februaryearnings = (day) => {
+        const februaryearnings = (shift) => {
+            const day = new Date(shift.timein).getDate()
 
             return (
-                <g transform={`translate(${day * 10.34},0)`}>
+                <g transform={`translate(${day * 10.34},0)`} key={`svg${shift.shiftid}`}>
                     <polygon className="largediagram-2" points="304.94 0.7 300.44 9.7 309.44 9.7 304.94 0.7" />
                     <line className="largediagram-2" x1="304.94" y1="9.7" x2="304.94" y2="35.71" />
+                    
                 </g>)
         }
 
-        const februarycosts = (day) => {
+        const februarycosts = (cost) => {
+            const day = new Date(cost.purchasedate).getDate();
             return (
-                <g transform={`translate(${day * 10.34},0)`}>
+                <g transform={`translate(${day * 10.34},0)`} key={`svg${cost.costid}`}>
                     <polygon className="largediagram-1" points="304.92 73.21 309.42 64.21 300.42 64.21 304.92 73.21" />
+
+                    <foreignObject x={312} y={63.44} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
+
                     <line className="largediagram-2" x1="304.92" y1="64.21" x2="304.92" y2="38.2" />
+
+
                 </g>)
         }
 
-        const marchearnings = (day) => {
-            return (<g transform={`translate(${day * 9.67},0)`}>
+        const marchearnings = (shift) => {
+
+            const day = new Date(shift.timein).getDate()
+            
+            return (<g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
                 <polygon className="largediagram-2" points="604.97 0.56 600.47 9.56 609.47 9.56 604.97 0.56" />
                 <line className="largediagram-2" x1="604.97" y1="9.56" x2="604.97" y2="35.56" />
+                
+            
             </g>)
         }
 
-        const marchcosts = (day) => {
+        const marchcosts = (cost) => {
+            const day = new Date(cost.purchasedate).getDate();
             return (
-                <g transform={`translate(${day * 9.67},0)`}>
+                <g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
                     <polygon className="largediagram-1" points="604.97 73.21 609.47 64.21 600.47 64.21 604.97 73.21" />
                     <line className="largediagram-2" x1="604.97" y1="64.21" x2="604.97" y2="38.2" />
+                    <foreignObject x={612} y={63.44} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
                 </g>)
         }
 
-        const aprilearnings = (day) => {
-            return (<g transform={`translate(${day * 10},0)`}>
+        const aprilearnings = (shift) => {
+            const day = new Date(shift.timein).getDate()
+            return (<g transform={`translate(${day * 10},0)`} key={`svg${shift.shiftid}`}>
                 <polygon className="largediagram-2" points="904.97 0.56 900.47 9.56 909.47 9.56 904.97 0.56" />
                 <line className="largediagram-2" x1="904.97" y1="9.56" x2="904.97" y2="35.56" />
             </g>)
         }
 
-        const aprilcosts = (day) => {
-            return (<g transform={`translate(${day * 10},0)`}>
+        const aprilcosts = (cost) => {
+            const day = new Date(cost.purchasedate).getDate();
+            return (<g transform={`translate(${day * 10},0)`} key={`svg${cost.costid}`}>
                 <polygon className="largediagram-1" points="904.94 73.21 909.44 64.21 900.44 64.21 904.94 73.21" />
                 <line className="largediagram-2" x1="904.94" y1="64.21" x2="904.94" y2="38.2" />
+            
+                <foreignObject x={912} y={63.44} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
             </g>)
         }
 
 
-        const mayearnings = (day) => {
+        const mayearnings = (shift) => {
+            const day = new Date(shift.timein).getDate()
             return (
-                <g transform={`translate(${day * 9.67},0)`}>
+                <g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
                     <polygon className="largediagram-2" points="4.96 112.71 0.46 121.71 9.46 121.71 4.96 112.71" />
                     <line className="largediagram-2" x1="4.96" y1="121.71" x2="4.96" y2="147.71" />
                 </g>)
         }
 
-        const maycosts = (day) => {
+        const maycosts = (cost) => {
+            const day = new Date(cost.purchasedate).getDate();
             return (
-                <g transform={`translate(${day * 9.67},0)`}>
+                <g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
                     <line className="largediagram-2" x1="4.9" y1="174.59" x2="4.9" y2="148.58" />
                     <polygon className="largediagram-1" points="4.91 183.59 9.4 174.59 0.41 174.59 4.91 183.59" />
+                
+                    <foreignObject x={12} y={175} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
                 </g>)
         }
 
-        const juneearnings = (day) => {
-            return (<g transform={`translate(${day * 10},0)`}>
+        const juneearnings = (shift) => {
+            const day = new Date(shift.timein).getDate()
+            return (<g transform={`translate(${day * 10},0)`} key={`svg${shift.shiftid}`}>
                 <polygon className="largediagram-2" points="304.94 111.84 300.44 120.84 309.44 120.84 304.94 111.84" />
                 <line className="largediagram-2" x1="304.94" y1="120.84" x2="304.94" y2="146.85" />
+                
             </g>)
         }
 
-        const junecosts = (day) => {
-            return (<g transform={`translate(${day * 10},0)`}>
+        const junecosts = (cost) => {
+            const day = new Date(cost.purchasedate).getDate();
+            return (<g transform={`translate(${day * 10},0)`} key={`svg${cost.costid}`}>
                 <polygon className="largediagram-1" points="304.92 184.35 309.42 175.35 300.42 175.35 304.92 184.35" />
                 <line className="largediagram-2" x1="304.92" y1="175.35" x2="304.92" y2="149.35" />
+                <foreignObject x={312} y={175} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
             </g>)
         }
 
-        const julyearnings = (day) => {
-            return (<g transform={`translate(${day * 9.67},0)`}>
+        const julyearnings = (shift) => {
+            const day = new Date(shift.timein).getDate()
+            return (<g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
                 <polygon className="largediagram-2" points="604.97 111.7 600.47 120.7 609.47 120.7 604.97 111.7" />
                 <line className="largediagram-2" x1="604.97" y1="120.7" x2="604.97" y2="146.71" />
+              
             </g>)
         }
 
-        const julycosts = (day) => {
-            return (<g transform={`translate(${day * 9.67},0)`}>
+        const julycosts = (cost) => {
+            const day = new Date(cost.purchasedate).getDate();
+            return (<g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
                 <polygon className="largediagram-1" points="604.97 184.35 609.47 175.35 600.47 175.35 604.97 184.35" />
                 <line className="largediagram-2" x1="604.97" y1="175.35" x2="604.97" y2="149.35" />
+                <foreignObject x={612} y={175} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
             </g>)
         }
 
-        const augustearnings = (day) => {
+        const augustearnings = (shift) => {
+            const day = new Date(shift.timein).getDate()
             return (
-                <g transform={`translate(${day * 9.67},0)`}>
+                <g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
                     <polygon className="largediagram-2" points="904.97 111.7 900.47 120.7 909.47 120.7 904.97 111.7" />
                     <line className="largediagram-2" x1="904.97" y1="120.7" x2="904.97" y2="146.71" />
                 </g>)
         }
 
-        const augustcosts = (day) => {
-            return (<g transform={`translate(${day * 9.67},0)`}>
+        const augustcosts = (cost) => {
+            
+            const day = new Date(cost.purchasedate).getDate();
+            return (<g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
                 <polygon className="largediagram-1" points="904.94 182 909.44 173 900.44 173 904.94 182" />
                 <line className="largediagram-2" x1="904.94" y1="173" x2="904.94" y2="146.99" />
+                <foreignObject x={912} y={175} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
             </g>)
         }
 
 
-        const septemberearnings = (day) => {
+        const septemberearnings = (shift) => {
+            const day = new Date(shift.timein).getDate()
             return (
-                <g transform={`translate(${day * 10},0)`}>
+                <g transform={`translate(${day * 10},0)`} key={`svg${shift.shiftid}`}>
                     <polygon className="largediagram-2" points="4.96 223.85 0.46 232.85 9.46 232.85 4.96 223.85" />
                     <line className="largediagram-2" x1="4.96" y1="232.85" x2="4.96" y2="258.86" />
                 </g>
             )
         }
 
-        const septembercosts = (day) => {
-            return (<g transform={`translate(${day * 10},0)`}>
+        const septembercosts = (cost) => {
+            const day = new Date(cost.purchasedate).getDate();
+            return (<g transform={`translate(${day * 10},0)`} key={`svg${cost.costid}`}>
                 <polygon className="largediagram-1" points="4.91 294.73 9.4 285.73 0.41 285.73 4.91 294.73" />
                 <line className="largediagram-2" x1="4.9" y1="285.73" x2="4.9" y2="259.72" />
+                <foreignObject x={12} y={286} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
             </g>)
         }
 
 
-        const octoberearnings = (day) => {
+        const octoberearnings = (shift) => {
+            const day = new Date(shift.timein).getDate()
             return (
-                <g transform={`translate(${day * 9.67},0)`}>
+                <g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
                     <polygon className="largediagram-2" points="304.94 222.99 300.44 231.99 309.44 231.99 304.94 222.99" />
                     <line className="largediagram-2" x1="304.94" y1="231.98" x2="304.94" y2="257.99" />
                 </g>)
         }
 
-        const octobercosts = (day) => {
+        const octobercosts = (cost) => {
+            const day = new Date(cost.purchasedate).getDate();
             return (
-                <g transform={`translate(${day * 9.67},0)`}>
+                <g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
                     <polygon className="largediagram-1" points="304.92 295.49 309.42 286.49 300.42 286.49 304.92 295.49" />
                     <line className="largediagram-2" x1="304.92" y1="286.49" x2="304.92" y2="260.49" />
+                    <foreignObject x={312} y={286} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
                 </g>
             )
         }
 
 
-        const novemberearnings = (day) => {
-            return (<g transform={`translate(${day * 10},0)`}>
+        const novemberearnings = (shift) => {
+            const day = new Date(shift.timein).getDate()
+            return (<g transform={`translate(${day * 10},0)`} key={`svg${shift.shiftid}`}>
                 <polygon className="largediagram-2" points="604.97 222.84 600.47 231.84 609.47 231.84 604.97 222.84" />
                 <line className="largediagram-2" x1="604.97" y1="231.84" x2="604.97" y2="257.85" />
             </g>)
         }
 
-        const novembercosts = (day) => {
-            return (<g transform={`translate(${day * 10},0)`}>
+        const novembercosts = (cost) => {
+            const day = new Date(cost.purchasedate).getDate();
+            return (<g transform={`translate(${day * 10},0)`} key={`svg${cost.costid}`}>
                 <polygon className="largediagram-1" points="604.97 295.49 609.47 286.49 600.47 286.49 604.97 295.49" />
                 <line className="largediagram-2" x1="604.97" y1="286.49" x2="604.97" y2="260.49" />
+                <foreignObject x={612} y={286} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
             </g>)
         }
 
 
 
-        const decemberearnings = (day) => {
-            return (<g transform={`translate(${day * 9.67},0)`}>
+        const decemberearnings = (shift) => {
+            const day = new Date(shift.timein).getDate()
+            return (<g transform={`translate(${day * 9.67},0)`} key={`svg${shift.shiftid}`}>
                 <polygon className="largediagram-2" points="904.97 222.84 900.47 231.84 909.47 231.84 904.97 222.84" />
                 <line className="largediagram-2" x1="904.97" y1="231.84" x2="904.97" y2="257.85" />
             </g>)
         }
 
-        const decembercosts = (day) => {
-            return (<g transform={`translate(${day * 9.67},0)`} >
+        const decembercosts = (cost) => {
+            const day = new Date(cost.purchasedate).getDate();
+            return (<g transform={`translate(${day * 9.67},0)`} key={`svg${cost.costid}`}>
+            <foreignObject x={912} y={286} width="83px" height="80px">
+                   <div style={{...labelwidth,...styles.generalContainer}}> 
+                    <span style={{...styles.generalFont,...smallFont}}>{abbMonth(cost.purchasedate)}, {cost.detail}, ${Number(cost.amount).toFixed(2)}</span>
+                   </div>
+
+                </foreignObject>
 
                 <polygon className="largediagram-1" points="904.94 295.49 909.44 286.49 900.44 286.49 904.94 295.49" />
                 <line className="largediagram-2" x1="904.94" y1="286.49" x2="904.94" y2="260.49" />
@@ -286,6 +403,7 @@ class CostDiagrams {
         let earningsArrows = [];
         let costsArrows = [];
         const shifts = appbaseddriver.getactiveshifts.call(this)
+     
         if (shifts) {
             // eslint-disable-next-line
             shifts.map(shift => {
@@ -293,40 +411,40 @@ class CostDiagrams {
 
                 switch (shiftdate.getMonth() + 1) {
                     case 1:
-                        earningsArrows.push(januaryearnings(shiftdate.getDate()))
+                        earningsArrows.push(januaryearnings(shift))
                         break;
                     case 2:
-                        earningsArrows.push(februaryearnings(shiftdate.getDate()))
+                        earningsArrows.push(februaryearnings(shift))
                         break;
                     case 3:
-                        earningsArrows.push(marchearnings(shiftdate.getDate()))
+                        earningsArrows.push(marchearnings(shift))
                         break;
                     case 4:
-                        earningsArrows.push(aprilearnings(shiftdate.getDate()))
+                        earningsArrows.push(aprilearnings(shift))
                         break;
                     case 5:
-                        earningsArrows.push(mayearnings(shiftdate.getDate()))
+                        earningsArrows.push(mayearnings(shift))
                         break;
                     case 6:
-                        earningsArrows.push(juneearnings(shiftdate.getDate()))
+                        earningsArrows.push(juneearnings(shift))
                         break;
                     case 7:
-                        earningsArrows.push(julyearnings(shiftdate.getDate()))
+                        earningsArrows.push(julyearnings(shift))
                         break;
                     case 8:
-                        earningsArrows.push(augustearnings(shiftdate.getDate()))
+                        earningsArrows.push(augustearnings(shift))
                         break;
                     case 9:
-                        earningsArrows.push(septemberearnings(shiftdate.getDate()))
+                        earningsArrows.push(septemberearnings(shift))
                         break;
                     case 10:
-                        earningsArrows.push(octoberearnings(shiftdate.getDate()))
+                        earningsArrows.push(octoberearnings(shift))
                         break;
                     case 11:
-                        earningsArrows.push(novemberearnings(shiftdate.getDate()))
+                        earningsArrows.push(novemberearnings(shift))
                         break;
                     case 12:
-                        earningsArrows.push(decemberearnings(shiftdate.getDate()))
+                        earningsArrows.push(decemberearnings(shift))
                         break;
                     default:
                         break;
@@ -337,6 +455,7 @@ class CostDiagrams {
         }
 
        const costs = appbaseddriver.gettransformeddrivercosts.call(this)
+     
     
        if(costs.length >0) {
            // eslint-disable-next-line
@@ -349,40 +468,40 @@ class CostDiagrams {
         
             switch (costdate.getMonth() + 1) {
                 case 1:
-                    costsArrows.push(januarycosts(costdate.getDate()))
+                    costsArrows.push(januarycosts(cost))
                     break;
                 case 2:
-                    costsArrows.push(februarycosts(costdate.getDate()))
+                    costsArrows.push(februarycosts(cost))
                     break;
                 case 3:
-                    costsArrows.push(marchcosts(costdate.getDate()))
+                    costsArrows.push(marchcosts(cost))
                     break;
                 case 4:
-                    costsArrows.push(aprilcosts(costdate.getDate()))
+                    costsArrows.push(aprilcosts(cost))
                     break;
                 case 5:
-                    costsArrows.push(maycosts(costdate.getDate()))
+                    costsArrows.push(maycosts(cost))
                     break;
                 case 6:
-                    costsArrows.push(junecosts(costdate.getDate()))
+                    costsArrows.push(junecosts(cost))
                     break;
                 case 7:
-                    costsArrows.push(julycosts(costdate.getDate()))
+                    costsArrows.push(julycosts(cost))
                     break;
                 case 8:
-                    costsArrows.push(augustcosts(costdate.getDate()))
+                    costsArrows.push(augustcosts(cost))
                     break;
                 case 9:
-                    costsArrows.push(septembercosts(costdate.getDate()))
+                    costsArrows.push(septembercosts(cost))
                     break;
                 case 10:
-                    costsArrows.push(octobercosts(costdate.getDate()))
+                    costsArrows.push(octobercosts(cost))
                     break;
                 case 11:
-                    costsArrows.push(novembercosts(costdate.getDate()))
+                    costsArrows.push(novembercosts(cost))
                     break;
                 case 12:
-                    costsArrows.push(decembercosts(costdate.getDate()))
+                    costsArrows.push(decembercosts(cost))
                     break;
                 default:
                     break;
@@ -393,10 +512,7 @@ class CostDiagrams {
         
         })
        }
-       const styles = MyStylesheet();
-
-
-
+      
 
         return (
             <div style={{...styles.generalContainer, ...styles.marginTop10, ...styles.bottomMargin10}}>
