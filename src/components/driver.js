@@ -10,6 +10,7 @@ import Header from './header';
 import Income from './income';
 import DriverUI from './driverui';
 import Diagrams from './diagrams'
+import MediumDiagram from './mediumdiagram'
 class Driver {
 
     getearnings() {
@@ -352,8 +353,17 @@ class Driver {
         const income = new Income();
         const driverui = new DriverUI();
         const diagrams = new Diagrams();
+        const mediumdiagram = new MediumDiagram();
+        const header = new Header();
 
-const header = new Header();
+        const showdiagram = () => {
+            if(this.state.width>1200) {
+                return(diagrams.showdiagrams.call(this))
+                
+            } else {
+                return(mediumdiagram.showdiagrams.call(this))
+            }
+        }
 
 
         const showtimes = () => {
@@ -452,7 +462,7 @@ const header = new Header();
 
                         {income.showincome.call(this)}
 
-                        {diagrams.showdiagrams.call(this)}
+                        {showdiagram()}
 
                     </div>
 
