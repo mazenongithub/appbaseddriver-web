@@ -233,6 +233,7 @@ class PurchaseDate {
                         const year = dates[0]
                         const month = dates[1]
                         const day = dates[2]
+                        // eslint-disable-next-line
                         this.setState({ purchaseyear: year, purchasemonth: month, purchaseday: day })
 
                     }

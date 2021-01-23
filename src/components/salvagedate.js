@@ -234,6 +234,7 @@ class SalvageDate {
                         const year = dates[0]
                         const month = dates[1]
                         const day = dates[2]
+                        // eslint-disable-next-line
                         this.setState({ salvageyear: year, salvagemonth: month, salvageday: day })
                     }
 

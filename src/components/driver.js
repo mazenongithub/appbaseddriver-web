@@ -4,7 +4,7 @@ import AppBasedDriver from './appbaseddriver';
 import MakeID from './makeid';
 import TimeIn from './timein';
 import TimeOut from './timeout'
-import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric,getMonthfromTimein,getDayfromTimein,getHoursfromTimein,getYearfromTimein,getMinutesfromTimein,getAMPMfromTimeIn,calculatetotalhours, sorttimes, checkactivemonth,trailingZeros} from './functions'
+import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric, getMonthfromTimein, getDayfromTimein, getHoursfromTimein, getYearfromTimein, getMinutesfromTimein, getAMPMfromTimeIn, calculatetotalhours, sorttimes, checkactivemonth, trailingZeros } from './functions'
 import { removeIconSmall } from './svg'
 import Header from './header';
 import Income from './income';
@@ -50,11 +50,11 @@ class Driver {
         timeout = UTCTimeStringfromTime(timeout);
 
         const newShift = (shiftid, timein, timeout, earnings, deliveries, miles) => {
-            return ({ shiftid, timein, timeout, earnings, deliveries,miles })
+            return ({ shiftid, timein, timeout, earnings, deliveries, miles })
         }
         const myuser = appbaseddriver.getuser.call(this)
         if (myuser) {
-            const createShift = newShift(shiftid, timein, timeout, earnings, deliveries,miles)
+            const createShift = newShift(shiftid, timein, timeout, earnings, deliveries, miles)
             if (myuser.hasOwnProperty("driver")) {
 
                 if (myuser.driver.hasOwnProperty("shifts")) {
@@ -72,7 +72,7 @@ class Driver {
 
             this.props.reduxUser(myuser)
 
-            this.setState({ activeshiftid: shiftid, timeinyear, timeinmonth,timeinday,timeinhours,timeinminutes,timeinampm, timeoutyear, timeoutmonth, timeoutday, timeouthours, timeoutminutes, timeoutampm })
+            this.setState({ activeshiftid: shiftid, timeinyear, timeinmonth, timeinday, timeinhours, timeinminutes, timeinampm, timeoutyear, timeoutmonth, timeoutday, timeouthours, timeoutminutes, timeoutampm })
 
 
 
@@ -81,47 +81,47 @@ class Driver {
 
     handleearnings(earnings) {
 
-        if(isNumeric(earnings)) {
+        if (isNumeric(earnings)) {
 
-        const appbaseddriver = new AppBasedDriver();
-        const myuser = appbaseddriver.getuser.call(this)
-        const driver = new Driver();
+            const appbaseddriver = new AppBasedDriver();
+            const myuser = appbaseddriver.getuser.call(this)
+            const driver = new Driver();
 
-        if (myuser) {
+            if (myuser) {
 
-            if (myuser.hasOwnProperty("driver")) {
+                if (myuser.hasOwnProperty("driver")) {
 
-                if (this.state.activeshiftid) {
+                    if (this.state.activeshiftid) {
 
-                    const shift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid)
-                   
-                    if (shift) {
+                        const shift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid)
 
-                        const i = appbaseddriver.getshiftkeybyid.call(this, this.state.activeshiftid)
-                        myuser.driver.shifts[i].earnings = earnings;
-                        this.props.reduxUser(myuser)
-                        this.setState({ render: 'render' })
+                        if (shift) {
+
+                            const i = appbaseddriver.getshiftkeybyid.call(this, this.state.activeshiftid)
+                            myuser.driver.shifts[i].earnings = earnings;
+                            this.props.reduxUser(myuser)
+                            this.setState({ render: 'render' })
+
+                        }
+
+                    } else {
+
+                        driver.createnewshift.call(this, earnings, 0, 0)
+
 
                     }
 
+
                 } else {
-
-                    driver.createnewshift.call(this, earnings, 0,0)
-
+                    driver.createnewshift.call(this, earnings, 0, 0)
 
                 }
 
-
-            } else {
-                driver.createnewshift.call(this, earnings, 0,0)
-
             }
 
+        } else {
+            alert(`${earnings} should be numeric`)
         }
-
-    } else {
-        alert(`${earnings} should be numeric`)
-    }
 
 
     }
@@ -140,41 +140,41 @@ class Driver {
 
 
     handledeliveries(deliveries) {
-        if(isNumeric(deliveries)) {
-        const appbaseddriver = new AppBasedDriver();
-        const myuser = appbaseddriver.getuser.call(this)
-        const driver = new Driver();
-        if (myuser) {
-            if (myuser.hasOwnProperty("driver")) {
+        if (isNumeric(deliveries)) {
+            const appbaseddriver = new AppBasedDriver();
+            const myuser = appbaseddriver.getuser.call(this)
+            const driver = new Driver();
+            if (myuser) {
+                if (myuser.hasOwnProperty("driver")) {
 
-                if (this.state.activeshiftid) {
-                    const shift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid)
-                    if (shift) {
-                        const i = appbaseddriver.getshiftkeybyid.call(this, this.state.activeshiftid)
-                        myuser.driver.shifts[i].deliveries = deliveries;
-                        this.props.reduxUser(myuser)
-                        this.setState({ render: 'render' })
+                    if (this.state.activeshiftid) {
+                        const shift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid)
+                        if (shift) {
+                            const i = appbaseddriver.getshiftkeybyid.call(this, this.state.activeshiftid)
+                            myuser.driver.shifts[i].deliveries = deliveries;
+                            this.props.reduxUser(myuser)
+                            this.setState({ render: 'render' })
+
+                        }
+
+                    } else {
+
+                        driver.createnewshift.call(this, 0, deliveries, 0)
+
 
                     }
 
+
                 } else {
-
-                    driver.createnewshift.call(this, 0, deliveries,0)
-
+                    driver.createnewshift.call(this, 0, deliveries, 0)
 
                 }
 
-
-            } else {
-                driver.createnewshift.call(this, 0, deliveries,0)
-
             }
 
+        } else {
+            alert(`${deliveries} should be numeric`)
         }
-
-    } else {
-        alert(`${deliveries} should be numeric`)
-    }
 
     }
 
@@ -185,65 +185,65 @@ class Driver {
         if (this.state.activeshiftid) {
             const shift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid)
             miles = shift.miles;
-    
+
         }
         return miles;
     }
-    
-    
+
+
     handlemiles(miles) {
-        if(isNumeric(miles)) {
-        const appbaseddriver = new AppBasedDriver();
-        const myuser = appbaseddriver.getuser.call(this)
-        const driver = new Driver();
-        if (myuser) {
-            if (myuser.hasOwnProperty("driver")) {
-    
-                if (this.state.activeshiftid) {
-                    const shift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid)
-                    if (shift) {
-                        const i = appbaseddriver.getshiftkeybyid.call(this, this.state.activeshiftid)
-                        myuser.driver.shifts[i].miles = miles;
-                        this.props.reduxUser(myuser)
-                        this.setState({ render: 'render' })
-    
+        if (isNumeric(miles)) {
+            const appbaseddriver = new AppBasedDriver();
+            const myuser = appbaseddriver.getuser.call(this)
+            const driver = new Driver();
+            if (myuser) {
+                if (myuser.hasOwnProperty("driver")) {
+
+                    if (this.state.activeshiftid) {
+                        const shift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid)
+                        if (shift) {
+                            const i = appbaseddriver.getshiftkeybyid.call(this, this.state.activeshiftid)
+                            myuser.driver.shifts[i].miles = miles;
+                            this.props.reduxUser(myuser)
+                            this.setState({ render: 'render' })
+
+                        }
+
+                    } else {
+
+                        driver.createnewshift.call(this, 0, 0, miles)
+
+
                     }
-    
+
+
                 } else {
-    
-                    driver.createnewshift.call(this, 0, 0,miles)
-    
-    
+                    driver.createnewshift.call(this, 0, 0, miles)
+
                 }
-    
-    
-            } else {
-                driver.createnewshift.call(this, 0, 0,miles)
-    
+
             }
-    
+
+        } else {
+            alert(`${miles} should be numeric `)
         }
 
-    } else {
-        alert(`${miles} should be numeric `)
-    }
-    
-    
+
     }
 
     makeshiftactive(shiftid) {
         const appbaseddriver = new AppBasedDriver();
-     
+
         if (this.state.activeshiftid === shiftid) {
-            
+
             this.setState({ activeshiftid: false })
             this.timeindefault();
             this.timeoutdefault();
 
         } else {
-            const shift = appbaseddriver.getshiftbyid.call(this,shiftid)
-            if(shift) {
-                
+            const shift = appbaseddriver.getshiftbyid.call(this, shiftid)
+            if (shift) {
+
                 const timeinmonth = getMonthfromTimein(shift.timein);
                 const timeinday = getDayfromTimein(shift.timein);
                 const timeinyear = getYearfromTimein(shift.timein)
@@ -251,24 +251,24 @@ class Driver {
                 const timeinminutes = getMinutesfromTimein(shift.timein)
                 const timeinampm = getAMPMfromTimeIn(shift.timein)
 
-    
+
                 const timeoutmonth = getMonthfromTimein(shift.timeout);
                 const timeoutday = getDayfromTimein(shift.timeout);
                 const timeoutyear = getYearfromTimein(shift.timeout)
                 const timeouthours = getHoursfromTimein(shift.timeout)
                 const timeoutminutes = getMinutesfromTimein(shift.timeout)
                 const timeoutampm = getAMPMfromTimeIn(shift.timeout);
-                
-                this.setState({ timeinmonth,timeinday,timeinyear,timeinhours,timeinminutes,timeinampm,timeoutmonth,timeoutday,timeoutyear,timeouthours,timeoutminutes,timeoutampm,activeshiftid: shiftid })
-                
+
+                this.setState({ timeinmonth, timeinday, timeinyear, timeinhours, timeinminutes, timeinampm, timeoutmonth, timeoutday, timeoutyear, timeouthours, timeoutminutes, timeoutampm, activeshiftid: shiftid })
+
             } else {
                 this.setState({ activeshiftid: shiftid })
 
             }
 
-        
 
-           
+
+
         }
     }
 
@@ -278,8 +278,8 @@ class Driver {
         const shift = appbaseddriver.getshiftbyid.call(this, shiftid)
         if (shift) {
 
-        if (window.confirm(`Are you sure you want to delete shift ${inputUTCStringForLaborID(shift.timein)} to ${inputUTCStringForLaborID(shift.timeout)} ?`)) {
-          
+            if (window.confirm(`Are you sure you want to delete shift ${inputUTCStringForLaborID(shift.timein)} to ${inputUTCStringForLaborID(shift.timeout)} ?`)) {
+
                 if (myuser) {
 
                     const i = appbaseddriver.getshiftkeybyid.call(this, shiftid)
@@ -308,17 +308,25 @@ class Driver {
             if (this.state.activeshiftid === shiftid) {
                 return (styles.activeBackground)
             } else {
-                return({backgroundColor:'#ffffff'})
+                return ({ backgroundColor: '#ffffff' })
             }
         }
         const showshift = (shift) => {
 
-            return (<div style={{ ...styles.generalFlex,...styles.bottomMargin15 }} key={shift.shiftid}>
-                <span style={{ ...regularFont, ...styles.generalFont, ...activebackground(shift.shiftid) }} onClick={() => { driver.makeshiftactive.call(this, shift.shiftid) }}>
-                    TimeIn: {inputUTCStringForLaborID(shift.timein)} TimeOut: {inputUTCStringForLaborID(shift.timeout)} Total Hours: {+Number(calculatetotalhours(shift.timeout,shift.timein)).toFixed(2)} Earnings: ${shift.earnings} Deliveries: {shift.deliveries} Miles: {shift.miles}
-                </span>
-                <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(shift.shiftid) }} onClick={() => { driver.removeshift.call(this, shift.shiftid) }}>{removeIconSmall()}</button>
-            </div>)
+            return (
+                <div style={{ ...styles.generalFlex }} key={shift.shiftid}>
+                    <div style={{ ...styles.flex5, ...styles.bottomMargin15 }} key={shift.shiftid}>
+                        <span style={{ ...regularFont, ...styles.generalFont, ...activebackground(shift.shiftid) }} onClick={() => { driver.makeshiftactive.call(this, shift.shiftid) }}>
+                            TimeIn: {inputUTCStringForLaborID(shift.timein)} TimeOut: {inputUTCStringForLaborID(shift.timeout)} Total Hours: {+Number(calculatetotalhours(shift.timeout, shift.timein)).toFixed(2)} Earnings: ${shift.earnings} Deliveries: {shift.deliveries} Miles: {shift.miles}
+                        </span>
+
+                    </div>
+                    <div style={{ ...styles.flex1 }}>
+                        <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(shift.shiftid) }} onClick={() => { driver.removeshift.call(this, shift.shiftid) }}>{removeIconSmall()}</button>
+                    </div>
+
+                </div>
+            )
 
         }
 
@@ -326,15 +334,15 @@ class Driver {
             // eslint-disable-next-line
             shifts.map(shift => {
 
-               
-            
-           
 
-                    if(checkactivemonth(shift.timein,this.state.activemonth, this.state.activeyear)) {
-                        shiftids.push(showshift(shift))
-                    }
-                   
-                    
+
+
+
+                if (checkactivemonth(shift.timein, this.state.activemonth, this.state.activeyear)) {
+                    shiftids.push(showshift(shift))
+                }
+
+
 
 
             })
@@ -359,13 +367,13 @@ class Driver {
         const header = new Header();
 
         const showdiagram = () => {
-            if(this.state.width>1200) {
-                return(diagrams.showdiagrams.call(this))
-                
-            } else if (this.state.width>600) {
-                return(mediumdiagram.showdiagrams.call(this))
+            if (this.state.width > 1200) {
+                return (diagrams.showdiagrams.call(this))
+
+            } else if (this.state.width > 600) {
+                return (mediumdiagram.showdiagrams.call(this))
             } else {
-                return(smalldiagram.showdiagrams.call(this))
+                return (smalldiagram.showdiagrams.call(this))
             }
         }
 
@@ -429,7 +437,7 @@ class Driver {
                     <div style={{ ...styles.flex1 }}>
 
                         {header.showsubheader.call(this)}
-                              
+
 
                         {showtimes()}
 

@@ -134,7 +134,7 @@ class Equipment {
         }
         if(myuser) {
         return (
-            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }} key={equipment.equipmentid} onClick={() => { equipment.makeequipmentactive.call(this, myequipment.equipmentid) }}>
+            <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }} key={myequipment.equipmentid} onClick={() => { equipment.makeequipmentactive.call(this, myequipment.equipmentid) }}>
                 <div style={{ ...styles.flex1 }}>
                     <div style={{ ...styles.generalContainer,...styles.bottomMargin15 }}>
                         <span style={{ ...regularFont, ...styles.generalFont, ...activebackground() }}>{myequipment.equipment}</span>

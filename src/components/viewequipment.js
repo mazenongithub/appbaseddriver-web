@@ -493,10 +493,13 @@ class ViewEquipment extends Component {
 
             return (
                 <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} key={cost.costid} onClick={() => { this.makecostactive(cost.costid) }}>
-                    <div style={{ ...styles.flex1 }}>
+                    <div style={{ ...styles.flex5 }}>
                         <span style={{ ...regularFont, ...styles.generalFont }}>
                             {reoccurring(cost)} PurchaseDate: {formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: ${cost.amount}
-                        </span> <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
+                        </span> 
+                    </div>
+                    <div style={{ ...styles.flex1 }}>
+                    <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
                     </div>
                 </div>)
         }
