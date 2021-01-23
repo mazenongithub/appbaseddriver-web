@@ -11,6 +11,7 @@ import Income from './income';
 import DriverUI from './driverui';
 import Diagrams from './diagrams'
 import MediumDiagram from './mediumdiagram'
+import SmallDiagram from './smalldiagram';
 class Driver {
 
     getearnings() {
@@ -354,14 +355,17 @@ class Driver {
         const driverui = new DriverUI();
         const diagrams = new Diagrams();
         const mediumdiagram = new MediumDiagram();
+        const smalldiagram = new SmallDiagram();
         const header = new Header();
 
         const showdiagram = () => {
             if(this.state.width>1200) {
                 return(diagrams.showdiagrams.call(this))
                 
-            } else {
+            } else if (this.state.width>600) {
                 return(mediumdiagram.showdiagrams.call(this))
+            } else {
+                return(smalldiagram.showdiagrams.call(this))
             }
         }
 
