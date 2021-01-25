@@ -11,13 +11,16 @@ import SalvageDate from './salvagedate'
 import PurchaseDate from './purchasedate'
 import { isNumeric, formatDateStringDisplay, checkactivedate } from './functions'
 import Costs from './costs';
+import SmallDiagram from './smallcostdiagram';
+import MediumDiagram from './mediumcostdiagram'
+import Diagrams from './costdiagrams';
 
 
 class ViewEquipment extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: false, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: false, purchasecalender: false, showrepayment: true, purchaseday: '', purchasemonth: '', purchaseyear: '', activeyear: new Date().getFullYear(), activemonth: false, spinner:false }
+        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: false, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: false, purchasecalender: false, showrepayment: true, purchaseday: '', purchasemonth: '', purchaseyear: '', activeyear: new Date().getFullYear(), activemonth: false, spinner:false, hidecosts:[] }
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
     }
     componentDidMount() {
@@ -581,6 +584,21 @@ class ViewEquipment extends Component {
         const salvagedate = new SalvageDate();
         const purchasedate = new PurchaseDate();
         const costs = new Costs();
+        const smalldiagram = new SmallDiagram();
+        const mediumdiagram = new MediumDiagram();
+        const diagrams = new Diagrams()
+
+        const showdiagram = () => {
+            if (this.state.width > 1200) {
+                return (diagrams.showdiagrams.call(this))
+
+            } else if (this.state.width > 600) {
+                return (mediumdiagram.showdiagrams.call(this))
+            } else {
+                return (smalldiagram.showdiagrams.call(this))
+            }
+        }
+
 
 
 
@@ -849,6 +867,8 @@ class ViewEquipment extends Component {
                             {appbaseddriver.showsavedriver.call(this)}
 
                             {costs.showcosts.call(this, this.props.match.params.equipmentid)}
+
+                            {showdiagram()}
 
                             <div style={{ marginBottom: '40px' }}>
                                 &nbsp;
