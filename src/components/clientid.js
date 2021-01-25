@@ -4,17 +4,39 @@ import { appleID, googlesign } from './svg';
 import AppBasedDriver from './appbaseddriver';
 import Spinner from './spinner'
 class ClientID {
+    appleSignIn(type) {
+        const appbaseddriver = new AppBasedDriver();
+        if(type === 'register') {
+            if(window.confirm(`Are you sure you want to register ${this.state.driverid}?`)) {
+             appbaseddriver.appleSignIn.call(this, type)
+            }
+        } else {
+            appbaseddriver.appleSignIn.call(this, type)
+        }
+    }
+
+    googleSignIn(type) {
+        const appbaseddriver = new AppBasedDriver();
+        if(type === 'register') {
+            if(window.confirm(`Are you sure you want to register ${this.state.driverid}?`)) {
+                appbaseddriver.googleSignIn.call(this, type)
+            } else {
+                appbaseddriver.googleSignIn.call(this, type)
+            }
+        }
+    }
 
     showclientid(type) {
         const styles = MyStylesheet();
         const appbaseddriver = new AppBasedDriver();
         const loginButton = appbaseddriver.getgoogleicon.call(this)
+        const clientid = new ClientID();
      
      
         const apple = () => {
             if(!this.state.client || !this.state.clientid) {
                 return( 
-                    <button style={{ ...styles.generalButton, ...loginButton }} onClick={() => { appbaseddriver.appleSignIn.call(this, type) }}>
+                    <button style={{ ...styles.generalButton, ...loginButton }} onClick={() => { clientid.appleSignIn.call(this, type) }}>
                         {appleID()}
                     </button>)
             }
@@ -22,7 +44,7 @@ class ClientID {
         const google = () => {
             if(!this.state.client || !this.state.clientid) {
                 return(
-                    <button style={{ ...styles.generalButton, ...loginButton }} onClick={() => { appbaseddriver.googleSignIn.call(this, type) }}>
+                    <button style={{ ...styles.generalButton, ...loginButton }} onClick={() => { clientid.googleSignIn.call(this, type) }}>
                         {googlesign()}
                     </button>)
             }
