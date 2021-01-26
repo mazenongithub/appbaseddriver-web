@@ -14,6 +14,16 @@ export function appIcon() {
     </style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><circle className="appicon-1" cx="33.94" cy="38.21" r="33.94"/><path className="appicon-2" d="M77.28,7.26,33.93,50.6a2.78,2.78,0,0,1-3.94,0L13.39,34a2.79,2.79,0,0,1,0-3.95l2.26-2.25a2.78,2.78,0,0,1,3.94,0L30,38.21a2.79,2.79,0,0,0,3.95,0L71.08,1.07a2.79,2.79,0,0,1,4,0l2.25,2.24A2.79,2.79,0,0,1,77.28,7.26Z"/></g></g></svg>)
 }
 
+export function uiLeft() {
+    return(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66.05 31.94"><defs><style>
+    </style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><path className="uiicon-1" d="M29.81,27.24l-2.25,3.68a1.13,1.13,0,0,1-1.49.38L3.48,19a1.44,1.44,0,0,1-.87-.64L.7,15.23a1.32,1.32,0,0,1,.53-1.87L24.5.69a1.48,1.48,0,0,1,2,.5l1.91,3.12a1.31,1.31,0,0,1-.53,1.84L10.59,15.56,29.4,25.82A1,1,0,0,1,29.81,27.24Z"/><path className="uiicon-1" d="M65.4,27.24l-2.25,3.68a1.12,1.12,0,0,1-1.49.38L39.07,19a1.47,1.47,0,0,1-.87-.64l-1.91-3.12a1.33,1.33,0,0,1,.53-1.87L60.09.69a1.49,1.49,0,0,1,2,.5L64,4.31a1.31,1.31,0,0,1-.52,1.84L46.18,15.56,65,25.82A1,1,0,0,1,65.4,27.24Z"/></g></g></svg>)
+}
+
+export function uiRight() {
+    return(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66.05 31.94"><defs><style>
+    </style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><path className="uiicon-1" d="M36.25,4.7,38.5,1A1.12,1.12,0,0,1,40,.64L62.58,13a1.5,1.5,0,0,1,.87.64l1.91,3.12a1.33,1.33,0,0,1-.53,1.87L41.56,31.25a1.49,1.49,0,0,1-2-.5l-1.91-3.12a1.32,1.32,0,0,1,.53-1.84l17.27-9.41L36.65,6.12A1,1,0,0,1,36.25,4.7Z"/><path className="uiicon-1" d="M.65,4.7,2.9,1A1.13,1.13,0,0,1,4.39.64L27,13a1.44,1.44,0,0,1,.87.64l1.91,3.12a1.33,1.33,0,0,1-.53,1.87L6,31.25a1.48,1.48,0,0,1-2-.5L2.08,27.63a1.3,1.3,0,0,1,.53-1.84l17.26-9.41L1.05,6.12A1,1,0,0,1,.65,4.7Z"/></g></g></svg>)
+}
+
 export function closedRadio() {
     return(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.05 73.05"><defs><style></style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><circle className="closedradio-1" cx="36.53" cy="36.53" r="34.03"/></g></g></svg>)
 }

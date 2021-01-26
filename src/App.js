@@ -19,8 +19,8 @@ import Access from './components/access';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { render: 'render', width: 0, height: 0, message:'', driverid: '', checkdriverid: '', client: '', clientid: '', firstname: '', lastname: '', profileurl: '', phonenumber: '', emailaddress: '', emailaddresscheck: '', activeequipmentid:false, activeshiftid:false,
-    timeinmonth: '', timeinday: '', timeinyear: '', timeinhours: '', timeinminutes: '', timeinampm: '', timeoutmonth: '', timeoutday: '', timeoutminutes: '', timeouthours: '', timeoutyear: '', timeoutampm: '', activeyear:new Date().getFullYear(), activemonth:false,activeslideid:"driver", spinner:false, access:false, hideshifts:[], hidecosts:[]}
+    this.state = { render: 'render', width: window.innerWidth, height: window.innerHeight, message:'', driverid: '', checkdriverid: '', client: '', clientid: '', firstname: '', lastname: '', profileurl: '', phonenumber: '', emailaddress: '', emailaddresscheck: '', activeequipmentid:false, activeshiftid:false,
+    timeinmonth: '', timeinday: '', timeinyear: '', timeinhours: '', timeinminutes: '', timeinampm: '', timeoutmonth: '', timeoutday: '', timeoutminutes: '', timeouthours: '', timeoutyear: '', timeoutampm: '', activeyear:new Date().getFullYear(), activemonth:false,activeslideid:"driver", spinner:false, access:false, hideshifts:[], hidecosts:[], uistart:'', uiend:''}
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
   componentDidMount() {
@@ -46,6 +46,7 @@ class App extends Component {
     this.timeindefault();
     this.timeoutdefault();
     this.checkuser() 
+    this.setUI();
   }
   
   componentWillUnmount() {
@@ -149,6 +150,23 @@ timeindefault() {
         }
     }
     this.setState({ timeinmonth: timeinmonth(), activemonth:[getMonString(Number(timeinmonth()))], timeinday: timeinday(), timeinyear: timeinyear(), timeinhours: timeinhours(), timeinminutes: timeinminutes(), timeinampm: timeinampm() })
+}
+
+setUI() {
+  const uiend = new Date().getFullYear();
+  let uistart = 0;
+ 
+  if(this.state.width>1200) {
+    uistart = uiend - 3;
+  } else if (this.state.width>600) {
+    uistart = uiend - 2;
+  } else {
+    uistart = uiend - 1;
+
+  }
+  this.setState({uistart,uiend})
+
+
 }
 
 
