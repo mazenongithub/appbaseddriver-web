@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { AppleLogin, LogoutUser, SaveDriver } from './actions/api'
 import { MyStylesheet } from './styles';
-import { calculatetotalhours, getRepaymentCosts, getInterval, checkactivemonth, checkactivedate, validateLoanPayment, calculateTotalMonths, compareDates } from './functions'
+import { calculatetotalhours, getRepaymentCosts, getInterval, checkactivemonth, checkactivedate, validateLoanPayment, calculateTotalMonths, compareDates, sorttimes } from './functions'
 import Spinner from './spinner'
 class AppBasedDriver {
 
@@ -101,6 +101,23 @@ class AppBasedDriver {
         return error;
     }
 
+    setUI() {
+        const uiend = new Date().getFullYear();
+        let uistart = 0;
+       
+        if(this.state.width>1200) {
+          uistart = uiend - 3;
+        } else if (this.state.width>600) {
+          uistart = uiend - 2;
+        } else {
+          uistart = uiend - 1;
+      
+        }
+        this.setState({uistart,uiend})
+      
+      
+      }
+
     gettransformedcostsbyequimentid(equipmentid) {
         const appbaseddriver = new AppBasedDriver();
         const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
@@ -165,6 +182,10 @@ class AppBasedDriver {
             }
 
         }
+        costarray.sort((a, b) => {
+            return sorttimes(a.purchasedate, b.purchasedate)
+        })
+    
         return costarray;
     }
 
