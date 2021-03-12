@@ -125,6 +125,8 @@ class TimeIn {
                       
 
                     }
+                    appbaseddriver.updateUI.call(this,Number(year))
+
                     this.setState({ activeyear:Number(year) })
 
 
