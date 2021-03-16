@@ -15,6 +15,7 @@ import ViewEquipment from './components/viewequipment';
 import Driver from './components/driver'
 import {getMonString} from './components/functions'
 import Access from './components/access';
+import Receipts from './components/receipts'
 
 class App extends Component {
   constructor(props) {
@@ -233,6 +234,7 @@ setUI() {
               <Route exact path="/:driverid/equipment" render={showequipment} />
               <Route exact path="/:driverid/driver" render={showdriver} />
               <Route exact path="/:driverid/equipment/:equipmentid" component={ViewEquipment} />
+              <Route exact path="/:driverid/equipment/:equipmentid/costs/:costid" component={Receipts} />
             </Switch>
           </div>
         </BrowserRouter>

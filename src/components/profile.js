@@ -308,7 +308,7 @@ class Profile  {
 
                         <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                             <div style={{ ...styles.flex1, ...styles.alignCenter }}>
-                            <input type="text" value={profile.getdriverid.call(this)}
+                            <input type="text"  value={profile.getdriverid.call(this)}
                                 onChange={event => { profile.handledriverid.call(this,event.target.value) }}
                                 style={{ ...styles.generalFont, ...headerFont, ...styles.fontBold }}
                                 onBlur={event => { profile.checkdriverid.call(this,event.target.value) }}

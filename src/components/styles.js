@@ -30,6 +30,9 @@ export function MyStylesheet() {
             display: 'grid',
             gridRowGap: '15px'
         },
+        noDisplay:{
+            display:'none'
+        },
         doublegrid: {
             gridTemplateColumns: '50% 50%'
         },

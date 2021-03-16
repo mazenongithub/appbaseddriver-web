@@ -46,6 +46,61 @@ export async function  CheckUser() {
     })
 }
 
+export async function RemoveReceipt(values) {
+
+    const APIURL = `${process.env.REACT_APP_SERVER_API}/appbaseddriver/removereceipt`
+  
+    return fetch(APIURL, {
+        method: 'post',
+        credentials: 'include',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify(values)
+    })
+        .then(resp => {
+
+            if (!resp.ok) {
+                if (resp.status >= 400 && resp.status < 500) {
+                    return resp.json().then(data => {
+
+                        throw data.message;
+                    })
+                }
+
+            }
+
+            return resp.json();
+        })
+}
+
+
+
+export async function UploadReceipt(values) {
+
+    const APIURL = `${process.env.REACT_APP_SERVER_API}/appbaseddriver/uploadreceipt`
+  
+    return fetch(APIURL, {
+        method: 'post',
+        credentials: 'include',
+        body: values
+    })
+        .then(resp => {
+
+            if (!resp.ok) {
+                if (resp.status >= 400 && resp.status < 500) {
+                    return resp.json().then(data => {
+
+                        throw data.message;
+                    })
+                }
+
+            }
+
+            return resp.json();
+        })
+}
+
 export async function AppleLogin(values) {
 
     const APIURL = `${process.env.REACT_APP_SERVER_API}/appbaseddriver/clientlogin`

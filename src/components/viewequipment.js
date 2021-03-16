@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MyStylesheet } from './styles';
 import AppBasedDriver from './appbaseddriver';
 import { connect } from 'react-redux';
-import { CheckedBox, EmptyBox, removeIconSmall } from './svg'
+import { CheckedBox, EmptyBox, removeIconSmall, uploadReceipts } from './svg'
 import * as actions from './actions';
 import Header from './header';
 import MakeID from './makeid';
@@ -14,13 +14,15 @@ import Costs from './costs';
 import SmallDiagram from './smallcostdiagram';
 import MediumDiagram from './mediumcostdiagram'
 import Diagrams from './costdiagrams';
+import { Link } from 'react-router-dom'
+
 
 
 class ViewEquipment extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: false, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: false, purchasecalender: false, showrepayment: true, purchaseday: '', purchasemonth: '', purchaseyear: '', activeyear: new Date().getFullYear(), activemonth: false, spinner:false, hidecosts:[],uistart:'', uiend:'' }
+        this.state = { render: 'render', width: 0, height: 0, message: '', activecostid: false, equipmentday: '', equipmentmonth: '', equipmentyear: '', equipmentcalender: false, salvageday: '', salvagemonth: '', salvageyear: '', salvagecalender: false, purchasecalender: false, showrepayment: true, purchaseday: '', purchasemonth: '', purchaseyear: '', activeyear: new Date().getFullYear(), activemonth: false, spinner: false, hidecosts: [], uistart: '', uiend: '' }
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
     }
     componentDidMount() {
@@ -249,31 +251,31 @@ class ViewEquipment extends Component {
     handlepurchase(purchase) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
-        if(isNumeric(purchase)) {
+        if (isNumeric(purchase)) {
 
-        if (myuser) {
+            if (myuser) {
 
-            const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
-            if (activeequipment) {
-                const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
-                if (activeequipment.hasOwnProperty("repayment")) {
+                const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+                if (activeequipment) {
+                    const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+                    if (activeequipment.hasOwnProperty("repayment")) {
 
 
-                    myuser.equipment[i].repayment.purchase = purchase;
-                    this.props.reduxUser(myuser)
-                    this.setState({ render: 'render' })
+                        myuser.equipment[i].repayment.purchase = purchase;
+                        this.props.reduxUser(myuser)
+                        this.setState({ render: 'render' })
+
+                    }
+
+
 
                 }
 
-
-
             }
 
+        } else {
+            alert(`${purchase} should be numeric`)
         }
-
-    } else {
-        alert(`${purchase} should be numeric`)
-    }
 
 
     }
@@ -295,31 +297,31 @@ class ViewEquipment extends Component {
     handlesalvage(salvage) {
         const appbaseddriver = new AppBasedDriver();
         const myuser = appbaseddriver.getuser.call(this)
-        if(isNumeric(salvage)) {
+        if (isNumeric(salvage)) {
 
-        if (myuser) {
+            if (myuser) {
 
-            const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
-            if (activeequipment) {
-                const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
-                if (activeequipment.hasOwnProperty("repayment")) {
+                const activeequipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+                if (activeequipment) {
+                    const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+                    if (activeequipment.hasOwnProperty("repayment")) {
 
 
-                    myuser.equipment[i].repayment.salvage = salvage;
-                    this.props.reduxUser(myuser)
-                    this.setState({ render: 'render' })
+                        myuser.equipment[i].repayment.salvage = salvage;
+                        this.props.reduxUser(myuser)
+                        this.setState({ render: 'render' })
+
+                    }
+
+
 
                 }
 
-
-
             }
 
+        } else {
+            alert(`${salvage} should be numeric`)
         }
-
-    } else {
-        alert(`${salvage} should be numeric`)
-    }
 
 
     }
@@ -474,6 +476,12 @@ class ViewEquipment extends Component {
 
     }
 
+  
+    getequipment() {
+        const appbaseddriver = new AppBasedDriver();
+        return appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+    }
+
     showequipmentids() {
         const appbaseddriver = new AppBasedDriver();
         const costs = appbaseddriver.getequipmentscosts.call(this, this.props.match.params.equipmentid)
@@ -481,55 +489,85 @@ class ViewEquipment extends Component {
         const regularFont = appbaseddriver.getRegularFont.call(this)
         let ids = [];
         const removeIcon = appbaseddriver.getremoveicon.call(this)
-        const activebackground = (cost) => {
-            if (this.state.activecostid === cost.costid) {
-                return (styles.activeBackground)
-            } else {
-                return ({ backgroundColor: '#FFFFFF' })
-            }
-        }
+        const driver = appbaseddriver.getuser.call(this)
+        if (driver) {
 
-        const reoccurring = (cost) => {
-            if (cost.hasOwnProperty("reoccurring")) {
-                return `Reoccurring ${cost.reoccurring.frequency}`
-            }
-        }
-        const singular = (cost) => {
+            const equipment = this.getequipment()
+            if (equipment) {
+                const activebackground = (cost) => {
+                    if (this.state.activecostid === cost.costid) {
+                        return (styles.activeBackground)
+                    } else {
+                        return ({ backgroundColor: '#FFFFFF' })
+                    }
+                }
 
-            return (
-                <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, ...activebackground(cost) }} key={cost.costid} onClick={() => { this.makecostactive(cost.costid) }}>
-                    <div style={{ ...styles.flex5 }}>
-                        <span style={{ ...regularFont, ...styles.generalFont }}>
-                            {reoccurring(cost)} PurchaseDate: {formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: ${cost.amount}
-                        </span> 
-                    </div>
-                    <div style={{ ...styles.flex1 }}>
-                    <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
-                    </div>
-                </div>)
-        }
+                const reoccurring = (cost) => {
+                    if (cost.hasOwnProperty("reoccurring")) {
+                        return `Reoccurring ${cost.reoccurring.frequency}`
+                    }
+                }
+                const singular = (cost) => {
+
+                    return (
+                        <div style={{ ...styles.generalFlex, ...styles.bottomMargin15, }} key={cost.costid}
+
+                        >
+                            <div style={{ ...styles.flex2 }}>
+                                <span style={{ ...regularFont, ...styles.generalFont, ...activebackground(cost) }} onClick={() => { this.makecostactive(cost.costid) }}>
+                                    {reoccurring(cost)} PurchaseDate: {formatDateStringDisplay(cost.purchasedate)} Detail: {cost.detail} Amount: ${cost.amount}
+                                </span>
+                            </div>
+                            <div style={{ ...styles.flex1 }}>
+                                <button style={{ ...styles.noBorder, ...removeIcon, ...activebackground(cost) }} onClick={() => { this.removecost(cost.costid) }}>{removeIconSmall()}</button>
+                            </div>
+                            <div style={{ ...styles.flex1 }}>
+                                <Link to={`/${driver.driverid}/equipment/${equipment.equipmentid}/costs/${cost.costid}`}>
+                                    <button
+                                        style={{ ...styles.generalButton, ...receipitUI() }}>{uploadReceipts()}</button>
+                                </Link>
+                            </div>
+                        </div>)
+                }
 
 
 
-        if (costs) {
+                const receipitUI = () => {
+                    if (this.state.width > 1200) {
+                        return ({ width: '135px' })
+                    } else if (this.state.width > 600) {
+                        return ({ width: '95px' })
+                    } else {
+                        return ({ width: '65px' })
+                    }
+                }
 
-            // eslint-disable-next-line
-            costs.map(cost => {
 
 
-                if (checkactivedate(cost.purchasedate, this.state.activemonth, this.state.activeyear)) {
 
-                    ids.push(singular(cost))
+                if (costs) {
+
+                    // eslint-disable-next-line
+                    costs.map(cost => {
+
+
+                        if (checkactivedate(cost.purchasedate, this.state.activemonth, this.state.activeyear)) {
+
+                            ids.push(singular(cost))
+
+
+
+                        }
+
+
+
+                    })
 
 
 
                 }
 
-
-
-            })
-
-
+            }
 
         }
         return ids;
@@ -861,7 +899,7 @@ class ViewEquipment extends Component {
 
                             {Reoccurring(equipment)}
 
-                            
+
 
                             {this.showequipmentids()}
 

@@ -2,7 +2,6 @@ import React from 'react'
 import AppBasedDriver from './appbaseddriver';
 import DriverUI from './driverui';
 import { MyStylesheet } from './styles'
-
 class Costs {
 
     showchart(type) {
