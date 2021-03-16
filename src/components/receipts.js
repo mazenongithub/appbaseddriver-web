@@ -212,10 +212,10 @@ class Receipts extends Component {
 
         if (this.checkFile()) {
 
-          
+
             return (<button style={{ ...styles.generalButton, ...getUploadFile() }} onClick={() => { this.uploadReceipt() }}>{uploadFile()}</button>)
 
-            
+
         }
     }
 
@@ -237,10 +237,22 @@ class Receipts extends Component {
         const styles = MyStylesheet()
         const appbaseddriver = new AppBasedDriver();
         const getIcon = appbaseddriver.getremoveicon.call(this)
+        const maxWidth = () => {
+            if(this.state.width>1200) {
+                return({ maxWidth:'1000px'})
+            } else if (this.width>600) {
+                return({ maxWidth:'480px'})
+            } else {
+                return({ maxWidth:'320px'})
+            }
+            
+        }
         return (
-            <div style={{ ...styles.generalFlex }}>
+            <div style={{ ...styles.generalFlex, ...styles.bottomMargin10,...styles.topMargin10}}>
                 <div style={{ ...styles.flex5 }}>
-                    <img key={image.id} src={image.url} alt={image.imageid} />
+                    <div style={{ ...styles.alignCenter,  }}>
+                        <img style={{...maxWidth()}} key={image.id} src={image.url} alt={image.imageid} />
+                    </div>
                 </div>
                 <div style={{ ...styles.flex1 }}>
                     <button style={{ ...styles.generalButton, ...getIcon }}
@@ -312,8 +324,8 @@ class Receipts extends Component {
 
                         {this.showuploadFile()}
 
-                        <div style={{...styles.generalContainer, ...styles.alignCenter}}>
-                            <span style={{...styles.generalFont, ...regularFont}}>{this.state.message}</span>
+                        <div style={{ ...styles.generalContainer, ...styles.alignCenter }}>
+                            <span style={{ ...styles.generalFont, ...regularFont }}>{this.state.message}</span>
                         </div>
 
 
