@@ -14,6 +14,7 @@ import Costs from './costs';
 import SmallDiagram from './smallcostdiagram';
 import MediumDiagram from './mediumcostdiagram'
 import Diagrams from './costdiagrams';
+import Recharge from './recharge'
 import { Link } from 'react-router-dom'
 
 
@@ -476,7 +477,7 @@ class ViewEquipment extends Component {
 
     }
 
-  
+
     getequipment() {
         const appbaseddriver = new AppBasedDriver();
         return appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
@@ -600,6 +601,33 @@ class ViewEquipment extends Component {
 
     }
 
+    handlerecharge() {
+        const appbaseddriver = new AppBasedDriver();
+        const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+        const myuser = appbaseddriver.getuser.call(this)
+        if (myuser) {
+            if (equipment) {
+                const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+                if (this.state.activecostid) {
+                    const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, this.state.activecostid)
+                    if (cost) {
+                        const j = appbaseddriver.getequipmentcostkeybyid.call(this, this.props.match.params.equipmentid, this.state.activecostid)
+                        if (cost.hasOwnProperty("recharge")) {
+                            delete myuser.equipment[i].costs[j].recharge
+                        } else {
+                            myuser.equipment[i].costs[j].recharge = {totalenergy:'', duration:{hours:0,minutes:0,seconds:0}} 
+                        }
+                        this.props.reduxUser(myuser)
+                        this.setState({ render: 'render' })
+
+                    }
+                }
+            }
+
+        }
+
+    }
+
 
     removerepayment() {
 
@@ -627,6 +655,7 @@ class ViewEquipment extends Component {
         const smalldiagram = new SmallDiagram();
         const mediumdiagram = new MediumDiagram();
         const diagrams = new Diagrams()
+        const recharge = new Recharge();
 
         const showdiagram = () => {
             if (this.state.width > 1200) {
@@ -793,6 +822,26 @@ class ViewEquipment extends Component {
 
                 }
 
+                const getrecharge = (equipment) => {
+
+                    if (this.state.activecostid) {
+                        const cost = appbaseddriver.getequipmentcostbyid.call(this, equipment.equipmentid, this.state.activecostid)
+                        if (cost) {
+                            if (cost.hasOwnProperty("recharge")) {
+                                return (CheckedBox())
+
+                            } else {
+                                return (EmptyBox())
+                            }
+                        } else {
+                            return (EmptyBox())
+                        }
+                    } else {
+                        return (EmptyBox())
+                    }
+
+                }
+
                 const getreoccuring = (equipment) => {
 
                     if (this.state.activecostid) {
@@ -835,13 +884,32 @@ class ViewEquipment extends Component {
                 const Reoccurring = (equipment) => {
 
                     if (this.state.activecostid) {
-                        return (<div style={{ ...styles.generalContainer }}>
-                            <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlereoccurring()}> {getreoccuring(equipment)}</button>
-                            <span style={{ ...regularFont, ...styles.generalFont }}>
-                                Reoccurring Cost
+                        return (
+                        <div style={{...styles.generalContainer}}>
+                        <div style={{ ...styles.generalFlex }}>
+                            <div style={{ ...styles.flex1 ,...styles.addMargin }}>
+                                <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlereoccurring()}> {getreoccuring(equipment)}</button>
+                                <span style={{ ...regularFont, ...styles.generalFont }}>
+                                    Reoccurring Cost
                             </span>
-                            {frequency(equipment)}
+                                {frequency(equipment)}
 
+                            </div>
+
+
+                            <div style={{ ...styles.flex1,...styles.addMargin }}>
+                                <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlerecharge()}> {getrecharge(equipment)}</button>
+                                <span style={{ ...regularFont, ...styles.generalFont }}>
+                                    Recharge Costs
+                            </span>   
+                            </div>
+
+                            
+
+
+                        </div>
+
+                        {recharge.showRecharge.call(this)}
 
                         </div>
                         )

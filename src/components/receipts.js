@@ -266,7 +266,7 @@ class Receipts extends Component {
         const receipts = this.getReceipts()
         let getreceipts = [];
         if (receipts) {
-
+// eslint-disable-next-line
             receipts.map(receipt => {
                 getreceipts.push(this.showreceipt(receipt))
 
