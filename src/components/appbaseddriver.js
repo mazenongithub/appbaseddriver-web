@@ -570,6 +570,7 @@ class AppBasedDriver {
 
 
                 } catch (err) {
+                    alert(err);
                     this.setState(({spinner:false}))
 
                 }

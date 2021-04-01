@@ -188,7 +188,7 @@ class Recharge {
                             <div style={{ ...styles.generalFlex }}>
 
                                 <div style={{ ...styles.flex1 , ...styles.addMargin }}>
-                                    <span style={{ ...styles.generalFont, ...regularFont }}>Total Energy</span>
+                                    <span style={{ ...styles.generalFont, ...regularFont }}>Total Energy (kWhrs)</span>
                                     <input type="text" value={recharge.getTotalEnergy.call(this)}
                                         onChange={event => { recharge.handleTotalEnergy.call(this, event.target.value) }}
                                         style={{ ...styles.generalFont, ...regularFont, ...styles.generalField }} />
