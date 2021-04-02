@@ -21,7 +21,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = { render: 'render', width: window.innerWidth, height: window.innerHeight, message:'', driverid: '', checkdriverid: '', client: '', clientid: '', firstname: '', lastname: '', profileurl: '', phonenumber: '', emailaddress: '', emailaddresscheck: '', activeequipmentid:false, activeshiftid:false,
-    timeinmonth: '', timeinday: '', timeinyear: '', timeinhours: '', timeinminutes: '', timeinampm: '', timeoutmonth: '', timeoutday: '', timeoutminutes: '', timeouthours: '', timeoutyear: '', timeoutampm: '', activeyear:new Date().getFullYear(), activemonth:false,activeslideid:"driver", spinner:false, access:false, hideshifts:[], hidecosts:[], uistart:'', uiend:''}
+    timeinmonth: '', timeinday: '', timeinyear: '', timeinhours: '', timeinminutes: '', timeinampm: '', timeoutmonth: '', timeoutday: '', timeoutminutes: '', timeouthours: '', timeoutyear: '', timeoutampm: '', activeyear:new Date().getFullYear(), activemonth:this.setActiveMonth(),activeslideid:"driver", spinner:false, access:false, hideshifts:[], hidecosts:[], uistart:'', uiend:''}
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
   componentDidMount() {
@@ -105,6 +105,20 @@ class App extends Component {
     }
     this.setState({ timeoutmonth: timeoutmonth(), timeoutday: timeoutday(), timeoutyear: timeoutyear(), timeouthours: timeouthours(), timeoutminutes: timeoutminutes(), timeoutampm: timeoutampm() })
 }
+
+setActiveMonth() {
+  const timeinmonth = () => {
+    let month = new Date().getMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`
+    }
+    return month;
+  }
+
+  return [getMonString(Number(timeinmonth()))]
+
+
+}
 timeindefault() {
     const timeinmonth = () => {
         let month = new Date().getMonth() + 1;
@@ -150,7 +164,9 @@ timeindefault() {
             return 'pm'
         }
     }
-    this.setState({ timeinmonth: timeinmonth(), activemonth:[getMonString(Number(timeinmonth()))], timeinday: timeinday(), timeinyear: timeinyear(), timeinhours: timeinhours(), timeinminutes: timeinminutes(), timeinampm: timeinampm() })
+   
+
+    this.setState({ timeinmonth: timeinmonth(), timeinday: timeinday(), timeinyear: timeinyear(), timeinhours: timeinhours(), timeinminutes: timeinminutes(), timeinampm: timeinampm() })
 }
 
 setUI() {

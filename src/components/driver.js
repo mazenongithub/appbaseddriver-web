@@ -4,7 +4,7 @@ import AppBasedDriver from './appbaseddriver';
 import MakeID from './makeid';
 import TimeIn from './timein';
 import TimeOut from './timeout'
-import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric, getMonthfromTimein, getDayfromTimein, getHoursfromTimein, getYearfromTimein, getMinutesfromTimein, getAMPMfromTimeIn, calculatetotalhours, sorttimes, checkactivemonth, trailingZeros } from './functions'
+import { makeTimeString, UTCTimeStringfromTime, inputUTCStringForLaborID, isNumeric, getMonthfromTimein, getDayfromTimein, getHoursfromTimein, getYearfromTimein, getMinutesfromTimein, getAMPMfromTimeIn, calculatetotalhours, sorttimes, checkactivemonth, trailingZeros, getMonString } from './functions'
 import { removeIconSmall } from './svg'
 import Header from './header';
 import Income from './income';
@@ -31,6 +31,7 @@ class Driver {
 
         const makeid = new MakeID();
         const appbaseddriver = new AppBasedDriver()
+        const driver = new Driver();
         const shiftid = makeid.shiftid.call(this)
         const timeinday = trailingZeros(this.state.timeinday);
         const timeinyear = this.state.timeinyear;
@@ -73,7 +74,7 @@ class Driver {
             this.props.reduxUser(myuser)
 
             this.setState({ activeshiftid: shiftid, timeinyear, timeinmonth, timeinday, timeinhours, timeinminutes, timeinampm, timeoutyear, timeoutmonth, timeoutday, timeouthours, timeoutminutes, timeoutampm })
-
+            driver.updateUI.call(this);
 
 
         }
@@ -100,7 +101,8 @@ class Driver {
                             const i = appbaseddriver.getshiftkeybyid.call(this, this.state.activeshiftid)
                             myuser.driver.shifts[i].earnings = earnings;
                             this.props.reduxUser(myuser)
-                            this.setState({ render: 'render' })
+                           
+                            driver.updateUI.call(this);
 
                         }
 
@@ -229,6 +231,21 @@ class Driver {
         }
 
 
+    }
+    updateUI() {
+        const month = Number(this.state.timeinmonth)
+        const mon = getMonString(Number(month))
+
+        let activemonth = this.state.activemonth;
+        if(activemonth.indexOf(mon)  === -1) {
+           activemonth.push(mon)
+          
+
+        }
+    
+    
+
+        this.setState({activemonth})
     }
 
     makeshiftactive(shiftid) {
