@@ -118,6 +118,8 @@ class TimeIn {
                             timein = UTCTimeStringfromTime(timein);
                             myuser.driver.shifts[i].timein = timein;
                             this.props.reduxUser(myuser)
+                            appbaseddriver.updateUI.call(this,Number(year))
+                            this.setState({ activeyear:Number(year) })
                             
 
 
@@ -125,9 +127,9 @@ class TimeIn {
                       
 
                     }
-                    appbaseddriver.updateUI.call(this,Number(year))
+                   
 
-                    this.setState({ activeyear:Number(year) })
+                   
 
 
                 } else {

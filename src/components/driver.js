@@ -254,8 +254,7 @@ class Driver {
         if (this.state.activeshiftid === shiftid) {
 
             this.setState({ activeshiftid: false })
-            this.timeindefault();
-            this.timeoutdefault();
+      
 
         } else {
             const shift = appbaseddriver.getshiftbyid.call(this, shiftid)

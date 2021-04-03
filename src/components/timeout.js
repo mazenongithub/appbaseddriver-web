@@ -118,14 +118,15 @@ class TimeOut {
                             timeout = UTCTimeStringfromTime(timeout);
                             myuser.driver.shifts[i].timeout = timeout;
                             this.props.reduxUser(myuser)
+                            appbaseddriver.updateUI.call(this,Number(year))
+                            this.setState({ activeyear:Number(year) })
                             
 
 
                         }
 
                     }
-                    appbaseddriver.updateUI.call(this,Number(year))
-                    this.setState({ activeyear:Number(year) })
+             
 
 
                 } else {
