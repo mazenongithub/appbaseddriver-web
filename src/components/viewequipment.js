@@ -460,7 +460,7 @@ class ViewEquipment extends Component {
     makecostactive(costid) {
         const appbaseddriver = new AppBasedDriver();
         if (this.state.activecostid === costid) {
-            this.equipmentdatedefault();
+          
             this.setState({ activecostid: false })
         } else {
             const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, costid)
