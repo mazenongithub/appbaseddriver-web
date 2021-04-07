@@ -240,7 +240,7 @@ export function checkactivemonth(timein, activemonth, activeyear) {
     // timein = '2020/05/24 12:00:00-08:00:00
     // activemonth = []
     // activeyear = 2020
-    console.log(timein,activemonth,activeyear)
+ 
 
     let active = false
     const datein = new Date(timein)

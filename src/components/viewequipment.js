@@ -458,21 +458,26 @@ class ViewEquipment extends Component {
     }
 
     makecostactive(costid) {
+   
         const appbaseddriver = new AppBasedDriver();
         if (this.state.activecostid === costid) {
           
             this.setState({ activecostid: false })
         } else {
+
             const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, costid)
             let equipmentyear = "";
             let equipmentmonth = "";
             let equipmentday = "";
+  
             if (cost) {
+             
                 equipmentyear = cost.purchasedate.substring(0, 4)
                 equipmentmonth = cost.purchasedate.substring(5, 7);
                 equipmentday = cost.purchasedate.substring(8, 10)
+                console.log(equipmentyear)
             }
-            this.setState({ activecostid: costid, equipmentyear, equipmentmonth, equipmentday, activeyear:equipmentyear })
+            this.setState({ activecostid: costid, equipmentyear, equipmentmonth, equipmentday, activeyear:Number(equipmentyear) })
         }
 
     }
