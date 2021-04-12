@@ -133,7 +133,7 @@ class ViewEquipment extends Component {
                     }
 
                     this.props.reduxUser(myuser)
-                    this.setState({ activecostid: costid, activeyear:year })
+                    this.setState({ activecostid: costid, activeyear:Number(year) })
 
                 }
 
@@ -235,7 +235,7 @@ class ViewEquipment extends Component {
                         }
 
                         this.props.reduxUser(myuser)
-                        this.setState({ activecostid: costid, activeyear:year})
+                        this.setState({ activecostid: costid})
 
                     }
 
@@ -475,7 +475,7 @@ class ViewEquipment extends Component {
                 equipmentyear = cost.purchasedate.substring(0, 4)
                 equipmentmonth = cost.purchasedate.substring(5, 7);
                 equipmentday = cost.purchasedate.substring(8, 10)
-                console.log(equipmentyear)
+               
             }
             this.setState({ activecostid: costid, equipmentyear, equipmentmonth, equipmentday, activeyear:Number(equipmentyear) })
         }

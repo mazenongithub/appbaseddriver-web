@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { AppleLogin, LogoutUser, SaveDriver } from './actions/api'
 import { MyStylesheet } from './styles';
-import { calculatetotalhours, getRepaymentCosts, getInterval, checkactivemonth, checkactivedate, validateLoanPayment, calculateTotalMonths, compareDates, sorttimes } from './functions'
+import { calculatetotalhours, getRepaymentCosts, getInterval, checkactivemonth, checkactivedate, validateLoanPayment, calculateTotalMonths, compareDates, sorttimes, getMonString } from './functions'
 import Spinner from './spinner'
 class AppBasedDriver {
 
@@ -44,30 +44,30 @@ class AppBasedDriver {
     getslides() {
         const slides = () => {
             return ([
-    
+
                 {
                     title: 'Driver',
                     id: 'driver',
                     url: 'http://civilengineer.io/appbaseddriver/slides/driver.png',
                     caption: `App-Based Driver by CivilEngineer.io. Created for App-Based Drivers. Enter your earnings, miles, your deliveries, timein, timeout. Output earnings per hour, earnings per delivery, and earnings per mile.`
-    
+
                 },
                 {
                     title: 'Equipment',
                     id: 'equipments',
                     url: 'http://civilengineer.io/appbaseddriver/slides/equipment.png',
                     caption: `Add your equipment`
-    
+
                 },
                 {
                     title: 'View Equipment',
                     id: 'viewequipment',
                     url: 'http://civilengineer.io/appbaseddriver/slides/viewequipment.png',
                     caption: ` Add Equipment Costs. Output Costs Per Hour, Cost Per Mile, Cost Per Delivery, Net Earnings, Net Per Hour, Net Per Delivery, Net Per Mile, Purchase Date, Salvage Date, Interest Rate, Equipment Repayment`
-    
+
                 }
-    
-    
+
+
             ])
         }
         return slides();
@@ -101,34 +101,49 @@ class AppBasedDriver {
         return error;
     }
 
+    setUIMonth(month) {
+        const activemonth = this.state.activemonth;
+        if (activemonth.hasOwnProperty("length")) {
+            const monthstring = getMonString(Number(month))
+            if (activemonth.indexOf(monthstring) < 0) {
+
+                activemonth.push(monthstring)
+
+            }
+
+        }
+
+
+    }
+
     updateUI(year) {
-      
+
         let uistart = this.state.uistart;
         let uiend = this.state.uiend;
-        if(year < uistart) {
+        if (year < uistart) {
             uistart = year;
-        } else if (year>uiend) {
+        } else if (year > uiend) {
             uiend = year;
         }
-        this.setState({uistart,uiend})
+        this.setState({ uistart, uiend })
     }
 
     setUI() {
         const uiend = new Date().getFullYear();
         let uistart = 0;
-       
-        if(this.state.width>1200) {
-          uistart = uiend - 3;
-        } else if (this.state.width>600) {
-          uistart = uiend - 2;
+
+        if (this.state.width > 1200) {
+            uistart = uiend - 3;
+        } else if (this.state.width > 600) {
+            uistart = uiend - 2;
         } else {
-          uistart = uiend - 1;
-      
+            uistart = uiend - 1;
+
         }
-        this.setState({uistart,uiend})
-      
-      
-      }
+        this.setState({ uistart, uiend })
+
+
+    }
 
     gettransformedcostsbyequimentid(equipmentid) {
         const appbaseddriver = new AppBasedDriver();
@@ -197,7 +212,7 @@ class AppBasedDriver {
         costarray.sort((a, b) => {
             return sorttimes(a.purchasedate, b.purchasedate)
         })
-    
+
         return costarray;
     }
 
@@ -208,7 +223,7 @@ class AppBasedDriver {
         if (myequipment) {
             // eslint-disable-next-line
             myequipment.map(equipment => {
-                costs = [...costs,...appbaseddriver.gettransformedcostsbyequimentid.call(this, equipment.equipmentid)]
+                costs = [...costs, ...appbaseddriver.gettransformedcostsbyequimentid.call(this, equipment.equipmentid)]
             })
         }
         return costs;
@@ -255,23 +270,23 @@ class AppBasedDriver {
     }
 
     getactiveshifts() {
-    
-            const appbaseddriver = new AppBasedDriver();
-            const shifts = appbaseddriver.getshifts.call(this)
-            let myshifts = []
-            if (shifts) {
-                // eslint-disable-next-line
-                shifts.map(shift => {
-                    if (checkactivemonth(shift.timein, this.state.activemonth, this.state.activeyear)) {
-                        myshifts.push(shift)
-    
-                    }
-                })
-    
-            }
-            return myshifts
-    
-        
+
+        const appbaseddriver = new AppBasedDriver();
+        const shifts = appbaseddriver.getshifts.call(this)
+        let myshifts = []
+        if (shifts) {
+            // eslint-disable-next-line
+            shifts.map(shift => {
+                if (checkactivemonth(shift.timein, this.state.activemonth, this.state.activeyear)) {
+                    myshifts.push(shift)
+
+                }
+            })
+
+        }
+        return myshifts
+
+
     }
 
     getearnings() {
@@ -372,7 +387,7 @@ class AppBasedDriver {
         } else if (this.state.width > 600) {
             return ({ width: '40px' })
         } else {
-            return ({ width: '30px' }) 
+            return ({ width: '30px' })
         }
     }
 
@@ -539,7 +554,7 @@ class AppBasedDriver {
                 let response = await LogoutUser(myuser.driverid);
                 console.log(response)
                 this.props.reduxUser(response)
-                this.setState({client:false, access:false, driverid:""})
+                this.setState({ client: false, access: false, driverid: "" })
 
             } catch (err) {
                 alert(err)
@@ -559,19 +574,19 @@ class AppBasedDriver {
 
                 try {
 
-                    this.setState({spinner:true})
+                    this.setState({ spinner: true })
                     let response = await SaveDriver({ myuser })
                     console.log(response)
                     if (response.hasOwnProperty("driverid")) {
                         this.props.reduxUser(response)
                         let message = `Driver Updated ${new Date().toLocaleTimeString()}`
-                        this.setState({ spinner:false,message })
+                        this.setState({ spinner: false, message })
                     }
 
 
                 } catch (err) {
                     alert(err);
-                    this.setState(({spinner:false}))
+                    this.setState(({ spinner: false }))
 
                 }
             }
@@ -587,18 +602,18 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         const menufont = appbaseddriver.menufont.call(this)
         const regularFont = appbaseddriver.getRegularFont.call(this)
-        if(!this.state.spinner) {
-        return (
-            <div style={{ ...styles.generalContainer, ...styles.alignCenter }}>
+        if (!this.state.spinner) {
+            return (
+                <div style={{ ...styles.generalContainer, ...styles.alignCenter }}>
 
-                <div style={{ ...styles.generalContainer, ...styles.alignCenter, ...styles.bottomMargin15 }}><span style={{ ...styles.generalFont, ...regularFont }}>{this.state.message} </span></div>
-                <button
-                    style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}
-                    onClick={() => appbaseddriver.savedriver.call(this)} >Save Driver</button>
-            </div>
-        )
+                    <div style={{ ...styles.generalContainer, ...styles.alignCenter, ...styles.bottomMargin15 }}><span style={{ ...styles.generalFont, ...regularFont }}>{this.state.message} </span></div>
+                    <button
+                        style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}
+                        onClick={() => appbaseddriver.savedriver.call(this)} >Save Driver</button>
+                </div>
+            )
         } else {
-            return(<Spinner/>)
+            return (<Spinner />)
         }
     }
     getuser() {
@@ -664,12 +679,12 @@ class AppBasedDriver {
 
 
         try {
-            this.setState({spinner:true})
+            this.setState({ spinner: true })
             let response = await AppleLogin(values)
-            this.setState({spinner:false})
+            this.setState({ spinner: false })
             this.props.reduxUser(response)
         } catch (err) {
-            this.setState({spinner:false})
+            this.setState({ spinner: false })
             alert(err)
         }
     }
@@ -679,11 +694,11 @@ class AppBasedDriver {
         provider.addScope('email');
         provider.addScope('name');
 
-        
+
 
 
         try {
-           
+
             const result = await firebase.auth().signInWithPopup(provider)
             let firstname = "";
             let lastname = "";
@@ -697,8 +712,8 @@ class AppBasedDriver {
 
                 user = result.user;
                 apple = user.providerData[0].uid;
-                
-                
+
+
                 if (user.providerData[0].displayName) {
                     firstname = user.providerData[0].displayName.split(' ')[0]
                     lastname = user.providerData[0].displayName.split(' ')[1]
@@ -709,13 +724,13 @@ class AppBasedDriver {
                 phonenumber = user.phoneNumber;
             }
 
-            if(apple) {
-                this.setState({client:'apple'})
+            if (apple) {
+                this.setState({ client: 'apple' })
             }
-            
+
 
             const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, apple, driverid: this.state.driverid }
-            
+
             appbaseddriver.clientlogin.call(this, values)
 
         } catch (err) {
@@ -754,8 +769,8 @@ class AppBasedDriver {
                 profileurl = user.providerData[0].photoURL
                 phonenumber = user.phoneNumber;
             }
-            if(google) {
-                this.setState({client:'google'})
+            if (google) {
+                this.setState({ client: 'google' })
             }
             const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, driverid: this.state.driverid, google }
 

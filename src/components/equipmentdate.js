@@ -153,20 +153,7 @@ class EquipmentDate {
                         if (validateMonth(month)) {
 
 
-                            if (this.state.activemonth.hasOwnProperty("length")) {
-
-                                const monthstring = getMonString(Number(month))
-
-
-                                if (this.state.activemonth.indexOf(monthstring) === -1) {
-
-                                    const activemonth = this.state.activemonth;
-                                    activemonth.push(monthstring)
-                                    this.setState({ activemonth })
-                                }
-                            }
-
-
+                           appbaseddriver.setUIMonth.call(this,month)
 
 
                             if (this.state.activecostid) {

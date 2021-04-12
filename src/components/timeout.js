@@ -103,6 +103,8 @@ class TimeOut {
 
                 if (validateYear(year)) {
 
+                    appbaseddriver.updateUI.call(this,Number(year))   
+                    this.setState({activeyear:Number(year)}) 
 
                     if (this.state.activeshiftid) {
                         const myshift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid);
@@ -118,8 +120,10 @@ class TimeOut {
                             timeout = UTCTimeStringfromTime(timeout);
                             myuser.driver.shifts[i].timeout = timeout;
                             this.props.reduxUser(myuser)
-                            appbaseddriver.updateUI.call(this,Number(year))
-                            this.setState({ activeyear:Number(year) })
+                            
+                            this.setState({render:'render'})
+                          
+                            
                             
 
 
@@ -190,20 +194,9 @@ class TimeOut {
 
                     if (validateMonth(month)) {
 
-                        if (this.state.activemonth.hasOwnProperty("length")) {
-
-                            const monthstring = getMonString(Number(month))
-
-
-                            if (this.state.activemonth.indexOf(monthstring) === -1) {
-
-                                const activemonth = this.state.activemonth;
-                                activemonth.push(monthstring)
-                                this.setState({ activemonth })
-                            }
-                        }
+                        appbaseddriver.setUIMonth.call(this,month);
+                      
                      
-
                             if (this.state.activeshiftid) {
                                 const myshift = appbaseddriver.getshiftbyid.call(this, this.state.activeshiftid);
                                 if (myshift) {

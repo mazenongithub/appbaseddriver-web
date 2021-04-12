@@ -34,32 +34,7 @@ class Header {
                             </div>
                         )
                         break;
-                    case 'viewequipment':
-
-                            const getequipmentid = () => {
-
-                                if(this.props.hasOwnProperty("match")) {
-                                    return this.props.match.params.equipmentid;
-                                }
-                            }
-
-                        subheader.push(
-                            <div style={{ ...styles.generalContainer, ...styles.bottomMargin15, ...styles.alignCenter }} key={`subheader-2`}>
-                                <Link onClick={() => { this.props.reduxNavigation({ navigation: 'equipment' }) }} to={`/${myuser.driverid}/equipment`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/equipment</Link>
-                            </div>
-                        )
-                        const myequipment = appbaseddriver.getequipmentbyid.call(this, getequipmentid())
-                        if (myequipment) {
-                            subheader.push(
-                                <div style={{ ...styles.generalContainer, ...styles.bottomMargin15, ...styles.alignCenter }} key={`subheader-3`}>
-                                    <Link onClick={() => { this.props.reduxNavigation({ navigation: 'viewequipment' }) }}
-                                        to={`/${myuser.driverid}/equipment/${this.props.match.params.equipmentid}`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/{myequipment.equipment}</Link>
-                                </div>
-                            )
-
-                        }
-
-                        break;
+              
                     default:
                         break;
 
