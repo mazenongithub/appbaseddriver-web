@@ -30,7 +30,7 @@ class ViewEquipment extends Component {
         const appbaseddriver = new AppBasedDriver();
         window.addEventListener('resize', this.updateWindowDimensions);
         this.updateWindowDimensions();
-        this.props.reduxNavigation({ navigation: "viewequipment" })
+        this.props.reduxNavigation({ navigation: 'equipment' })
         this.equipmentdatedefault();
         appbaseddriver.setUI.call(this)
 
@@ -133,7 +133,7 @@ class ViewEquipment extends Component {
                     }
 
                     this.props.reduxUser(myuser)
-                    this.setState({ activecostid: costid, activeyear:Number(year) })
+                    this.setState({ activecostid: costid, activeyear: Number(year) })
 
                 }
 
@@ -235,7 +235,7 @@ class ViewEquipment extends Component {
                         }
 
                         this.props.reduxUser(myuser)
-                        this.setState({ activecostid: costid})
+                        this.setState({ activecostid: costid })
 
                     }
 
@@ -458,10 +458,10 @@ class ViewEquipment extends Component {
     }
 
     makecostactive(costid) {
-   
+
         const appbaseddriver = new AppBasedDriver();
         if (this.state.activecostid === costid) {
-          
+
             this.setState({ activecostid: false })
         } else {
 
@@ -469,15 +469,15 @@ class ViewEquipment extends Component {
             let equipmentyear = "";
             let equipmentmonth = "";
             let equipmentday = "";
-  
+
             if (cost) {
-             
+
                 equipmentyear = cost.purchasedate.substring(0, 4)
                 equipmentmonth = cost.purchasedate.substring(5, 7);
                 equipmentday = cost.purchasedate.substring(8, 10)
-               
+
             }
-            this.setState({ activecostid: costid, equipmentyear, equipmentmonth, equipmentday, activeyear:Number(equipmentyear) })
+            this.setState({ activecostid: costid, equipmentyear, equipmentmonth, equipmentday, activeyear: Number(equipmentyear) })
         }
 
     }
@@ -620,7 +620,7 @@ class ViewEquipment extends Component {
                         if (cost.hasOwnProperty("recharge")) {
                             delete myuser.equipment[i].costs[j].recharge
                         } else {
-                            myuser.equipment[i].costs[j].recharge = {totalenergy:'', duration:{hours:0,minutes:0,seconds:0}} 
+                            myuser.equipment[i].costs[j].recharge = { totalenergy: '', duration: { hours: 0, minutes: 0, seconds: 0 } }
                         }
                         this.props.reduxUser(myuser)
                         this.setState({ render: 'render' })
@@ -661,6 +661,7 @@ class ViewEquipment extends Component {
         const mediumdiagram = new MediumDiagram();
         const diagrams = new Diagrams()
         const recharge = new Recharge();
+        const menufont = appbaseddriver.menufont.call(this)
 
         const showdiagram = () => {
             if (this.state.width > 1200) {
@@ -890,33 +891,33 @@ class ViewEquipment extends Component {
 
                     if (this.state.activecostid) {
                         return (
-                        <div style={{...styles.generalContainer}}>
-                        <div style={{ ...styles.generalFlex }}>
-                            <div style={{ ...styles.flex1 ,...styles.addMargin }}>
-                                <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlereoccurring()}> {getreoccuring(equipment)}</button>
-                                <span style={{ ...regularFont, ...styles.generalFont }}>
-                                    Reoccurring Cost
+                            <div style={{ ...styles.generalContainer }}>
+                                <div style={{ ...styles.generalFlex }}>
+                                    <div style={{ ...styles.flex1, ...styles.addMargin }}>
+                                        <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlereoccurring()}> {getreoccuring(equipment)}</button>
+                                        <span style={{ ...regularFont, ...styles.generalFont }}>
+                                            Reoccurring Cost
                             </span>
-                                {frequency(equipment)}
+                                        {frequency(equipment)}
+
+                                    </div>
+
+
+                                    <div style={{ ...styles.flex1, ...styles.addMargin }}>
+                                        <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlerecharge()}> {getrecharge(equipment)}</button>
+                                        <span style={{ ...regularFont, ...styles.generalFont }}>
+                                            Recharge Costs
+                            </span>
+                                    </div>
+
+
+
+
+                                </div>
+
+                                {recharge.showRecharge.call(this)}
 
                             </div>
-
-
-                            <div style={{ ...styles.flex1,...styles.addMargin }}>
-                                <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlerecharge()}> {getrecharge(equipment)}</button>
-                                <span style={{ ...regularFont, ...styles.generalFont }}>
-                                    Recharge Costs
-                            </span>   
-                            </div>
-
-                            
-
-
-                        </div>
-
-                        {recharge.showRecharge.call(this)}
-
-                        </div>
                         )
                     }
                 }
@@ -933,9 +934,16 @@ class ViewEquipment extends Component {
                             </div>
 
 
+
+
                             <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                                 <div style={{ ...styles.flex1, ...styles.alignCenter }}>
-                                    <span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>{equipment.equipment}</span>
+                                    <Link onClick={() => {
+                                        this.props.reduxNavigation({ navigation: 'equipment' })
+                                        this.setState({ render: 'render' })
+                                    }}
+                                        to={`/${myuser.driverid}/equipment/${equipment.equipmentid}`} style={{ ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}>/{equipment.equipment}</Link>
+
                                 </div>
                             </div>
 
