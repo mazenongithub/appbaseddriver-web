@@ -8,6 +8,7 @@ import Header from './header';
 import { Link } from 'react-router-dom'
 import { formatDateStringDisplay, makeID } from './functions'
 import { UploadReceipt, RemoveReceipt } from './actions/api'
+import Spinner from './spinner'
 
 class Receipts extends Component {
     constructor(props) {
@@ -105,8 +106,10 @@ class Receipts extends Component {
     async removeReceipt(equipmentid, costid, imageid, myuser) {
 
         try {
+            this.setState({spinner:true})
 
             let response = await RemoveReceipt({ equipmentid, costid, imageid, myuser })
+            this.setState({spinner:false})
             if (response.hasOwnProperty("driverid")) {
                 this.props.reduxUser(response)
                 let message = `Driver Updated ${new Date().toLocaleTimeString()}`
@@ -114,6 +117,7 @@ class Receipts extends Component {
             }
 
         } catch (err) {
+            
             this.setState({ spinner: false })
             alert(err)
 
@@ -122,7 +126,7 @@ class Receipts extends Component {
     }
 
     async uploadmyuser(equipmentid, costid, imageid, myuser) {
-        console.log(myuser)
+  
         let formData = new FormData();
 
         let myfile = document.getElementById("receipt");
@@ -135,11 +139,13 @@ class Receipts extends Component {
             formData.append("values", JSON.stringify(values))
 
             try {
+                this.setState({spinner:true})
                 let response = await UploadReceipt(formData)
+                this.setState({spinner:false})
                 if (response.hasOwnProperty("driverid")) {
                     this.props.reduxUser(response)
                     let message = `Driver Updated ${new Date().toLocaleTimeString()}`
-                    this.setState({ spinner: false, message })
+                    this.setState({ message })
                 }
 
             } catch (err) {
@@ -212,9 +218,13 @@ class Receipts extends Component {
 
         if (this.checkFile()) {
 
+            if(!this.state.spinner) {
+
 
             return (<button style={{ ...styles.generalButton, ...getUploadFile() }} onClick={() => { this.uploadReceipt() }}>{uploadFile()}</button>)
-
+            } else {
+                return(<Spinner/>)
+            }
 
         }
     }
