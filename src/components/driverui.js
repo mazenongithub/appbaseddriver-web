@@ -167,7 +167,7 @@ class DriverUI {
 
 
         const rows = (startyear) => {
-            console.log(startyear)
+            
 
             return (<div style={{ ...styles.generalFlex }} key={`uistart${startyear}`}>
 
@@ -261,7 +261,7 @@ class DriverUI {
 
         const rownumber = ((uiend - uistart) + 1) / 3;
         let myrows = [];
-        console.log(uistart)
+   
 
         for (let x = 0; x < rownumber; x++) {
             myrows.push(rows(uistart))

@@ -1,7 +1,7 @@
 import React from 'react';
 import { MyStylesheet } from './styles'
 import AppBasedDriver from './appbaseddriver'
-import { UTCTimeStringfromTime, makeTimeString, validateMonth, validateDate, validateYear, validateMinutes, getMonString } from './functions';
+import { UTCTimeStringfromTime, makeTimeString, validateMonth, validateDate, validateYear, validateMinutes} from './functions';
 import TimeInCalender from './timeincalender';
 class TimeIn {
     handleminutes(minutes) {

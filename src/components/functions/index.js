@@ -346,11 +346,12 @@ export function sorttimes(timeina, timeinb) {
 }
 
 export function getAMPMfromTimeIn(timein) {
+    console.log(timein)
     //let timein ='2020/05/13 20:00:00'
     const newDate = new Date(timein)
     let hours = newDate.getHours();
     let ampm = "";
-    if (hours > 12) {
+    if (hours>= 12) {
         ampm = 'pm'
 
     } else {

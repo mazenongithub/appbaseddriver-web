@@ -2,7 +2,7 @@ import React from 'react';
 import { MyStylesheet } from './styles'
 import AppBasedDriver from './appbaseddriver';
 import EquipmentCalender from './equipmentcalender'
-import { validateMonth, validateDate, validateYear, isNumeric, trailingZeros, getMonString } from './functions';
+import { validateMonth, validateDate, validateYear, isNumeric, trailingZeros } from './functions';
 
 class EquipmentDate {
 
