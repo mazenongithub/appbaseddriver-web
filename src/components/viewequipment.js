@@ -579,6 +579,33 @@ class ViewEquipment extends Component {
         return ids;
     }
 
+    handlereimbursable() {
+        const appbaseddriver = new AppBasedDriver();
+        const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
+        const myuser = appbaseddriver.getuser.call(this)
+        if (myuser) {
+            if (equipment) {
+                const i = appbaseddriver.getequipmentkeybyid.call(this, this.props.match.params.equipmentid)
+                if (this.state.activecostid) {
+                    const cost = appbaseddriver.getequipmentcostbyid.call(this, this.props.match.params.equipmentid, this.state.activecostid)
+                    if (cost) {
+                        const j = appbaseddriver.getequipmentcostkeybyid.call(this, this.props.match.params.equipmentid, this.state.activecostid)
+                        if (cost.hasOwnProperty("reimbursable")) {
+                            delete myuser.equipment[i].costs[j].reimbursable
+                        } else {
+                            myuser.equipment[i].costs[j].reimbursable = true;
+                        }
+                        this.props.reduxUser(myuser)
+                        this.setState({ render: 'render' })
+
+                    }
+                }
+            }
+
+        }
+
+    }
+
     handlereoccurring() {
         const appbaseddriver = new AppBasedDriver();
         const equipment = appbaseddriver.getequipmentbyid.call(this, this.props.match.params.equipmentid)
@@ -828,6 +855,26 @@ class ViewEquipment extends Component {
 
                 }
 
+                const getreimburseable = (equipment) => {
+
+                    if (this.state.activecostid) {
+                        const cost = appbaseddriver.getequipmentcostbyid.call(this, equipment.equipmentid, this.state.activecostid)
+                        if (cost) {
+                            if (cost.hasOwnProperty("reimbursable")) {
+                                return (CheckedBox())
+
+                            } else {
+                                return (EmptyBox())
+                            }
+                        } else {
+                            return (EmptyBox())
+                        }
+                    } else {
+                        return (EmptyBox())
+                    }
+
+                }
+
                 const getrecharge = (equipment) => {
 
                     if (this.state.activecostid) {
@@ -907,15 +954,27 @@ class ViewEquipment extends Component {
                                         <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlerecharge()}> {getrecharge(equipment)}</button>
                                         <span style={{ ...regularFont, ...styles.generalFont }}>
                                             Recharge Costs
-                            </span>
+                                        </span>
+                                        {recharge.showRecharge.call(this)}
                                     </div>
+
+                                    <div style={{ ...styles.flex1, ...styles.addMargin }}>
+                                        <span style={{ ...regularFont, ...styles.generalFont }}>
+                                            Reimburseable
+                                        </span>
+
+                                        <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlereimbursable()}> {getreimburseable(equipment)} </button>
+                                    </div>
+
+
+
 
 
 
 
                                 </div>
 
-                                {recharge.showRecharge.call(this)}
+
 
                             </div>
                         )
