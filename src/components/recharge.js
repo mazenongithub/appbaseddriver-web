@@ -194,41 +194,26 @@ class Recharge {
                                         style={{ ...styles.generalFont, ...regularFont, ...styles.generalField }} />
                                 </div>
 
+
                                 <div style={{ ...styles.flex1, ...styles.addMargin  }}>
 
-                                    <div style={{...styles.generalContainer, ...styles.alignCenter}}>
-                                        <span style={{...styles.generalFont,...regularFont}}>Charge Duration</span>
-                                    </div>
+                   
 
-                                    <div style={{ ...styles.generalFlex }}>
+                              
+                               
 
-                                        <div style={{ ...styles.flex1, ...styles.addMargin }}>
-                                            <span style={{ ...styles.generalFont, ...regularFont }}>Hours</span>
-                                            <input type="text" value={recharge.getDurationHours.call(this)}
-                                                onChange={event => { recharge.handleDurationHours.call(this, event.target.value) }}
-                                                style={{ ...styles.generalFont, ...regularFont, ...styles.generalField }} />
+                                        <div style={{ ...styles.generalContainer, ...styles.addMargin  }}>
 
-                                        </div>
-
-                                        <div style={{ ...styles.flex1, ...styles.addMargin  }}>
-
-                                        <span style={{ ...styles.generalFont, ...regularFont }}>Minutes</span>
+                                        <span style={{ ...styles.generalFont, ...regularFont }}>Charge Duration(Minutes)</span>
                                             <input type="text" value={recharge.getDurationMinutes.call(this)}
                                                 onChange={event => { recharge.handleDurationMinutes.call(this, event.target.value) }}
                                                 style={{ ...styles.generalFont, ...regularFont, ...styles.generalField }} />
 
                                         </div>
 
-                                        <div style={{ ...styles.flex1, ...styles.addMargin  }}>
+                                 
 
-                                        <span style={{ ...styles.generalFont, ...regularFont }}>Seconds</span>
-                                            <input type="text" value={recharge.getDurationSeconds.call(this)}
-                                                onChange={event => { recharge.handleDurationSeconds.call(this, event.target.value) }}
-                                                style={{ ...styles.generalFont, ...regularFont, ...styles.generalField }} />
-
-                                        </div>
-
-                                    </div>
+                              
 
 
 

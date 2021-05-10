@@ -959,11 +959,12 @@ class ViewEquipment extends Component {
                                     </div>
 
                                     <div style={{ ...styles.flex1, ...styles.addMargin }}>
+                                       
+
+                                        <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlereimbursable()}> {getreimburseable(equipment)} </button>
                                         <span style={{ ...regularFont, ...styles.generalFont }}>
                                             Reimburseable
                                         </span>
-
-                                        <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlereimbursable()}> {getreimburseable(equipment)} </button>
                                     </div>
 
 
