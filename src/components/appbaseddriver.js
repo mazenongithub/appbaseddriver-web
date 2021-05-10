@@ -479,7 +479,9 @@ class AppBasedDriver {
                 costs = equipment.costs;
             }
         }
-        return costs;
+        return costs.sort((a, b) => {
+            return sorttimes(a.purchasedate, b.purchasedate)
+        })
     }
 
     getequipmentkeybyid(equipmentid) {
