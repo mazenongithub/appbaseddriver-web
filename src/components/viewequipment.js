@@ -939,15 +939,18 @@ class ViewEquipment extends Component {
                     if (this.state.activecostid) {
                         return (
                             <div style={{ ...styles.generalContainer }}>
-                                <div style={{ ...styles.generalFlex }}>
-                                    <div style={{ ...styles.flex1, ...styles.addMargin }}>
-                                        <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlereoccurring()}> {getreoccuring(equipment)}</button>
-                                        <span style={{ ...regularFont, ...styles.generalFont }}>
-                                            Reoccurring Cost
-                            </span>
-                                        {frequency(equipment)}
 
-                                    </div>
+                                <div style={{ ...styles.generalContainer, ...styles.addMargin }}>
+                                    <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlereoccurring()}> {getreoccuring(equipment)}</button>
+                                    <span style={{ ...regularFont, ...styles.generalFont }}>
+                                        Reoccurring Cost
+                                         </span>
+                                    {frequency(equipment)}
+
+                                </div>
+
+                                <div style={{ ...styles.generalFlex }}>
+
 
 
                                     <div style={{ ...styles.flex1, ...styles.addMargin }}>
@@ -959,7 +962,7 @@ class ViewEquipment extends Component {
                                     </div>
 
                                     <div style={{ ...styles.flex1, ...styles.addMargin }}>
-                                       
+
 
                                         <button style={{ ...styles.generalButton, ...buttonWidth }} onClick={() => this.handlereimbursable()}> {getreimburseable(equipment)} </button>
                                         <span style={{ ...regularFont, ...styles.generalFont }}>
