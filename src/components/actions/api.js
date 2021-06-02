@@ -103,7 +103,7 @@ export async function UploadReceipt(values) {
 
 export async function AppleLogin(values) {
 
-    const APIURL = `${process.env.REACT_APP_SERVER_API}/appbaseddriver/clientlogin`
+    const APIURL = `${process.env.REACT_APP_SERVER_API}/appbaseddriver/users/clientlogin`
   
     return fetch(APIURL, {
         method: 'post',

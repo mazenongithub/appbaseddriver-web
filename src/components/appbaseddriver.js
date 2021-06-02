@@ -676,15 +676,26 @@ class AppBasedDriver {
             return ({ fontSize: '30px' })
         }
     }
-    async clientlogin(values) {
+    async clientlogin() {
 
-
+        const {firstname, lastname, emailaddress, profileurl, phonenumber, apple, driverid} = this.state;
+        const values = {firstname, lastname, emailaddress, profileurl, phonenumber, apple, driverid}
 
         try {
             this.setState({ spinner: true })
             let response = await AppleLogin(values)
             this.setState({ spinner: false })
-            this.props.reduxUser(response)
+
+            if(response.hasOwnProperty("driverid")) {
+               
+                this.props.reduxUser(response)
+           
+            } else if (response.hasOwnProperty("register")) {
+                
+                this.setState({access:'register'})
+            }
+            
+            
         } catch (err) {
             this.setState({ spinner: false })
             alert(err)
@@ -702,6 +713,7 @@ class AppBasedDriver {
         try {
 
             const result = await firebase.auth().signInWithPopup(provider)
+            console.log(result)
             let firstname = "";
             let lastname = "";
             let emailaddress = "";
@@ -726,14 +738,11 @@ class AppBasedDriver {
                 phonenumber = user.phoneNumber;
             }
 
-            if (apple) {
-                this.setState({ client: 'apple' })
-            }
+           this.setState({firstname, lastname, emailaddress, profileurl, phonenumber, type, apple, driverid: this.state.driverid})
 
+           
 
-            const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, apple, driverid: this.state.driverid }
-
-            appbaseddriver.clientlogin.call(this, values)
+            appbaseddriver.clientlogin.call(this)
 
         } catch (err) {
             alert(err)

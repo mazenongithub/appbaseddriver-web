@@ -2,12 +2,12 @@ import React from 'react'
 import AppBasedDriver from './appbaseddriver'
 import { MyStylesheet } from './styles'
 import { Link } from 'react-router-dom'
-import { appIcon, okIcon } from './svg'
+import { okIcon } from './svg'
 import ClientID from './clientid';
 import { CheckDriverID } from './actions/api'
-import Spinner from './spinner'
 import Profile from './profile'
 import { validateDriverID } from './functions'
+import Spinner from './spinner'
 
 class Access {
 
@@ -20,9 +20,9 @@ class Access {
             console.log(response)
 
             if (response.hasOwnProperty("invalid")) {
-                this.setState({ checkdriverid: true, spinner: false, access: 'login' })
+                this.setState({ checkdriverid: false, message:response.invalid, spinner: false})
             } else {
-                this.setState({ checkdriverid: false, spinner: false, access: 'register' })
+                this.setState({ checkdriverid: true, message:'', spinner: false })
             }
 
         } catch (err) {
@@ -34,12 +34,12 @@ class Access {
     handledriverid(driverid) {
         driverid = driverid.toLowerCase();
 
-        this.setState({ driverid, client: false, access: false })
-        let validate = validateDriverID(driverid)
-        if (validate) {
-            this.setState({ access: false, })
+        this.setState({ driverid })
+        let message = validateDriverID(driverid)
+        if (message) {
+            this.setState({ checkdriverid:false, message })
         } else {
-            this.setState({ access: true })
+            this.setState({ checkdriverid: true, message })
         }
 
     }
@@ -48,24 +48,13 @@ class Access {
         const styles = MyStylesheet();
         const appbaseddriver = new AppBasedDriver();
         const headerFont = appbaseddriver.getHeaderFont.call(this)
-        const buttonwidth = appbaseddriver.getremoveicon.call(this)
         const regularFont = appbaseddriver.getRegularFont.call(this)
         const clientid = new ClientID();
         const access = new Access();
         const myuser = appbaseddriver.getuser.call(this)
         const profile = new Profile();
 
-        const accessmessage = () => {
-            let message = "";
-            if (!this.state.driverid || !this.state.access) {
-                message = `Please enter a valid driverid and press ok`
-            } else if (this.state.access) {
-                message = `Press Ok`
-            }
-
-
-            return message;
-        }
+     
         const okIconWidth = () => {
             if (this.state.width > 1200) {
                 return ({ width: '90px' })
@@ -78,70 +67,37 @@ class Access {
             }
         }
 
-        const okicon = () => {
-            if (this.state.spinner) {
-                return (<Spinner />)
-            } else if (this.state.access) {
-                return (<button style={{ ...styles.generalButton, ...okIconWidth() }} onClick={() => { access.checkdriverid.call(this) }}>
-                    {okIcon()}
-                </button>)
-            }
-        }
 
 
-        const loginmessage = () => {
-            if (this.state.access === 'login') {
-                return (<span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>Driver ID {this.state.driverid} found, Would you like to Login?</span>)
-            } else if (this.state.access === 'register') {
-                return (<span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>Driver ID {this.state.driverid} was not found, Would you like to Register?</span>)
-            } 
-        }
-
-        const showclientid = () => {
-            if (this.state.access === 'login') {
-                return (clientid.showclientid.call(this, "login"))
-
-            } else if (this.state.access === 'register') {
-                return (clientid.showclientid.call(this, "register"))
-
-            }
-        }
-
-        const signinSecure = () => {
-            if (this.state.client) {
-                return (<div style={{ ...styles.generalFlex, ...styles.bottomMargin10 }}>
-                    <div style={{ ...styles.flex1 }}>
-                        <button style={{ ...styles.generalButton, ...buttonwidth }}>
-                            {appIcon()}
-                        </button>
-                    </div>
-                    <div style={{ ...styles.flex5 }}>
-                        <span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>Your Client is {this.state.client} </span>
-                    </div>
-                </div>)
-            } else {
+        const register = () => {
+            if ((this.state.apple || this.state.google) && this.state.driverid && this.state.checkdriverid && (!this.state.spinner)) {
                 return (
 
-                    <div style={{ ...styles.generalFlex, ...styles.bottomMargin10 }}>
-                        <div style={{ ...styles.flex1 }}>
-                            {okicon()}
-                        </div>
-                        <div style={{ ...styles.flex5 }}>
-                            <span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>{loginmessage()}</span>
-                        </div>
-                    </div>)
-            }
-        }
-
-        const showappicon = () => {
-            if (this.state.access) {
-                return (<button style={{ ...styles.generalButton, ...buttonwidth }}>
-                    {appIcon()}
+                <button style={{ ...styles.generalButton, ...okIconWidth()}} onClick={() => { appbaseddriver.clientlogin.call(this) }}>
+                    {okIcon()}
                 </button>)
+            } else if (this.state.spinner) {
+                return(<Spinner/>)
+            }
+        }
+
+        const showdriverid = () => {
+
+
+            if (!myuser && (this.state.access === 'register')) {
+
+                return (<div style={{ ...styles.generalContainer, ...styles.bottomMargin10 }}>
+                    <span style={{ ...styles.generalFont, ...regularFont }}>Please Create A Driver ID</span>
+                    <input type="text" style={{ ...styles.generalField, ...styles.generalFont, ...regularFont }}
+                        onChange={event => { access.handledriverid.call(this, event.target.value) }}
+                        value={this.state.driverid}
+                        onBlur={() => { access.checkdriverid.call(this) }} />
+                </div>
+                )
             }
 
-
         }
+
 
         if (myuser) {
 
@@ -155,25 +111,18 @@ class Access {
                         <Link to={`/user/access`} style={{ ...styles.generalLink, ...styles.headerStyle, ...headerFont, ...styles.boldFont, ...styles.logoOutline, ...styles.logoColor }}>/access</Link>
                     </div>
 
-                    <div style={{ ...styles.generalFlex, ...styles.bottomMargin10 }}>
-                        <div style={{ ...styles.flex1 }}>
-                            {showappicon()}
-                        </div>
-                        <div style={{ ...styles.flex5 }}>
-                            <span style={{ ...styles.generalFont, ...headerFont, ...styles.boldFont }}>{accessmessage()}</span>
-                        </div>
+
+                    {clientid.showclientid.call(this)}
+
+                    {showdriverid()}
+                    {register()}
+
+                    <div style={{ ...styles.generalContainer, ...styles.alignCenter, ...styles.bottomMargin15 }}>
+                        <span style={{ ...styles.generalFont, ...regularFont }}>
+                                {this.state.message}
+                        </span>
                     </div>
 
-                    <div style={{ ...styles.generalContainer, ...styles.bottomMargin10 }}>
-                        <input type="text" style={{ ...styles.generalField, ...styles.generalFont, ...regularFont }}
-                            onChange={event => { access.handledriverid.call(this, event.target.value) }}
-                            value={this.state.driverid} />
-                    </div>
-
-
-                    {signinSecure()}
-
-                    {showclientid()}
 
 
                 </div>)
