@@ -470,6 +470,8 @@ class AppBasedDriver {
 
     }
 
+   
+
     getequipmentscosts(equipmentid) {
         const appbaseddriver = new AppBasedDriver();
         const equipment = appbaseddriver.getequipmentbyid.call(this, equipmentid)
@@ -477,12 +479,18 @@ class AppBasedDriver {
         if (equipment) {
             if (equipment.hasOwnProperty("costs")) {
                 costs = equipment.costs;
+                costs.sort((a, b) => {
+                    return sorttimes(a.purchasedate, b.purchasedate)
+                })
             }
         }
-        return costs.sort((a, b) => {
-            return sorttimes(a.purchasedate, b.purchasedate)
-        })
+        return costs;
+       
     }
+
+    
+
+    
 
     getequipmentkeybyid(equipmentid) {
         const appbaseddriver = new AppBasedDriver();
@@ -678,8 +686,8 @@ class AppBasedDriver {
     }
     async clientlogin() {
 
-        const {firstname, lastname, emailaddress, profileurl, phonenumber, apple, driverid} = this.state;
-        const values = {firstname, lastname, emailaddress, profileurl, phonenumber, apple, driverid}
+        const {firstname, lastname, emailaddress, profileurl, phonenumber, apple, google, driverid} = this.state;
+        const values = {firstname, lastname, emailaddress, profileurl, phonenumber, apple, google, driverid}
 
         try {
             this.setState({ spinner: true })
@@ -701,7 +709,7 @@ class AppBasedDriver {
             alert(err)
         }
     }
-    async appleSignIn(type) {
+    async appleSignIn() {
         const appbaseddriver = new AppBasedDriver();
         const provider = new firebase.auth.OAuthProvider('apple.com');
         provider.addScope('email');
@@ -738,7 +746,7 @@ class AppBasedDriver {
                 phonenumber = user.phoneNumber;
             }
 
-           this.setState({firstname, lastname, emailaddress, profileurl, phonenumber, type, apple, driverid: this.state.driverid})
+           this.setState({firstname, lastname, emailaddress, profileurl, phonenumber, apple, driverid: this.state.driverid})
 
            
 
@@ -752,7 +760,8 @@ class AppBasedDriver {
 
 
 
-    async googleSignIn(type) {
+    async googleSignIn() {
+        console.log("googlesign")
         const appbaseddriver = new AppBasedDriver();
 
 
@@ -780,10 +789,8 @@ class AppBasedDriver {
                 profileurl = user.providerData[0].photoURL
                 phonenumber = user.phoneNumber;
             }
-            if (google) {
-                this.setState({ client: 'google' })
-            }
-            const values = { firstname, lastname, emailaddress, profileurl, phonenumber, type, driverid: this.state.driverid, google }
+         
+            const values = { firstname, lastname, emailaddress, profileurl, phonenumber,  driverid: this.state.driverid, google }
 
 
 
