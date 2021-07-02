@@ -684,7 +684,14 @@ class AppBasedDriver {
             return ({ fontSize: '30px' })
         }
     }
+
+    resetState() {
+
+        this.setState({firstname:'', lastname:'', emailaddress:'', profileurl:'', phonenumber:'', apple:'', google:'', driverid:''})
+
+    }
     async clientlogin() {
+        const appbaseddriver = new AppBasedDriver();
 
         const {firstname, lastname, emailaddress, profileurl, phonenumber, apple, google, driverid} = this.state;
         const values = {firstname, lastname, emailaddress, profileurl, phonenumber, apple, google, driverid}
@@ -695,7 +702,8 @@ class AppBasedDriver {
             this.setState({ spinner: false })
 
             if(response.hasOwnProperty("driverid")) {
-               
+
+                appbaseddriver.resetState.call(this)
                 this.props.reduxUser(response)
            
             } else if (response.hasOwnProperty("register")) {
