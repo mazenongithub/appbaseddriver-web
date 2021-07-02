@@ -20,9 +20,9 @@ class Access {
             console.log(response)
 
             if (response.hasOwnProperty("invalid")) {
-                this.setState({ checkdriverid: false, message:response.invalid, spinner: false})
+                this.setState({ checkdriverid: false, message: response.invalid, spinner: false})
             } else {
-                this.setState({ checkdriverid: true, message:'', spinner: false })
+                this.setState({ checkdriverid: true, message:`${driverid} is valid, press ok to register`, spinner: false })
             }
 
         } catch (err) {
@@ -76,6 +76,8 @@ class Access {
                 <button style={{ ...styles.generalButton, ...okIconWidth()}} onClick={() => { appbaseddriver.clientlogin.call(this) }}>
                     {okIcon()}
                 </button>)
+
+
             } else if (this.state.spinner) {
                 return(<Spinner/>)
             }

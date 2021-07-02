@@ -687,15 +687,13 @@ class AppBasedDriver {
 
     resetState() {
 
-        this.setState({firstname:'', lastname:'', emailaddress:'', profileurl:'', phonenumber:'', apple:'', google:'', driverid:''})
+        this.setState({firstname:'', lastname:'', emailaddress:'', profileurl:'', phonenumber:'', apple:'', google:'', driverid:'', message:''})
 
     }
     async clientlogin() {
         const appbaseddriver = new AppBasedDriver();
-
         const {firstname, lastname, emailaddress, profileurl, phonenumber, apple, google, driverid} = this.state;
         const values = {firstname, lastname, emailaddress, profileurl, phonenumber, apple, google, driverid}
-
         try {
             this.setState({ spinner: true })
             let response = await AppleLogin(values)
