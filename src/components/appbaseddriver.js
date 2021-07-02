@@ -790,15 +790,9 @@ class AppBasedDriver {
                 phonenumber = user.phoneNumber;
             }
          
-            const values = { firstname, lastname, emailaddress, profileurl, phonenumber,  driverid: this.state.driverid, google }
+            this.setState({firstname, lastname, emailaddress, profileurl, phonenumber, google, driverid: this.state.driverid})
 
-
-
-
-            appbaseddriver.clientlogin.call(this, values)
-
-
-
+            appbaseddriver.clientlogin.call(this)
 
 
         } catch (error) {
