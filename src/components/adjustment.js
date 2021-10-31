@@ -310,10 +310,6 @@ class Adjustment {
                     <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
                         <button
                             style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin, ...buttonBackground(),...styles.adjustButtonSize }}
-                            onTouchEnd={()=>{ adjustment.unhighlightButton.call(this) }}
-                            onMouseDown={() => { adjustment.highlightButton.call(this) }}
-                            onMouseUp={() => { adjustment.unhighlightButton.call(this) }}
-                            onMouseLeave={() => { adjustment.unhighlightButton.call(this) }}
                             onClick={() => { adjustment.adjustEarnings.call(this) }}
                         >
 
