@@ -8,9 +8,15 @@ import { calculateDays, getOffsetDate, calculatetotalhours } from './functions';
 class Adjustment {
 
     compareTime(timein, timeout, compare) {
-        // timein = '10-27-2021'
+        // timein = '10-29-2021'
         // timeout = '10-31-2021'
         // compare = '2021/10/27 16:00:00-07:00'
+
+        timein = timein.split('-');
+        timein = `${timein[2]}/${timein[0]}/${timein[1]}`
+
+        timeout = timeout.split('-');
+        timeout = `${timeout[2]}/${timeout[0]}/${timeout[1]}`
 
         const offsetstart = getOffsetDate(timein);
         timein = new Date(`${timein.replace(/-/g, '/')} 00:00:00${offsetstart}`)
@@ -24,17 +30,15 @@ class Adjustment {
 
         if (timein <= compare && timeout >= compare) {
 
-            return true;
+            return true
         } else {
 
-            return false;
+            return false
         }
 
 
-
-
-
     }
+
 
 
     getTimeOut() {
@@ -171,7 +175,7 @@ class Adjustment {
     }
 
     adjustEarnings() {
-       
+
         const adjustment = new Adjustment();
         const startdate = adjustment.getTimeIn.call(this)
         const enddate = adjustment.getTimeOut.call(this)
@@ -181,40 +185,40 @@ class Adjustment {
         const totalamount = this.state.totalearnings
 
         const appbaseddriver = new AppBasedDriver();
-        if(window.confirm(`Are you sure you want to adjust earnings from ${startdate} to ${enddate}? $${dollarsperhour}/hr ${shifts} shifts ${totalhours} totalhours for ${totalamount}?`)) {
-        const myuser = appbaseddriver.getuser.call(this)
+        if (window.confirm(`Are you sure you want to adjust earnings from ${startdate} to ${enddate}? $${dollarsperhour}/hr ${shifts} shifts ${totalhours} totalhours for ${totalamount}?`)) {
+            const myuser = appbaseddriver.getuser.call(this)
 
-        if (myuser) {
+            if (myuser) {
 
-            const dollersperhour = adjustment.getEarningsPerHour.call(this)
+                const dollersperhour = adjustment.getEarningsPerHour.call(this)
 
-            if (Math.abs(dollersperhour) > 0) {
+                if (Math.abs(dollersperhour) > 0) {
 
-                const shifts = adjustment.getShifts.call(this)
-                if (shifts.length > 0) {
-// eslint-disable-next-line
-                    shifts.map(shift => {
-                        const earnings = (calculatetotalhours(shift.timeout, shift.timein) * dollersperhour) + Number(shift.earnings);
-                        const getshift = appbaseddriver.getshiftbyid.call(this, shift.shiftid)
-                        if (getshift) {
-                           
-                            const i = appbaseddriver.getshiftkeybyid.call(this, shift.shiftid)
-                            myuser.driver.shifts[i].earnings = earnings;
-                        }
+                    const shifts = adjustment.getShifts.call(this)
+                    if (shifts.length > 0) {
+                        // eslint-disable-next-line
+                        shifts.map(shift => {
+                            const earnings = (calculatetotalhours(shift.timeout, shift.timein) * dollersperhour) + Number(shift.earnings);
+                            const getshift = appbaseddriver.getshiftbyid.call(this, shift.shiftid)
+                            if (getshift) {
 
-                    })
+                                const i = appbaseddriver.getshiftkeybyid.call(this, shift.shiftid)
+                                myuser.driver.shifts[i].earnings = earnings;
+                            }
+
+                        })
+                    }
+
                 }
+
+                this.props.reduxUser(myuser)
+                this.setState({ totalearnings: 0 })
 
             }
 
-            this.props.reduxUser(myuser)
-            this.setState({ totalearnings: 0})
-
         }
 
-   }
 
-    
 
 
     }
@@ -223,10 +227,10 @@ class Adjustment {
         const adjustment = new Adjustment();
         const shifts = adjustment.getShifts.call(this)
         let earnings = 0;
-        if(shifts.length>0) {
-           // eslint-disable-next-line
-            shifts.map(shift=> {
-                earnings +=Number(shift.earnings)
+        if (shifts.length > 0) {
+            // eslint-disable-next-line
+            shifts.map(shift => {
+                earnings += Number(shift.earnings)
             })
         }
         return earnings;
@@ -237,12 +241,12 @@ class Adjustment {
         const adjustment = new Adjustment();
         const shifts = adjustment.getShifts.call(this)
         let earningsafter = 0;
-        if(shifts.length>0) {
+        if (shifts.length > 0) {
             const earningsperhour = adjustment.getEarningsPerHour.call(this)
-            if(Math.abs(earningsperhour)) {
-// eslint-disable-next-line
-                shifts.map(shift=> {
-                    earningsafter += calculatetotalhours(shift.timeout,shift.timein)*earningsperhour + Number(shift.earnings);
+            if (Math.abs(earningsperhour)) {
+                // eslint-disable-next-line
+                shifts.map(shift => {
+                    earningsafter += calculatetotalhours(shift.timeout, shift.timein) * earningsperhour + Number(shift.earnings);
                 })
             }
         }
@@ -251,15 +255,15 @@ class Adjustment {
 
     }
 
-  
+
     highlightButton() {
-        this.setState({highlightbutton_1:true})
+        this.setState({ highlightbutton_1: true })
     }
     unhighlightButton() {
-        this.setState({highlightbutton_1:false})
+        this.setState({ highlightbutton_1: false })
     }
 
-   
+
 
     showEarningsAdjustment() {
         const styles = MyStylesheet();
@@ -273,9 +277,9 @@ class Adjustment {
         const earningsafter = `$${Number(adjustment.getEarningsAfter.call(this)).toFixed(2)}`
 
         const buttonBackground = () => {
-            if(this.state.highlightbutton_1) {
-                return(styles.highlightbutton)
-            }   
+            if (this.state.highlightbutton_1) {
+                return (styles.highlightbutton)
+            }
         }
 
         if (this.state.adjustment) {
@@ -304,18 +308,18 @@ class Adjustment {
 
                     <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
                         <button
-                            style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin,...buttonBackground()}}
-                            onTouchStart={()=>{adjustment.highlightButton.call(this)}}
-                            onTouchEnd={()=>{adjustment.unhighlightButton.call(this)}}
-                            onMouseDown={()=>{adjustment.highlightButton.call(this)}}
-                            onMouseUp={()=>{adjustment.unhighlightButton.call(this)}}
-                            onMouseLeave={()=>{adjustment.unhighlightButton.call(this)}}
-                            onClick={()=>{adjustment.adjustEarnings.call(this)}}
-                            >
-                            
-                           Adjust
-                            </button>
-                           
+                            style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin, ...buttonBackground() }}
+                            onTouchStart={() => { adjustment.highlightButton.call(this) }}
+                            onTouchEnd={() => { adjustment.unhighlightButton.call(this) }}
+                            onMouseDown={() => { adjustment.highlightButton.call(this) }}
+                            onMouseUp={() => { adjustment.unhighlightButton.call(this) }}
+                            onMouseLeave={() => { adjustment.unhighlightButton.call(this) }}
+                            onClick={() => { adjustment.adjustEarnings.call(this) }}
+                        >
+
+                            Adjust
+                        </button>
+
                     </div>
                 </div>
             )
@@ -333,9 +337,9 @@ class Adjustment {
             if (this.state.width > 1200) {
                 return ({ width: '60px' })
             } else if (this.state.width > 600) {
-                return ({ width: '40px' })
+                return ({ width: '50px' })
             } else {
-                return ({ width: '20px' })
+                return ({ width: '40px' })
             }
 
         }
