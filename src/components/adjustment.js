@@ -199,7 +199,7 @@ class Adjustment {
                     if (shifts.length > 0) {
                         // eslint-disable-next-line
                         shifts.map(shift => {
-                            const earnings = (calculatetotalhours(shift.timeout, shift.timein) * dollersperhour) + Number(shift.earnings);
+                            const earnings = Number((calculatetotalhours(shift.timeout, shift.timein) * dollersperhour) + Number(shift.earnings)).toFixed(2);
                             const getshift = appbaseddriver.getshiftbyid.call(this, shift.shiftid)
                             if (getshift) {
 
