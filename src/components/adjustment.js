@@ -279,7 +279,7 @@ class Adjustment {
 
         const buttonBackground = () => {
             if (this.state.highlightbutton_1) {
-                return (styles.highlightbutton)
+                return ({...styles.highlightbutton})
             }
         }
 
@@ -309,7 +309,7 @@ class Adjustment {
 
                     <div style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
                         <button
-                            style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin, ...buttonBackground() }}
+                            style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin, ...buttonBackground(),...styles.adjustButtonSize }}
                             onTouchStart={() => { adjustment.highlightButton.call(this) }}
                             onTouchEnd={() => { adjustment.unhighlightButton.call(this) }}
                             onMouseDown={() => { adjustment.highlightButton.call(this) }}
