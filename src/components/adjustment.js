@@ -119,7 +119,7 @@ class Adjustment {
         const timein = adjustment.getTimeIn.call(this)
         const timeout = adjustment.getTimeOut.call(this)
         const days = calculateDays(timein, timeout)
-        const totalhours = adjustment.getTotalHours.call(this)
+        const totalhours = +Number(adjustment.getTotalHours.call(this)).toFixed(2)
 
         const shifts = adjustment.getShifts.call(this).length
 
@@ -181,11 +181,12 @@ class Adjustment {
         const enddate = adjustment.getTimeOut.call(this)
         const dollarsperhour = Number(adjustment.getEarningsPerHour.call(this)).toFixed(2);
         const shifts = adjustment.getShifts.call(this).length;
-        const totalhours = adjustment.getTotalHours.call(this);
+        const totalhours = +Number(adjustment.getTotalHours.call(this)).toFixed(2);
         const totalamount = this.state.totalearnings
-
+        const earningsafter = Number(adjustment.getEarningsAfter.call(this)).toFixed(2)
+        const earningsbefore =Number(adjustment.getEarningsBefore.call(this)).toFixed(2)
         const appbaseddriver = new AppBasedDriver();
-        if (window.confirm(`Are you sure you want to adjust earnings from ${startdate} to ${enddate}? $${dollarsperhour}/hr ${shifts} shifts ${totalhours} totalhours for $${totalamount}?`)) {
+        if (window.confirm(`Are you sure you want to adjust earnings from ${startdate} to ${enddate}? $${dollarsperhour}/hr for ${shifts} shifts and ${totalhours} totalhours adding a total of $${totalamount} to $${earningsbefore} making $${earningsafter}?`)) {
             const myuser = appbaseddriver.getuser.call(this)
 
             if (myuser) {
