@@ -64,6 +64,15 @@ export function MyStylesheet() {
         generalLinkonly: {
             textDecoration: 'none',
         },
+        highlightbutton:{
+            backgroundColor:'#A3A7BF',
+            opacity:'50%',
+
+        },
+        adjustButtonSize:{
+            width:'190px',
+            height:'60px'
+        },
         generalLink: {
             textDecoration: 'none',
             color: '#000000'

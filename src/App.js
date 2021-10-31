@@ -22,7 +22,7 @@ class App extends Component {
     super(props)
     this.state = {
       render: 'render', width: window.innerWidth, height: window.innerHeight, message: '', driverid: '', checkdriverid: false, apple: '', google: '', firstname: '', lastname: '', profileurl: '', phonenumber: '', emailaddress: '', emailaddresscheck: '', activeequipmentid: false, activeshiftid: false,
-      timeinmonth: '', timeinday: '', timeinyear: '', timeinhours: '', timeinminutes: '', timeinampm: '', timeoutmonth: '', timeoutday: '', timeoutminutes: '', timeouthours: '', timeoutyear: '', timeoutampm: '', activeyear: new Date().getFullYear(), activemonth: this.setActiveMonth(), activeslideid: "driver", spinner: false, access: 'login', hideshifts: [], hidecosts: [], uistart: '', uiend: ''
+      timeinmonth: '', timeinday: '', timeinyear: '', timeinhours: '', timeinminutes: '', timeinampm: '', timeoutmonth: '', timeoutday: '', timeoutminutes: '', timeouthours: '', timeoutyear: '', timeoutampm: '', activeyear: new Date().getFullYear(), activemonth: this.setActiveMonth(), activeslideid: "driver", spinner: false, access: 'login', hideshifts: [], hidecosts: [], uistart: '', uiend: '', adjustment:false, totalearnings:0, highlightbutton_1:false
     }
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }

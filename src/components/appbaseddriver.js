@@ -612,6 +612,7 @@ class AppBasedDriver {
         const appbaseddriver = new AppBasedDriver();
         const menufont = appbaseddriver.menufont.call(this)
         const regularFont = appbaseddriver.getRegularFont.call(this)
+
         if (!this.state.spinner) {
             return (
                 <div style={{ ...styles.generalContainer, ...styles.alignCenter }}>
@@ -619,7 +620,8 @@ class AppBasedDriver {
                     <div style={{ ...styles.generalContainer, ...styles.alignCenter, ...styles.bottomMargin15 }}><span style={{ ...styles.generalFont, ...regularFont }}>{this.state.message} </span></div>
                     <button
                         style={{ ...styles.generalButton, ...styles.generalLink, ...styles.headerStyle, ...styles.boldFont, ...menufont, ...styles.menuColor, ...styles.menuBackColor, ...styles.addBorderRadius5, ...styles.generalPadding, ...styles.whiteOutline, ...styles.addMargin }}
-                        onClick={() => appbaseddriver.savedriver.call(this)} >Save Driver</button>
+                        onClick={() => appbaseddriver.savedriver.call(this)} >Save Driver
+                        </button>
                 </div>
             )
         } else {

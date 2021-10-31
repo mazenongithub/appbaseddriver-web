@@ -346,7 +346,7 @@ export function sorttimes(timeina, timeinb) {
 }
 
 export function getAMPMfromTimeIn(timein) {
-    console.log(timein)
+
     //let timein ='2020/05/13 20:00:00'
     const newDate = new Date(timein)
     let hours = newDate.getHours();
@@ -823,6 +823,21 @@ export function getInterval(salvagedate, purchasedate, reoccurring, amount, deta
     return costArray
 
 
+}
+
+export function calculateDays(timein,timeout) {
+    // const timein = '10-28-2021'
+    // const timeout = '10-30-2028'
+    
+    
+      const offsetstart = getOffsetDate(timein);
+      const datestart = new Date(`${timein.replace(/-/g, '/')} 00:00:00${offsetstart}`)
+      const offsetcompletion= getOffsetDate(timeout);
+      const datecompletion = new Date(`${timeout.replace(/-/g, '/')} 00:00:00${offsetcompletion}`)
+      const starttime = datestart.getTime();
+      const endtime = datecompletion.getTime();
+      const interval = Math.round((endtime - starttime) / (3600000 * 24));
+      return (interval+1)
 
 }
 

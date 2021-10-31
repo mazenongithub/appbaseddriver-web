@@ -12,6 +12,7 @@ import DriverUI from './driverui';
 import Diagrams from './diagrams'
 import MediumDiagram from './mediumdiagram'
 import SmallDiagram from './smalldiagram';
+import Adjustment from './adjustment';
 class Driver {
 
     getearnings() {
@@ -381,7 +382,7 @@ class Driver {
         const mediumdiagram = new MediumDiagram();
         const smalldiagram = new SmallDiagram();
         const header = new Header();
-
+        const adjustment = new Adjustment();
         const showdiagram = () => {
             if (this.state.width > 1200) {
                 return (diagrams.showdiagrams.call(this))
@@ -482,9 +483,13 @@ class Driver {
                             </div>
                         </div>
 
+                        {adjustment.showAdjustment.call(this)}
+
                         {driverui.showui.call(this)}
 
                         {driver.showshifts.call(this)}
+
+                        
 
                         {appbaseddriver.showsavedriver.call(this)}
 
