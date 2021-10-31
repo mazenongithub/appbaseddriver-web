@@ -19,9 +19,9 @@ class Adjustment {
         timeout = `${timeout[2]}/${timeout[0]}/${timeout[1]}`
 
         const offsetstart = getOffsetDate(timein);
-        timein = new Date(`${timein.replace(/-/g, '/')} 00:00:00${offsetstart}`)
+        timein = new Date(`${timein} 00:00:00${offsetstart}`)
         const offsetcompletion = getOffsetDate(timeout);
-        timeout = new Date(`${timeout.replace(/-/g, '/')} 23:59:59${offsetcompletion}`)
+        timeout = new Date(`${timeout} 23:59:59${offsetcompletion}`)
         compare = new Date(compare)
         timein = timein.getTime();
         timeout = timeout.getTime();
@@ -185,7 +185,7 @@ class Adjustment {
         const totalamount = this.state.totalearnings
 
         const appbaseddriver = new AppBasedDriver();
-        if (window.confirm(`Are you sure you want to adjust earnings from ${startdate} to ${enddate}? $${dollarsperhour}/hr ${shifts} shifts ${totalhours} totalhours for ${totalamount}?`)) {
+        if (window.confirm(`Are you sure you want to adjust earnings from ${startdate} to ${enddate}? $${dollarsperhour}/hr ${shifts} shifts ${totalhours} totalhours for $${totalamount}?`)) {
             const myuser = appbaseddriver.getuser.call(this)
 
             if (myuser) {

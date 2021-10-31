@@ -99,21 +99,21 @@ export function checkactivedate(purchasedate, activemonth, activeyear) {
 
 }
 
-export function compareDates(purchasedate,salvagedate) {
+export function compareDates(purchasedate, salvagedate) {
     //const purchasedate = '2021/04/20'
     //const salvagedate = '2023/04/20'
-    
-   const salvageDate = new Date(salvagedate)
-   const purchaseDate = new Date(purchasedate)
-    
-   let compare = true;
-    
-    if(salvageDate.getTime()<purchaseDate.getTime()) {
-      compare = false; 
+
+    const salvageDate = new Date(salvagedate)
+    const purchaseDate = new Date(purchasedate)
+
+    let compare = true;
+
+    if (salvageDate.getTime() < purchaseDate.getTime()) {
+        compare = false;
     }
-    return compare; 
-    
-  }
+    return compare;
+
+}
 
 export function getOffsetDate(timein) {
     let datein = new Date(`${timein} 00:00:00 UTC`)
@@ -240,7 +240,7 @@ export function checkactivemonth(timein, activemonth, activeyear) {
     // timein = '2020/05/24 12:00:00-08:00:00
     // activemonth = []
     // activeyear = 2020
- 
+
 
     let active = false
     const datein = new Date(timein)
@@ -351,7 +351,7 @@ export function getAMPMfromTimeIn(timein) {
     const newDate = new Date(timein)
     let hours = newDate.getHours();
     let ampm = "";
-    if (hours>= 12) {
+    if (hours >= 12) {
         ampm = 'pm'
 
     } else {
@@ -742,7 +742,7 @@ export function getYearFromDate(timein) {
 }
 
 export function validateLoanPayment(purchase, purchasedate, salvage, salvagedate, apr) {
- 
+
     let validate = true;
 
     if (new Date(purchasedate).getTime() > new Date(salvagedate).getTime()) {
@@ -770,8 +770,8 @@ export function validateLoanPayment(purchase, purchasedate, salvage, salvagedate
 
 
 export function getInterval(salvagedate, purchasedate, reoccurring, amount, detail) {
- 
-   
+
+
     let period = 0;
     let x = 0;
     let cost = {};
@@ -825,30 +825,36 @@ export function getInterval(salvagedate, purchasedate, reoccurring, amount, deta
 
 }
 
-export function calculateDays(timein,timeout) {
+export function calculateDays(timein, timeout) {
     // const timein = '10-28-2021'
     // const timeout = '10-30-2028'
-    
-    
-      const offsetstart = getOffsetDate(timein);
-      const datestart = new Date(`${timein.replace(/-/g, '/')} 00:00:00${offsetstart}`)
-      const offsetcompletion= getOffsetDate(timeout);
-      const datecompletion = new Date(`${timeout.replace(/-/g, '/')} 00:00:00${offsetcompletion}`)
-      const starttime = datestart.getTime();
-      const endtime = datecompletion.getTime();
-      const interval = Math.round((endtime - starttime) / (3600000 * 24));
-      return (interval+1)
+
+    timein = timein.split('-');
+    timein = `${timein[2]}/${timein[0]}/${timein[1]}`
+
+    timeout = timeout.split('-');
+    timeout = `${timeout[2]}/${timeout[0]}/${timeout[1]}`
+
+
+    const offsetstart = getOffsetDate(timein);
+    const datestart = new Date(`${timein} 00:00:00${offsetstart}`)
+    const offsetcompletion = getOffsetDate(timeout);
+    const datecompletion = new Date(`${timeout} 00:00:00${offsetcompletion}`)
+    const starttime = datestart.getTime();
+    const endtime = datecompletion.getTime();
+    const interval = Math.round((endtime - starttime) / (3600000 * 24));
+    return (interval + 1)
 
 }
 
-export function abbMonth (mon) {
-  
+export function abbMonth(mon) {
+
     // mon = 2021/01/23
-     const newDate = new Date(mon)
-     return (`${newDate.getMonth()+1}/${newDate.getDate()}`)
-     
-     
-   }
+    const newDate = new Date(mon)
+    return (`${newDate.getMonth() + 1}/${newDate.getDate()}`)
+
+
+}
 
 export function increasedatebyoneday(timein) {
 
