@@ -141,17 +141,17 @@ class Costs {
     showcosts(equipmentid) {
         const appbaseddriver = new AppBasedDriver();
         const regularFont = appbaseddriver.getRegularFont.call(this)
-        const deliveries = appbaseddriver.getdeliveriesbyequipmentid.call(this,equipmentid) 
-        const hoursworked = +Number(appbaseddriver.gethoursworkedbyequipmentid.call(this,equipmentid))
+        const deliveries = appbaseddriver.getdeliveriesbyequipmentid.call(this, equipmentid)
+        const hoursworked = +Number(appbaseddriver.gethoursworkedbyequipmentid.call(this, equipmentid))
         const getcosts = appbaseddriver.getcostsbyequipmentid.call(this, equipmentid)
         const dollarsperhours = getcosts > 0 && hoursworked > 0 ? Number(getcosts / hoursworked).toFixed(2) : 0;
         const dollarsperdelivery = getcosts > 0 && deliveries > 0 ? Number(getcosts / deliveries).toFixed(2) : 0
-        const miles = appbaseddriver.getmilesbyequipmentid.call(this)
+        const miles = appbaseddriver.getmilesbyequipmentid.call(this, equipmentid)
         const dollarspermile = getcosts > 0 && miles > 0 ? Number(getcosts / miles).toFixed(2) : 0;
         const styles = MyStylesheet();
         const driverui = new DriverUI();
         const costs = new Costs();
-        
+
 
         const output = () => {
             if (this.state.width > 600) {
@@ -169,11 +169,11 @@ class Costs {
 
                                     <span style={{ ...regularFont, ...styles.generalFont }}>
                                         Deliveries
-                            </span><br />
+                                    </span><br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>{deliveries}</span><br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>
                                         Hours Worked
-                            </span><br />
+                                    </span><br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>{+Number(hoursworked).toFixed(2)}</span>
                                 </div>
                                 <div style={{ ...styles.flex1 }}>
@@ -231,7 +231,7 @@ class Costs {
                                     <span style={{ ...regularFont, ...styles.generalFont }}>Miles</span><br />
                                     <span style={{ ...regularFont, ...styles.generalFont }}>{Number(miles)}</span>
                                 </div>
-                                
+
                             </div>
 
                         </div>
@@ -248,60 +248,60 @@ class Costs {
                         <div style={{ ...styles.flex1 }}>
                             {costs.showchart.call(this, 'hourly')}
                         </div>
-                        <div style={{ ...styles.flex1}}>
+                        <div style={{ ...styles.flex1 }}>
                             {costs.showchart.call(this, 'delivery')}
                         </div>
-        
+
                         <div style={{ ...styles.flex1 }}>
                             {costs.showchart.call(this, 'miles')}
                         </div>
                     </div>)
-        
+
             } else if (this.state.width > 800) {
-        
+
                 return (
                     <div style={{ ...styles.generalFlex }}>
                         <div style={{ ...styles.flex1 }}>
-        
+
                             <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                                <div style={{ ...styles.flex1}}>
+                                <div style={{ ...styles.flex1 }}>
                                     {costs.showchart.call(this, 'hourly')}
                                 </div>
                                 <div style={{ ...styles.flex1 }}>
                                     {costs.showchart.call(this, 'delivery')}
                                 </div>
                             </div>
-        
+
                             <div style={{ ...styles.generalFlex }}>
                                 <div style={{ ...styles.flex1, ...styles.alignCenter }}>
                                     {costs.showchart.call(this, 'miles')}
                                 </div>
                             </div>
-        
+
                         </div>
                     </div>)
             } else {
-                return(<div style={{ ...styles.generalFlex }}>
+                return (<div style={{ ...styles.generalFlex }}>
                     <div style={{ ...styles.flex1 }}>
-    
+
                         <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                            <div style={{ ...styles.flex1}}>
+                            <div style={{ ...styles.flex1 }}>
                                 {costs.showchart.call(this, 'hourly')}
                             </div>
                         </div>
-    
+
                         <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                             <div style={{ ...styles.flex1 }}>
                                 {costs.showchart.call(this, 'delivery')}
                             </div>
                         </div>
-    
+
                         <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                             <div style={{ ...styles.flex1 }}>
                                 {costs.showchart.call(this, 'miles')}
                             </div>
                         </div>
-    
+
                     </div>
                 </div>)
             }
