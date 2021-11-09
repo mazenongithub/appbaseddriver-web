@@ -141,16 +141,17 @@ class Costs {
     showcosts(equipmentid) {
         const appbaseddriver = new AppBasedDriver();
         const regularFont = appbaseddriver.getRegularFont.call(this)
-        const deliveries = appbaseddriver.getdeliveries.call(this)
-        const hoursworked = +Number(appbaseddriver.gethoursworked.call(this))
+        const deliveries = appbaseddriver.getdeliveriesbyequipmentid.call(this,equipmentid) 
+        const hoursworked = +Number(appbaseddriver.gethoursworkedbyequipmentid.call(this,equipmentid))
         const getcosts = appbaseddriver.getcostsbyequipmentid.call(this, equipmentid)
         const dollarsperhours = getcosts > 0 && hoursworked > 0 ? Number(getcosts / hoursworked).toFixed(2) : 0;
         const dollarsperdelivery = getcosts > 0 && deliveries > 0 ? Number(getcosts / deliveries).toFixed(2) : 0
-        const miles = appbaseddriver.getmiles.call(this)
+        const miles = appbaseddriver.getmilesbyequipmentid.call(this)
         const dollarspermile = getcosts > 0 && miles > 0 ? Number(getcosts / miles).toFixed(2) : 0;
         const styles = MyStylesheet();
         const driverui = new DriverUI();
         const costs = new Costs();
+        
 
         const output = () => {
             if (this.state.width > 600) {
