@@ -339,6 +339,7 @@ class Adjustment {
             }
 
         }
+        if(!this.state.activeshiftid) {
         return (
             <div style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
 
@@ -364,6 +365,8 @@ class Adjustment {
 
             </div>
         )
+
+        }
     }
 
 }

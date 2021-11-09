@@ -13,6 +13,7 @@ import Diagrams from './diagrams'
 import MediumDiagram from './mediumdiagram'
 import SmallDiagram from './smalldiagram';
 import Adjustment from './adjustment';
+import EquipmentUI from './equipmentui'
 class Driver {
 
     getearnings() {
@@ -50,9 +51,10 @@ class Driver {
         const timeoutampm = this.state.timeoutampm;
         let timeout = makeTimeString(timeoutyear, timeoutmonth, timeoutday, timeouthours, timeoutminutes, timeoutampm);
         timeout = UTCTimeStringfromTime(timeout);
+        const equipment = appbaseddriver.createEquipmentList.call(this)
 
         const newShift = (shiftid, timein, timeout, earnings, deliveries, miles) => {
-            return ({ shiftid, timein, timeout, earnings, deliveries, miles })
+            return ({ shiftid, timein, timeout, earnings, deliveries, miles, equipment })
         }
         const myuser = appbaseddriver.getuser.call(this)
         if (myuser) {
@@ -383,6 +385,7 @@ class Driver {
         const smalldiagram = new SmallDiagram();
         const header = new Header();
         const adjustment = new Adjustment();
+        const equipmentui = new EquipmentUI();
         const showdiagram = () => {
             if (this.state.width > 1200) {
                 return (diagrams.showdiagrams.call(this))
@@ -483,7 +486,13 @@ class Driver {
                             </div>
                         </div>
 
-                        {adjustment.showAdjustment.call(this)}
+                     
+                            {adjustment.showAdjustment.call(this)}
+                            
+                        
+                            {equipmentui.showEquipmentUI.call(this)}
+                        
+   
 
                         {driverui.showui.call(this)}
 

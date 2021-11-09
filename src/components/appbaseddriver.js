@@ -555,6 +555,19 @@ class AppBasedDriver {
         return nav;
     }
 
+    getButtonWidth() {
+ 
+            if (this.state.width > 1200) {
+                return ({ width: '60px' })
+            } else if (this.state.width > 600) {
+                return ({ width: '50px' })
+            } else {
+                return ({ width: '40px' })
+            }
+
+        
+    }
+
     async logoutuser() {
         const design = new AppBasedDriver();
         const myuser = design.getuser.call(this);
@@ -606,6 +619,26 @@ class AppBasedDriver {
         }
 
 
+    }
+   
+    createEquipmentList() {
+        const appbaseddriver = new AppBasedDriver();
+        const equipment = appbaseddriver.getequipment.call(this)
+        let equipmentids = [];
+        if(equipment) {
+
+            // eslint-disable-next-line
+            equipment.map(equip=> {
+                equipmentids.push(equip.equipmentid)
+            })
+
+        }
+        if(equipmentids.length>0) {
+            return equipmentids;
+        } else {
+            return false;
+        }
+       
     }
     showsavedriver() {
         const styles = MyStylesheet();
