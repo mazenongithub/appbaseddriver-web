@@ -6,10 +6,9 @@ class Costs {
 
     showchart(type) {
         const appbaseddriver = new AppBasedDriver();
-
-        const deliveries = appbaseddriver.getdeliveries.call(this)
-        const hoursworked = appbaseddriver.gethoursworked.call(this)
-        const miles = appbaseddriver.getmiles.call(this)
+        const deliveries = appbaseddriver.getdeliveriesbyequipmentid.call(this,this.props.match.params.equipmentid)
+        const hoursworked = appbaseddriver.gethoursworkedbyequipmentid.call(this,this.props.match.params.equipmentid)
+        const miles = appbaseddriver.getmilesbyequipmentid.call(this,this.props.match.params.equipmentid)
         const costs = appbaseddriver.getcostsbyequipmentid.call(this, this.props.match.params.equipmentid)
         const costsperhours = costs > 0 && hoursworked > 0 ? costs / hoursworked : 0;
         const costsperdelivery = costs > 0 && deliveries > 0 ? costs / deliveries : 0;
