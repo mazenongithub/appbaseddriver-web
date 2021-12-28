@@ -84,11 +84,11 @@ class App extends Component {
       let hours = new Date().getHours();
       if (hours > 12) {
         hours = hours - 12;
-      }
-      if (hours < 10) {
+      } else if (hours < 10 && hours > 0) {
         hours = `0${hours}`
+      } else if (Number(hours) === 0) {
+        hours = 12;
       }
-      return hours;
     }
     const timeoutminutes = () => {
       let minutes = new Date().getMinutes();
@@ -145,9 +145,10 @@ class App extends Component {
       let hours = new Date().getHours();
       if (hours > 12) {
         hours = hours - 12;
-      }
-      if (hours < 10) {
+      } else if (hours < 10 && hours > 0) {
         hours = `0${hours}`
+      } else if (Number(hours) === 0) {
+        hours = 12;
       }
       return hours;
     }

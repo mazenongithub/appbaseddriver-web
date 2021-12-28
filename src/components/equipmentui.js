@@ -96,7 +96,10 @@ class EquipmentUI {
         const equipment = appbaseddriver.createEquipmentList.call(this);
         let getequipment = [];
         if (equipment) {
+             // eslint-disable-next-line
             equipment.map(equipmentid => {
+
+               
                 getequipment.push(equipmentui.showEquipment.call(this, equipmentid))
             })
 
