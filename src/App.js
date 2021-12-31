@@ -89,6 +89,8 @@ class App extends Component {
       } else if (Number(hours) === 0) {
         hours = 12;
       }
+      return hours;
+
     }
     const timeoutminutes = () => {
       let minutes = new Date().getMinutes();
