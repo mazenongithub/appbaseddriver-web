@@ -494,11 +494,13 @@ class Driver {
 
                         {appbaseddriver.showsavedriver.call(this)}
 
+                        {driverui.showui.call(this)}
+
                         {driver.showshifts.call(this)}
 
                         {income.showincome.call(this)}
 
-                        {driverui.showui.call(this)}
+                        
 
 
 
