@@ -104,7 +104,7 @@ class Driver {
                             const i = appbaseddriver.getshiftkeybyid.call(this, this.state.activeshiftid)
                             myuser.driver.shifts[i].earnings = earnings;
                             this.props.reduxUser(myuser)
-                           
+
                             driver.updateUI.call(this);
 
                         }
@@ -240,15 +240,15 @@ class Driver {
         const mon = getMonString(Number(month))
 
         let activemonth = this.state.activemonth;
-        if(activemonth.indexOf(mon)  === -1) {
-           activemonth.push(mon)
-          
+        if (activemonth.indexOf(mon) === -1) {
+            activemonth.push(mon)
+
 
         }
-    
-    
 
-        this.setState({activemonth})
+
+
+        this.setState({ activemonth })
     }
 
     makeshiftactive(shiftid) {
@@ -257,7 +257,7 @@ class Driver {
         if (this.state.activeshiftid === shiftid) {
 
             this.setState({ activeshiftid: false })
-      
+
 
         } else {
             const shift = appbaseddriver.getshiftbyid.call(this, shiftid)
@@ -269,7 +269,7 @@ class Driver {
                 const timeinhours = getHoursfromTimein(shift.timein)
                 const timeinminutes = getMinutesfromTimein(shift.timein)
                 const timeinampm = getAMPMfromTimeIn(shift.timein)
-                
+
 
                 const timeoutmonth = getMonthfromTimein(shift.timeout);
                 const timeoutday = getDayfromTimein(shift.timeout);
@@ -278,7 +278,7 @@ class Driver {
                 const timeoutminutes = getMinutesfromTimein(shift.timeout)
                 const timeoutampm = getAMPMfromTimeIn(shift.timeout);
 
-                this.setState({ timeinmonth, timeinday, timeinyear, timeinhours, timeinminutes, timeinampm, timeoutmonth, timeoutday, timeoutyear, timeouthours, timeoutminutes, timeoutampm, activeshiftid: shiftid, activeyear:Number(timeinyear) })
+                this.setState({ timeinmonth, timeinday, timeinyear, timeinhours, timeinminutes, timeinampm, timeoutmonth, timeoutday, timeoutyear, timeouthours, timeoutminutes, timeoutampm, activeshiftid: shiftid, activeyear: Number(timeinyear) })
 
             } else {
                 this.setState({ activeshiftid: shiftid })
@@ -486,25 +486,26 @@ class Driver {
                             </div>
                         </div>
 
-                     
-                            {adjustment.showAdjustment.call(this)}
-                            
-                        
-                            {equipmentui.showEquipmentUI.call(this)}
-                        
-   
+
+                        {adjustment.showAdjustment.call(this)}
+
+
+                        {equipmentui.showEquipmentUI.call(this)}
+
+                        {income.showincome.call(this)}
 
                         {driverui.showui.call(this)}
 
                         {driver.showshifts.call(this)}
 
-                        
+
 
                         {appbaseddriver.showsavedriver.call(this)}
 
-                        {income.showincome.call(this)}
+                       
 
                         {showdiagram()}
+
 
                     </div>
 
