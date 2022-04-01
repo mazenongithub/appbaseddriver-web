@@ -492,17 +492,20 @@ class Driver {
 
                         {equipmentui.showEquipmentUI.call(this)}
 
+                        {appbaseddriver.showsavedriver.call(this)}
+
+                        {driver.showshifts.call(this)}
+
                         {income.showincome.call(this)}
 
                         {driverui.showui.call(this)}
 
-                        {driver.showshifts.call(this)}
 
 
 
-                        {appbaseddriver.showsavedriver.call(this)}
 
-                       
+
+
 
                         {showdiagram()}
 
