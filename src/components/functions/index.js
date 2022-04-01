@@ -1010,6 +1010,7 @@ export function check_31(timein) {
 
 
 export function check_30(timein) {
+    console.log(timein)
     const dateobj = new Date(`${timein} UTC`)
     let month = dateobj.getMonth();
     if (month !== 1) {

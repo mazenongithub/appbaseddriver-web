@@ -144,14 +144,9 @@ class AppBasedDriver {
 
     updateUI(year) {
 
-        let uistart = this.state.uistart;
-        let uiend = this.state.uiend;
-        if (year < uistart) {
-            uistart = year;
-        } else if (year > uiend) {
-            uiend = year;
-        }
-        this.setState({ uistart, uiend })
+       
+        
+        this.setState({ uistart:year - 3, uiend:year })
     }
 
     setUI() {

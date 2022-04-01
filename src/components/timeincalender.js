@@ -1105,7 +1105,6 @@ class TimeInCalender {
                     break;
                 case "Sat":
                     return (check31)
-
                 default:
                     break;
 
