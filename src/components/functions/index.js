@@ -602,7 +602,7 @@ export function getDayString(day) {
 
 
 export function check_29_feb_leapyear(timein) {
-    const dateobj = new Date(`${timein}`)
+    const dateobj = new Date(timein)
     let month = dateobj.getMonth();
 
     if (month === 1) {
@@ -1001,7 +1001,7 @@ export function check_30date(dateobj) {
 }
 
 export function check_31(timein) {
-    const dateobj = new Date(`${timein}`)
+    const dateobj = new Date(timein)
     let month = dateobj.getMonth();
     if (month === 0 || month === 2 || month === 4 || month === 6 || month === 7 || month === 9 || month === 11) {
         return 31;
@@ -1011,7 +1011,7 @@ export function check_31(timein) {
 
 export function check_30(timein) {
     console.log(timein)
-    const dateobj = new Date(`${timein} UTC`)
+    const dateobj = new Date(timein)
     let month = dateobj.getMonth();
     if (month !== 1) {
         return 30;

@@ -146,7 +146,7 @@ class AppBasedDriver {
 
        
         
-        this.setState({ uistart:year - 3, uiend:year })
+        this.setState({ uistart:year - 3n, uiend:year })
     }
 
     setUI() {
