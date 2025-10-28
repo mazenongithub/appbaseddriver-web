@@ -1,6 +1,7 @@
 import React from 'react';
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { getAuth } from "firebase/auth";
+import { auth, googleProvider, appleProvider } from "./firebase";
+import { signInWithPopup } from "firebase/auth"
 import { AppleLogin, LogoutUser, SaveDriver } from './actions/api'
 import { MyStylesheet } from './styles';
 import { calculatetotalhours, getRepaymentCosts, getInterval, checkactivemonth, checkactivedate, validateLoanPayment, calculateTotalMonths, compareDates, sorttimes, getMonString } from './functions'
@@ -841,16 +842,16 @@ class AppBasedDriver {
     }
     async appleSignIn() {
         const appbaseddriver = new AppBasedDriver();
-        const provider = new firebase.auth.OAuthProvider('apple.com');
-        provider.addScope('email');
-        provider.addScope('name');
+  
+
+        const auth = getAuth();
 
 
 
 
         try {
 
-            const result = await firebase.auth().signInWithPopup(provider)
+            const result = await signInWithPopup(auth, appleProvider);
             console.log(result)
             let firstname = "";
             let lastname = "";
@@ -891,10 +892,10 @@ class AppBasedDriver {
 
 
     async googleSignIn() {
-        console.log("googlesign")
+   
         const appbaseddriver = new AppBasedDriver();
 
-
+       
         try {
 
             let google = "";
@@ -904,10 +905,9 @@ class AppBasedDriver {
             let profileurl = "";
             let phonenumber = "";
             let user = {}
-            const provider = new firebase.auth.GoogleAuthProvider();
-            provider.addScope('email');
-            provider.addScope('profile');
-            let result = await firebase.auth().signInWithPopup(provider)
+            
+          
+             const result = await signInWithPopup(auth, googleProvider);
 
             if (result.hasOwnProperty("user")) {
 

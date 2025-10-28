@@ -3,9 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './components/actions';
 import { CheckUser } from './components/actions/api'
-import firebase from 'firebase/app';
 import { MyStylesheet } from './components/styles'
-import 'firebase/auth';
 import './App.css';
 import Header from './components/header'
 import Home from './components/home';
@@ -32,19 +30,8 @@ class App extends Component {
     document.getElementsByTagName('meta')["description"].content = "Input earnings, shifts, miles, and your deliveries. Add your Equipment List. Add their costs. The Program will output gross and net earnings per hour, earnings per delivery, and earnings per mile after subtracting your costs from your earnings. Use this program to maximize your earnings as an App-Based Driver.";
 
 
-    const config = () => {
-      return ({
-        apiKey: "AIzaSyDO-cDb5lRjsaD4ft0It270li1_uNa42BA",
-        authDomain: "appbaseddriver.firebaseapp.com",
-        databaseURL: "https://appbaseddriver.firebaseio.com",
-        projectId: "appbaseddriver",
-        storageBucket: "appbaseddriver.appspot.com",
-        messagingSenderId: "903768173811",
-        appId: "1:903768173811:web:93d4a7bf982bbc0a1fdb86",
-        measurementId: "G-GNQ5QDP478"
-      })
-    }
-    firebase.initializeApp(config());
+ 
+   // firebase.initializeApp(config());
     this.updateWindowDimensions();
     this.timeindefault();
     this.timeoutdefault();
