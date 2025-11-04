@@ -25,3 +25,5 @@ yarn-error.log*
 .env.development
 .env.production
 src/components/test.js
+
+*.deb
