@@ -75,21 +75,21 @@ class AppBasedDriver {
                 {
                     title: 'Driver',
                     id: 'driver',
-                    url: 'http://civilengineer.io/appbaseddriver/slides/driver.png',
+                    url: 'images/driver.png',
                     caption: `App-Based Driver by CivilEngineer.io. Created for App-Based Drivers. Enter your earnings, miles, your deliveries, timein, timeout. Output earnings per hour, earnings per delivery, and earnings per mile.`
 
                 },
                 {
                     title: 'Equipment',
                     id: 'equipments',
-                    url: 'http://civilengineer.io/appbaseddriver/slides/equipment.png',
+                    url: 'images/equipment.png',
                     caption: `Add your equipment`
 
                 },
                 {
                     title: 'View Equipment',
                     id: 'viewequipment',
-                    url: 'http://civilengineer.io/appbaseddriver/slides/viewequipment.png',
+                    url: 'images/viewequipment.png',
                     caption: ` Add Equipment Costs. Output Costs Per Hour, Cost Per Mile, Cost Per Delivery, Net Earnings, Net Per Hour, Net Per Delivery, Net Per Mile, Purchase Date, Salvage Date, Interest Rate, Equipment Repayment`
 
                 }
